@@ -8,22 +8,64 @@ import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider"
 class AdditionInformationForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { schools: [], exam_board: "AQA", level: "higher" }
+    this.state = {
+      schools: [],
+      exam_board: "AQA",
+      level: "higher",
+      school_name: "",
+    }
     // this.handleFetchSchools();
   }
 
-  handleFetchSchools = () => {
-    fetchSchools()
-      .then((schools) => {
-        console.log(schools)
-        this.setState({ schools })
+  // handleFetchSchools = () => {
+  //   fetchSchools()
+  //     .then((schools) => {
+  //       console.log(schools)
+  //       this.setState({ schools })
+  //     })
+  //     .catch((err) => {
+  //       alert("Fetch schools:" + err.message)
+  //     })
+  // }
+
+  isFormValid() {
+    const date_objects = document.querySelectorAll(".dob-form > input")
+    const school = document.querySelector("#school")
+
+    const error_message = document.querySelector(".error-message")
+
+    const date = Date.parse(
+      `${this.state.dob_month}/${this.state.dob_day}/${this.state.dob_year}`
+    )
+    if (isNaN(date)) {
+      date_objects.forEach((date_object) => {
+        console.log(date_object)
+        date_object.classList.add("invalid")
       })
-      .catch((err) => {
-        alert("Fetch schools:" + err.message)
+      error_message.classList.add("visible")
+      return false
+    } else {
+      date_objects.forEach((date_object) => {
+        console.log(date_object)
+        date_object.classList.remove("invalid")
       })
+    }
+
+    if (this.state.school_name.trim().length <= 0) {
+      school.classList.add("invalid")
+      return false
+    } else {
+      school.classList.remove("invalid")
+    }
+
+    error_message.classList.remove("visible")
+    return true
   }
 
   handleCompleteSignUp = () => {
+    if (!this.isFormValid()) {
+      return
+    }
     if (this.props.type == "student") {
       let data = {
         ...this.state,
@@ -171,6 +213,7 @@ class AdditionInformationForm extends React.Component {
                   <div className="input-field">
                     <input
                       type="text"
+                      id="school"
                       placeholder="School name"
                       value={this.state.school_name}
                       onChange={(newValue) => {
@@ -316,6 +359,9 @@ class AdditionInformationForm extends React.Component {
             >
               Complete Sign up
             </Button>
+          </div>
+          <div className="error-message">
+            Please complete all marked fields to create an account
           </div>
         </Modal.Body>
       </Modal>

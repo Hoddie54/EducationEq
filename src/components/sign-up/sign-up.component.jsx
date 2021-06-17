@@ -23,7 +23,39 @@ class SignUp extends React.Component {
 
   handleRegister = (event) => {
     event.preventDefault()
-    this.props.handleSignUp(this.state)
+    if (this.isFormValid()) {
+      this.props.handleSignUp(this.state)
+    }
+  }
+
+  isFormValid() {
+    const errorMessage = document.querySelector(".errorMessage")
+    const name = document.querySelector("#name")
+    const email = document.querySelector("#email")
+    const password = document.querySelector(".sign-up-password")
+    if (this.state.full_name.trim().length === 0) {
+      name.classList.add("invalid")
+      errorMessage.classList.add("visible")
+      return false
+    } else {
+      name.classList.remove("invalid")
+    }
+    if (!this.state.email.includes("@")) {
+      email.classList.add("invalid")
+      errorMessage.classList.add("visible")
+      return false
+    } else {
+      email.classList.remove("invalid")
+    }
+    if (this.state.password.trim().length <= 6) {
+      password.classList.add("invalid")
+      errorMessage.classList.add("visible")
+      return false
+    } else {
+      password.classList.remove("invalid")
+    }
+    errorMessage.classList.remove("visible")
+    return true
   }
 
   render() {
@@ -100,6 +132,7 @@ class SignUp extends React.Component {
                   type="text"
                   placeholder="Full name"
                   className="sign-up-email"
+                  id="name"
                   value={this.state.full_name}
                   onChange={(newValue) => {
                     this.setState({
@@ -110,6 +143,7 @@ class SignUp extends React.Component {
                 <Form.Control
                   type="email"
                   placeholder="Email"
+                  id="email"
                   className="sign-up-email"
                   value={this.state.email}
                   onChange={(newValue) => {
@@ -161,6 +195,10 @@ class SignUp extends React.Component {
                   >
                     Already Have an Account? Sign In
                   </Button>
+                </div>
+                <div className="errorMessage">
+                  Please complete all marked fields correctly to create an
+                  account
                 </div>
               </Col>
             </Row>

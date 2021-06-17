@@ -7,6 +7,7 @@ import AdditionInformationForm from "../../components/addition-infomation-form"
 import {
   loginUser,
   registerUser,
+  resetPassword,
   signInWithGoogle,
 } from "./../../utils/firebase/auth"
 import { saveUserToFirestore } from "./../../utils/firebase/firestore"
@@ -32,11 +33,11 @@ export default class Signup extends React.Component {
       isSignUp: false,
     })
   }
-  signIn = (data) => {
-    this.setState({
-      isSignIn: false,
-    })
-    loginUser(data.email, data.password)
+  signIn = (data, changeErrorMessage) => {
+    // this.setState({
+    //   isSignIn: false,
+    // })
+    loginUser(data.email, data.password, changeErrorMessage)
   }
 
   showSignUp = () => {

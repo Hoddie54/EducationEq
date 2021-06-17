@@ -93,3 +93,22 @@
     }
   }
 }
+
+.error-message {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: center !important;
+  color: #dd0b0b;
+}
+
+.invalid {
+  border: 2px solid rgba(221, 11, 11, 0.5) !important;
+}
+
+.visible {
+  opacity: 1 !important;
+}

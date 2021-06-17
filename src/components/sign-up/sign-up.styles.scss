@@ -126,6 +126,26 @@
   border-style: solid;
 }
 
+.errorMessage {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: center !important;
+  color: #dd0b0b;
+  opacity: 0;
+}
+
+.invalid {
+  border: 2px solid rgba(221, 11, 11, 0.5);
+}
+
+.visible {
+  opacity: 1 !important;
+}
+
 @media only screen and (max-width: 767px) {
   .modal-sign-up .modal-dialog {
     width: 95%;

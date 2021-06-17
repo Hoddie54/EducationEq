@@ -41,7 +41,7 @@ export const registerUser = (data) => {
   })
 }
 
-export const loginUser = (email, password) => {
+export const loginUser = (email, password, changeErrorMessage) => {
   return new Promise((resolve, reject) => {
     auth
       .signInWithEmailAndPassword(email, password)
@@ -53,7 +53,8 @@ export const loginUser = (email, password) => {
       })
       .catch((error) => {
         console.log("Login Error:", error.message)
-        alert("Login Error: " + error.message)
+
+        changeErrorMessage("Login Error: " + error.message)
         reject(error)
       })
   })
@@ -65,7 +66,7 @@ export const resetPassword = (email) => {
       .sendPasswordResetEmail(email)
       .then(function () {
         // Email sent.
-        alert("Reset email sent! Check your inbox")
+        console.log("Reset email sent! Check your inbox")
         resolve()
       })
       .catch(function (error) {
