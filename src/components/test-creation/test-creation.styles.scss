@@ -1,0 +1,58 @@
+.question-modal {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    .modal-dialog {
+      max-width: 697px;
+    }
+    .question-modal-header {
+        border-bottom: 1.5px solid #dfe2ea;
+        padding: 12px;
+        .question-modal-title {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .question-btn {
+        padding: 0px 12px 12px;
+    }
+    .btnComplete {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        float: right;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+    .btnAddQuestion {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        float: right;
+        padding-left: 32px;
+        padding-right: 32px;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .btnPrevious,
+    .btnComplete,
+    .btnAddQuestion {
+      width: 100%;
+      margin: 10px 0px;
+    }
+    .question-modal {
+        .btnAddQuestion{
+            margin-right: 0px;
+        }
+    }
+}

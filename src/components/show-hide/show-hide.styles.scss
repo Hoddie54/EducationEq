@@ -1,0 +1,27 @@
+.show-hide-button {
+  font-family: Calibri;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  border: none;
+  width: 100%;
+}
+
+.show-hide-button:focus {
+  outline: none;
+}
+
+.button-container {
+  border: 2px solid;
+  border-radius: 15px;
+  border-color: #0340ff;
+  //   border-image-source: linear-gradient(#2378ff, #);
+  //   border-image-slice: 25 fill;
+  padding: 0rem 0.5rem;
+  margin-right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 6rem;
+}

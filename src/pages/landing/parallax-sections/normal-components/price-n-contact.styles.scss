@@ -1,0 +1,46 @@
+@media only screen and (max-width: 767px) {
+  .landing-parallax-wrapper
+    .price-n-contact-section
+    .price-section
+    .price-title
+    .title {
+    font-size: 26px !important;
+  }
+  .landing-parallax-wrapper
+    .price-n-contact-section
+    .price-section
+    .price-title
+    .sub-title {
+    font-size: 22px !important;
+    font-weight: bold;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .list-card .card {
+    width: 100% !important;
+    margin: 10px 0 !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .list-card {
+    display: block !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .btn-group .group button {
+    padding: 5px 10px !important;
+    margin-right: 5px !important;
+    border-radius: 30px !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .contact-section .contact-title .title{
+      font-size: 26px !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .contact-section .contact-title .sub-title{
+      font-weight: bold !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .contact-section .contact-form{
+      display: block !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .contact-section .contact-form .left-form{
+      width: 100% !important;
+  }
+  .landing-parallax-wrapper .price-n-contact-section .contact-section .contact-form .right-form{
+      width: 100% !important;
+  }
+}

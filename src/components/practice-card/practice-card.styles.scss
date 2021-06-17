@@ -1,0 +1,90 @@
+.practice-card {
+  flex-grow: 0;
+  flex-shrink: 0;
+  float: left;
+  width: 100%;
+}
+.details-practice-card {
+  text-align: center;
+  filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.25));
+  padding-top: 10px;
+  padding: 16px 28px 15px;
+  text-align: left;
+}
+.practice-card-title {
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+.practice-card-name {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 28, 8px;
+  color: #000000;
+}
+.practice-card-sub-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+.practice-card-content {
+  text-align: justify; /* For Edge */
+  -moz-text-align-last: center; /* For Firefox prior 58.0 */
+  text-align-last: center;
+  margin: 0px 0px;
+}
+.access-tutoring-button {
+  -webkit-text-fill-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  background: linear-gradient(to right, white, white), linear-gradient(90deg, #5993f3, #0341ff);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  button {
+    border: none;
+  }
+}
+.practice-card-btn {
+  width: 100%;
+  font-size: 16px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: -webkit-linear-gradient(#5993f3, #0341ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.weakest-lessons-table td{
+  border: none;
+  padding: 5px;
+  background: -webkit-linear-gradient(#5993f3, #0341ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.tb-content{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #3685FF;
+  display: flex;
+  border-right: 1px solid #3685FF !important;
+}
+.tb-value{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #3685FF;
+  border-left: 1px solid #3685FF !important;
+}
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .details-practice-card {
+    margin-right: 5px;
+  }
+}

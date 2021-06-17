@@ -1,0 +1,136 @@
+.landing-page-header__wrapper {
+  background: rgba(0, 0, 0, 0);
+  height: 86px;
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  font-size: 16px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+  transform: 1s all ease-out;
+  .container {
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.5));
+  }
+  .parallax-header_logo_wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex: initial;
+    height: 100%;
+    width: 60px;
+    .parallax-header_logo {
+      filter: grayscale(1) brightness(5);
+    }
+  }
+
+  .parallax-header_menu_wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: calc(100% - 260px);
+    .menu {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-weight: bold;
+      .menu_item {
+        margin: 0 20px;
+        cursor: pointer;
+        .nav-link {
+          text-align: center;
+        }
+      }
+    }
+  }
+  .parallax-header_btn-group_wrapper {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 200px;
+    .btn {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .btn-signup {
+      background: #fff;
+      color: #001c79;
+    }
+  }
+}
+.btn-login-mobile,
+.btn-sign-up-mobile {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .landing-page-header__wrapper .container {
+    max-width: 100% !important;
+  }
+  .parallax-header_logo_wrapper {
+    position: absolute;
+    width: 50px !important;
+    height: 50px !important;
+    left: 0px;
+    top: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 0px 0px 15px 0px;
+    z-index: 1;
+  }
+  .landing-page-header__wrapper
+    .parallax-header_logo_wrapper
+    .parallax-header_logo {
+    filter: none;
+  }
+  .landing-page-header__wrapper .parallax-header_menu_wrapper {
+    position: absolute;
+    width: 243px;
+    left: 0px;
+    top: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 0px 15px 15px 0px;
+    height: 350px;
+  }
+  .landing-page-header__wrapper .parallax-header_menu_wrapper .menu {
+    display: block;
+    color: #000;
+  }
+  .landing-page-header__wrapper .parallax-header_menu_wrapper .menu .menu_item {
+    margin: 20px;
+    text-align: center;
+  }
+  .landing-page-header__wrapper .parallax-header_btn-group_wrapper {
+    display: none;
+  }
+  .btn-login-mobile,
+  .btn-sign-up-mobile {
+    display: block;
+  }
+  .parallax-header_menu_wrapper,
+  .parallax-header_btn-group_wrapper {
+    transform: translateX(-100%);
+    backdrop-filter: blur(5px);
+  }
+  .parallax-header_menu_wrapper.active {
+    transform: translateX(0);
+  }
+  .parallax-header_btn-group_wrapper.active {
+    transform: translateX(0);
+  }
+  .landing-page-header__wrapper .parallax-header_btn-group_wrapper .btn-signup {
+    background: none;
+  }
+  .landing-page-header__wrapper {
+    background: none !important;
+    height: 0;
+  }
+}

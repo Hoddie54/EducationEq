@@ -1,0 +1,74 @@
+  .modal-sign-in .modal-dialog {
+      width: 450px;
+  }
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+  }
+  .sign-in-modal-body {
+    text-align: center;
+    .form-control {
+      height: 40px !important;
+      font-size: 16px !important;
+    }
+  
+  .sign-in-title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #094aff;
+    border-bottom: 1.5px solid #dfe2ea;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+  }
+  .sign-in-content {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 17px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+    padding: 0px 22px;
+  }
+  .sign-in-email, .sign-in-password {
+    background: #f2f2f2;
+    border-radius: 15px;
+    color: #5a5a5a;
+    transition: all 0.25s;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+  }
+  .sign-in-btn {
+    margin-bottom: 10px;
+  }
+  .btn-sign-in {
+    width: 100%;
+    font-size: 16px;
+  }
+  .forgot-password {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #0340ff;
+  }
+  .txt-or{
+      display: block;
+  }
+  .btn-sign-in-google {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+  @media only screen and (max-width: 767px) {
+    .modal-sign-in .modal-dialog {
+      width: 95%;
+    }
+  }
+  

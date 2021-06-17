@@ -1,0 +1,56 @@
+.modal-verify .modal-dialog {
+  width: 450px;
+}
+.verify-modal-body {
+  text-align: center;
+}
+.verify-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #094aff;
+  border-bottom: 1.5px solid #dfe2ea;
+  padding-bottom: 20px;
+  margin-bottom: 15px;
+}
+.verify-content {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 30px;
+  padding: 0px 22px;
+}
+.verify-email {
+  background: #f2f2f2;
+  border-radius: 15px;
+  text-align: center;
+  color: #5a5a5a;
+  transition: all 0.25s;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+}
+.verify-btn {
+  margin-bottom: 10px;
+}
+.btnVerify {
+  width: 100%;
+}
+.or-email {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #0340ff;
+}
+
+@media only screen and (max-width: 767px) {
+  .modal-verify .modal-dialog {
+    width: 95%;
+  }
+}

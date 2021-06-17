@@ -1,0 +1,59 @@
+.page__row {
+  display: flex;
+}
+.banner {
+  width: 100%;
+}
+.page {
+  &__widgets {
+    display: flex;
+    padding: 10px;
+  }
+}
+.page__widgets .widget-md-6 {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(50%);
+  width: calc(50%);
+}
+.widget-first {
+  padding-right: 20px;
+}
+.analytics-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: auto;
+  color: #000;
+}
+.form-control-select {
+  border-radius: 15px;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
+  background: url(../../assets/img/arrow-down.png) no-repeat right, white;
+  -webkit-appearance: none;
+  background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+}
+
+
+
+@media only screen and (max-width: 1180px) {
+  .analytics-mini-card {
+    flex-basis: calc(100%);
+    width: calc(99%);
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (max-width: 767px) {
+  .page {
+    &__widgets {
+      display: block;
+    }
+  }
+  .analytics-mini-card:not(:last-child){
+    margin-right: 1%;
+  }
+}

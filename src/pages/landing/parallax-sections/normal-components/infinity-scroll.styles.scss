@@ -1,0 +1,17 @@
+.card-image img{
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 50%;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.landing-parallax-wrapper .infinity-scroll-section .infinity-card-wrapper .list-card-item .card .text {
+    margin: 30px !important;
+    margin-top: 20px !important;
+    height: 220px !important;
+    overflow: scroll !important;
+}
+.landing-parallax-wrapper .infinity-scroll-section .infinity-card-wrapper .list-card-item .card{
+    height: 450px;
+}

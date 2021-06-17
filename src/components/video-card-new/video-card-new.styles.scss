@@ -1,0 +1,76 @@
+.video-card__container {
+  background: white;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  min-height: 20%;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin: 0.5rem 2rem;
+  margin-bottom: 1rem;
+
+  .image-container {
+    width: 100%;
+    position: relative;
+
+    .icon-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+    img {
+      filter: brightness(0.5);
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      object-fit: cover;
+    }
+  }
+}
+
+.video-card__title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 22px;
+  text-align: center;
+  color: #0645ff;
+}
+
+.video-card__sub-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 22px;
+  text-align: center;
+  color: #0645ff;
+}
+
+.video-card__spec {
+  font-family: monospace;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.8rem;
+  line-height: 22px;
+  text-align: center;
+
+  color: #000001;
+}
+
+.video-card__desc {
+  margin: 0 0.5rem;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.8rem;
+  line-height: 19px;
+  text-align: center;
+
+  color: #000001;
+}
+
+.badge-container {
+  display: flex;
+  margin: 0.2rem 0;
+}

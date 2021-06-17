@@ -1,0 +1,104 @@
+.answer-modal {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    .modal-dialog {
+      max-width: 697px;
+    }
+
+    .answer-modal-header {
+        border-bottom: 1.5px solid #dfe2ea;
+        padding: 12px;
+
+        .answer-modal-title {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+            align-self: center;
+            text-align: center;
+            width: 100%;
+        }
+    }
+    .answer-number {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+        color: #000000;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .answer-title {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 29px;
+        color: #000000;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .answer-content::placeholder {
+        font-size: 1.2em;
+        padding: 10px;
+    }
+    .answer-btn {
+        padding: 0px 12px 12px;
+        .btnPrevious {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            color: #5a5a5a;
+            border: 2px solid #5a5a5a;
+        }
+        .btnNext {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            float: right;
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+        .question-index {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            float: right;
+            background-color: #F2F2F2;
+            border-radius: 18px;
+            height: 36px;
+            padding-top: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-right: 20px;
+            text-align: right;
+            min-width: 90px;
+
+            .question-index__preindex {
+                color: #4D4D4D;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .answer {
+        margin: 30px auto;
+        text-align: center;
+        font-weight: bold;
+        .your-answer, .correct-answer__title {
+            font-size: 16px;
+        }
+        .your-answer__content, .correct-answer__content {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        .correct-answer {
+            margin-top: 30px;
+        }
+    }
+  }

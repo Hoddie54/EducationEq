@@ -1,0 +1,78 @@
+.accordion {
+  background: #edeef1;
+  border-top: 2px solid #fff;
+}
+.card,
+.card-header {
+  background-color: #edeef1;
+  border: none;
+  padding: .75rem .75rem;
+}
+.btn-link {
+  text-decoration: none !important;
+}
+.btn.btn-hide {
+  float: right;
+  border: 1px solid;
+  height: 30px;
+  width: 98px;
+  margin: 0 auto;
+  padding: 0;
+  display: table-cell;
+  vertical-align: middle;
+}
+.btn-open-teaching {
+  float: right;
+  background: #ffffff;
+  height: 30px;
+  width: 146px;
+  margin-left: 20px;
+}
+.card-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+  color: #0340ff;
+  background: -webkit-linear-gradient(#5993f3, #0341ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  padding-left: 30px;
+  .top-icon {
+    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+    .icon-svg-wrapper svg {
+      filter: invert(43%) sepia(64%) saturate(6726%) hue-rotate(201deg)
+        brightness(90%) contrast(205%);
+    }
+  }
+}
+.accordion > .card {
+  padding: 0;
+}
+.accordion-body {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.accordion-svg-wrapper {
+  width: 22px;
+  margin-right: 8px;
+  // height: 22px;
+  display: inline-block;
+  .icon-svg-wrapper {
+    height: 20px;
+    svg {
+      top: -1px;
+      width: 100%;
+      height: 100%;
+      filter: invert(43%) sepia(64%) saturate(6726%) hue-rotate(201deg)
+        brightness(104%) contrast(105%);
+    }
+  }
+}
+

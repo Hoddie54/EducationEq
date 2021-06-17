@@ -1,0 +1,18 @@
+.landing-page-footer__wrapper {
+  height: 90px;
+}
+
+@media only screen and (max-width: 767px) {
+  .landing-parallax-wrapper
+    .landing-page-footer__wrapper
+    .container
+    .copyright-line
+    .left-panel {
+    width: 100% !important;
+    text-align: right !important;
+  }
+  .landing-parallax-wrapper .landing-page-footer__wrapper .container .copyright-line .right-panel{
+      width: 100% !important;
+      text-align: right !important;
+  }
+}

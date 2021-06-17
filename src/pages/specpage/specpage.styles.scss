@@ -1,0 +1,65 @@
+.spec-info {
+  width: 95%;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 22px;
+
+  color: #ffffff;
+  background: linear-gradient(90.04deg, #2276ff 0.02%, #0341ff 99.98%);
+  border-radius: 15px;
+  margin: 1rem 0.5rem;
+  padding: 0.5rem;
+}
+
+.spec-title {
+  width: 95%;
+
+  background: white;
+  border-radius: 15px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2.5rem;
+  line-height: 50px;
+  /* identical to box height */
+
+  color: #094aff;
+  margin: 2rem 0.5rem;
+  padding: 0.5rem 2rem;
+}
+
+.spec-filters {
+  display: flex;
+  margin: 0.5rem;
+  justify-content: flex-end;
+  width: 95%;
+  .selection {
+    border-radius: 15px;
+    min-width: 20%;
+    padding: 0.3rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 21px;
+    /* identical to box height */
+
+    color: #979797;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
+    margin: 0.5rem;
+    background: white;
+    text-align: center;
+    border: none;
+  }
+  select {
+    text-align-last: center;
+  }
+}
+
+.spec-main {
+  width: 95%;
+  background: white;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 2rem;
+}

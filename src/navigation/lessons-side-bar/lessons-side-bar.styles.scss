@@ -1,0 +1,105 @@
+.lessons-menu-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 29px;
+  color: #000004;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #dfe2ea;
+  transform: rotate(0.01deg);
+}
+.menu-topic {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 29px;
+  color: #0340ff;
+}
+
+.mainmenu,
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mainmenu a,
+label {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.mainmenu > li {
+  padding: 5px;
+}
+
+.mainmenu label {
+  color: #0340ff;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.mainmenu a:hover {
+  border-bottom: 1.5px solid #dfe2ea;
+}
+
+.mainmenu li:hover .submenu {
+  display: block;
+  max-height: 200px;
+  margin-top: 15px;
+  border-top: 1.5px solid #dfe2ea;
+}
+.submenu a {
+  font-weight: normal;
+}
+
+/* hover behaviour for links inside .submenu */
+.submenu a:hover {
+  color: #1f71ff;
+  border: none;
+}
+
+/* this is the initial state of all submenus.
+we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.5s ease-out;
+}
+
+.course-menu-item {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 2px solid #dfe2ea;
+}
+.menu-parent {
+  font-style: normal;
+  font-size: 12px;
+  line-height: 22px;
+  color: #0340ff !important;
+}
+
+.submenu a {
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 29px;
+}
+.topic-plus-btn {
+  width: 100%;
+  text-align: left;
+  margin-top: 20px;
+}
+.lessons-sidebar{
+  background: #fff;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.course-menu-title {
+  cursor: pointer;
+}

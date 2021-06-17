@@ -1,0 +1,17 @@
+.badge {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.8rem;
+  line-height: 22px;
+  /* identical to box height */
+
+  color: #ffffff;
+  background: radial-gradient(
+    145.26% 1798.35% at -45.26% -50%,
+    #369aff 0%,
+    #003bff 100%
+  );
+  border-radius: 15px;
+  margin: 0 0.5rem;
+  min-width: 2.5rem;
+}

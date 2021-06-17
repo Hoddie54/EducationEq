@@ -1,0 +1,91 @@
+.subtopic-title__container {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 15px;
+  align-items: center;
+
+  .subtopic-title__text {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 50px;
+    /* identical to box height */
+
+    color: #094aff;
+    margin: 0.5rem;
+  }
+
+  .subtopic-title__exam {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 22px;
+    /* identical to box height */
+    color: #5a5a5a;
+    text-align: center;
+    margin: 0.5rem 1rem;
+  }
+}
+
+.subtopic-main-content {
+  margin: 2.5rem;
+}
+
+.subtopic-header {
+  display: flex;
+  justify-content: space-between;
+
+  .subtopic-header__text {
+    background: white;
+    border-radius: 15px;
+    padding: 0 0.5rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 48px;
+    /* identical to box height */
+    min-width: 65%;
+    color: #094aff;
+    margin-right: 0.5rem;
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 2rem;
+  }
+
+  button {
+    margin: 0 0.5rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 22px;
+    text-align: center;
+    color: #0340ff;
+    border-radius: 15px;
+    border: 1.5px solid;
+    border: solid 1px #2378ff;
+    padding: 0.2rem;
+  }
+
+  button.selected {
+    color: #ffffff;
+    background: radial-gradient(
+      145.26% 1798.35% at -45.26% -50%,
+      #369aff 0%,
+      #003bff 100%
+    );
+  }
+}
+
+.subtopic-content__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+}

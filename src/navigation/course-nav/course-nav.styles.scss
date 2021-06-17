@@ -1,0 +1,95 @@
+.course-menu-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 29px;
+  color: #000004;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #dfe2ea;
+  transform: rotate(0.01deg);
+  cursor: pointer;
+}
+.menu-topic {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 29px;
+  color: #0340ff;
+}
+
+.mainmenu,
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mainmenu a,
+label {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.mainmenu > li {
+  padding: 5px;
+}
+.mainmenu label {
+  color: #0340ff;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.mainmenu a:hover {
+  border-bottom: 1.5px solid #dfe2ea;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+  */
+.course-menu-item {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 2px solid #dfe2ea;
+}
+.menu-parent {
+  font-style: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #0340ff !important;
+}
+.container-course-top {
+  padding: 5px;
+  filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.25));
+}
+.topic-create-btn {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  text-align: center;
+  color: #0340ff;
+  &:hover {
+    color: #fff;
+    background: -webkit-linear-gradient(0deg, #1f73ff, #0341ff);
+  }
+}
+.course-nav {
+  background: #fff;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.li-border-bottom {
+  border-bottom: 1.5px solid #dfe2ea;
+}
+.add-new-topic-txt {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 0px 15px 15px 15px;
+}

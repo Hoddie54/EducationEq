@@ -1,0 +1,19 @@
+.landing-parallax-wrapper .help-school-section .list-card-item .card {
+  width: 100%;
+}
+@media only screen and (max-width: 767px) {
+  .landing-parallax-wrapper .help-school-section .title-section .title {
+    font-size: 26px;
+  }
+  .landing-parallax-wrapper .help-school-section .title-section .sub-title {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .landing-parallax-wrapper .help-school-section .list-card-item .card {
+    flex-direction: column !important;
+      width: 100%;
+      .pic, .card-border-left {
+        width: 100% !important;
+      }
+  }
+}

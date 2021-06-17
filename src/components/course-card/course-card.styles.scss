@@ -1,0 +1,83 @@
+.course-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(25%);
+  width: calc(23%);
+  float: left;
+}
+.details-course-card {
+  text-align: center;
+  filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.25));
+  padding-top: 10px;
+  padding: 12px 12px 15px;
+}
+.course-card-title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 5px;
+  color: #000000;
+}
+.course-card-name {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28, 8px;
+  color: #0340ff;
+  background: -webkit-linear-gradient(#5993f3, #0341ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.course-card-sub-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+.course-card-content{
+  -moz-text-align-last: center; /* For Firefox prior 58.0 */
+  text-align-last: center;
+  margin: 10px 0px;
+}
+.course-card-btn-wrapper {
+  -webkit-text-fill-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: linear-gradient(to right, white, white), linear-gradient(90deg, #5993f3, #0341ff);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  .course-card-btn{
+    width: 100%;
+    font-size: 18px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: -webkit-linear-gradient(#5993f3, #0341ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .course-card {
+    flex-basis: calc(30%);
+    width: calc(30%);
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .course-card {
+    flex-basis: calc(50%);
+    width: calc(47%);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .course-card {
+    flex-basis: calc(100%);
+    width: calc(99%);
+  }
+}

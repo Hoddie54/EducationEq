@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "education-equation-testing",
+    "dev": "education-equation-testing",
+    "prod": "education-equation-prod"
+  }
+}

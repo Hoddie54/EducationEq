@@ -1,0 +1,95 @@
+.addition-info-form-body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  pad: 30px;
+
+  & > div {
+    width: 100%;
+    text-align: center;
+  }
+
+  .title {
+    color: #094aff;
+    font-size: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #dfe2ea;
+  }
+
+  .actual-form {
+    .form-field {
+      .title {
+        font-size: 15px;
+        border: none;
+        color: #000;
+        padding: 20px 0 10px 0;
+      }
+
+      .input-field {
+        input,
+        select {
+          width: 100%;
+          background: #f2f2f2;
+          padding: 5px 20px;
+          border-radius: 20px;
+          margin: 0px 0 15px 0;
+          border: none;
+          box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
+          font-size: 15px;
+        }
+
+        select {
+          background: url(../../assets/img/arrow-down.png) no-repeat right,
+            #f2f2f2;
+          -webkit-appearance: none;
+          background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
+            calc(100% - 2.5em) 0.5em;
+        }
+
+        .dob-form {
+          display: inline-flex;
+          justify-content: center;
+          align-items: stretch;
+          width: 100%;
+          input {
+            margin: 0 5px;
+          }
+        }
+
+        .exam-board-form {
+          display: inline-flex;
+          justify-content: center;
+          align-items: stretch;
+          width: 100%;
+          select {
+            margin: 0 5px;
+          }
+        }
+
+        .phone-form {
+          display: inline-flex;
+          justify-content: center;
+          align-items: stretch;
+          width: 100%;
+          input {
+            margin: 0 5px;
+          }
+          .extension {
+            max-width: 80px;
+          }
+        }
+      }
+    }
+  }
+  .confirm-button {
+    button {
+      background: linear-gradient(90.04deg, #2276ff 0.02%, #0341ff 99.98%);
+      width: 100%;
+      border: none;
+      margin: 20px 0px;
+      color: #fff;
+    }
+  }
+}
