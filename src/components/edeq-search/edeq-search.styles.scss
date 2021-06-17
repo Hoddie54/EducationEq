@@ -17,7 +17,7 @@
   form {
     display: flex;
     align-items: flex-start;
-    .search-form__options {
+    .search-form__options1 {
       width: 80%;
       margin: 1rem 0rem;
 
@@ -37,7 +37,7 @@
           box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
           background: #ffffff;
           border-radius: 15px;
-          font-family: Roboto;
+          margin-right: 0.2rem;
           font-style: normal;
           font-weight: normal;
           font-size: 1rem;
@@ -64,5 +64,27 @@
       border-radius: 12px;
       height: 2rem;
     }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .search-form form {
+    flex-direction: column;
+    align-items: center;
+
+    .search-form__options1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .search-form__options {
+      width: 100% !important;
+    }
+    button {
+      margin-top: 0rem;
+      width: 80%;
+    }
+  }
+  .search__title {
+    justify-content: center;
   }
 }

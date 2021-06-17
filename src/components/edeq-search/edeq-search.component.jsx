@@ -20,7 +20,7 @@ function EdeqSearch() {
       </div>
       <div className="search-form">
         <form>
-          <div className="search-form__options">
+          <div className="search-form__options1">
             <input
               className="search-form__text"
               type="text"

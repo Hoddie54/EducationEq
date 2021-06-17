@@ -63,3 +63,9 @@
   border-radius: 15px;
   padding: 2rem;
 }
+@media only screen and (max-width: 767px) {
+  .spec-filters {
+    flex-direction: column;
+    justify-content: center;
+  }
+}

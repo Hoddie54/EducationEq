@@ -5,6 +5,7 @@
   background: white;
   border-radius: 15px;
   align-items: center;
+  margin-top: 0.5rem;
 
   .subtopic-title__text {
     font-style: normal;
@@ -88,4 +89,30 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 1rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .subtopic-header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .subtopic-header__text {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    .button-container {
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      width: 80%;
+    }
+    button {
+      min-width: 50%;
+    }
+  }
+
+  .subtopic-content__container {
+    flex-direction: column;
+    justify-content: center;
+  }
 }

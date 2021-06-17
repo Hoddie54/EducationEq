@@ -5,6 +5,7 @@
   background: white;
   border-radius: 15px;
   align-items: center;
+  margin-top: 0.5rem;
 
   .subtopic-title__text {
     font-style: normal;
@@ -93,5 +94,15 @@
       //   justify-content: flex-end;
       margin-bottom: 1rem;
     }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .videopage__container {
+    width: 90%;
+    text-align: center;
+  }
+  .videopage__info {
+    flex-direction: column;
   }
 }

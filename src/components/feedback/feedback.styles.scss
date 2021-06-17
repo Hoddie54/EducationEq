@@ -28,3 +28,13 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .feedback {
+    flex-direction: column;
+    text-align: center;
+    .feedback-right {
+      width: 100%;
+    }
+  }
+}
