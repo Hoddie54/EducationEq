@@ -68,8 +68,8 @@ class SignIn extends React.Component {
         <Modal.Body className="sign-in-modal-body">
           {this.state.showForgottenPassword ? (
             <>
-              <p className="sign-in-title blue-text">Reset your EdEq account</p>
-              <div className="sign-in-title-no-border blue-text">
+              <p className="sign-in-title">Reset your EdEq account</p>
+              <div className="sign-in-title-no-border">
                 Enter your email to recieve a reset link
               </div>
               <div className="password-reset__container">
@@ -128,13 +128,14 @@ class SignIn extends React.Component {
                 >
                   Sign In
                 </Button>
+                <span
+                  className="forgot-password"
+                  onClick={this.showForgottenPassword}
+                >
+                  Forgotten Password?
+                </span>
               </div>
-              <span
-                className="forgot-password"
-                onClick={this.showForgottenPassword}
-              >
-                Forgotten Password?
-              </span>
+
               <span className="txt-or">OR</span>
               <div className="sign-in-btn">
                 <Button

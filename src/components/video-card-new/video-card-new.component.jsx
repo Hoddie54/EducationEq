@@ -2,7 +2,7 @@ import { IconSVG } from "../icon-svg"
 import "./video-card-new.styles.scss"
 import Badge from "../badge/badge.component"
 
-function VideoCardNew() {
+function VideoCardNew(props) {
   return (
     <div className="video-card__container">
       <div className="image-container">

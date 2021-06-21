@@ -5,6 +5,7 @@ import { IconSVG } from "../icon-svg"
 import studentIllustration from "./../../assets/img/student-illustration.png"
 import teacherIllustration from "./../../assets/img/teacher-illustration.png"
 import "./sign-up.styles.scss"
+import { Link } from "react-router-dom"
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -171,7 +172,18 @@ class SignUp extends React.Component {
                   >
                     Next
                   </Button>
+                  <span className="forgot-password">
+                    By clicking “Sign Up” you accept our{" "}
+                    <Link className="clickable-link" to="/terms-condition">
+                      Terms & Conditions
+                    </Link>{" "}
+                    {`and `}
+                    <Link className="clickable-link" to="">
+                      Privacy Policy
+                    </Link>
+                  </span>
                 </div>
+
                 <span className="txt-or">OR</span>
                 <div className="sign-up-btn">
                   <Button
@@ -182,10 +194,6 @@ class SignUp extends React.Component {
                     Signup with Google
                   </Button>
                 </div>
-                <span className="forgot-password">
-                  By clicking “Sign Up” you accept our Terms & Conditions and
-                  Privacy Policy
-                </span>
 
                 <div className="sign-up-btn">
                   <Button

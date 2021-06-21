@@ -60,6 +60,7 @@ class App extends Component {
   componentWillUnmount() {
     this.unsubscribeFromAuth()
   }
+
   render() {
     return (
       <Router history={history}>

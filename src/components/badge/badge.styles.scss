@@ -14,4 +14,8 @@
   border-radius: 15px;
   margin: 0 0.5rem;
   min-width: 2.5rem;
+  cursor: pointer;
+}
+.badge:hover {
+  font-weight: bold;
 }

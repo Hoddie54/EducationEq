@@ -37,6 +37,8 @@ import AdditionInformationForm from "../../components/addition-infomation-form"
 import EdeqSearch from "../../components/edeq-search/edeq-search.component"
 import TopicCard from "../../components/topic-card-new/topic-card-new.component"
 import FeedbackModal from "../../components/feedback-modal/feedback-modal.component"
+import { getTopics } from "../../utils/firebase/firestore"
+import SpinnerPage from "../spinner/spinner.component"
 
 class HomePage extends Component {
   constructor(props) {
@@ -50,6 +52,7 @@ class HomePage extends Component {
       courses: [],
       createdCourses: [],
       public_courses: [],
+      topics: [],
     }
     this.sidebar_click = this.sidebar_click.bind(this)
     // this.fetchAvailableCourses()
@@ -59,6 +62,15 @@ class HomePage extends Component {
     this.setState = this.setState.bind(this)
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
+  }
+
+  componentDidMount() {
+    this.getTopics()
+  }
+
+  async getTopics() {
+    const topics = await getTopics("chemistry", "OCR_A")
+    this.setState({ topics: topics })
   }
 
   // fetchAggregations = () => {
@@ -404,6 +416,21 @@ class HomePage extends Component {
   }
   render() {
     const { currentUser } = this.props
+
+    let topicCards = <SpinnerPage />
+    if (this.state.topics.length > 0) {
+      topicCards = this.state.topics.map((topic) => {
+        return (
+          <TopicCard
+            exam_board={topic.exam_board}
+            name={topic.name}
+            subject={topic.subject}
+            id={topic.id}
+          />
+        )
+      })
+    }
+
     return (
       <>
         {this.state.isFeedbackShown ? (
@@ -436,9 +463,7 @@ class HomePage extends Component {
                     <Feedback showModal={this.showModal} />
                     <main>
                       <EdeqSearch />
-                      <TopicCard />
-                      <TopicCard />
-                      <TopicCard />
+                      {topicCards}
                     </main>
                   </>
                 )}

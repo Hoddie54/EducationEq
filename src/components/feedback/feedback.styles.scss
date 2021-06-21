@@ -5,7 +5,7 @@
   .feedback {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     background: linear-gradient(90.04deg, #2276ff 0.02%, #0341ff 99.98%);
     border-radius: 15px;
     padding: 0.5rem;
@@ -21,10 +21,16 @@
       box-sizing: border-box;
       border-radius: 12px;
       margin-right: 0.5rem;
-      padding: 0.2rem;
+      padding: 0.2rem 1rem;
+      font-size: 0.8rem;
+      width: 11rem;
+      height: 2rem;
     }
     .feedback-right:focus {
       outline: none;
+    }
+    .feedback-right:hover {
+      font-size: 0.85rem;
     }
   }
 }

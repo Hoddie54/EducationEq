@@ -157,7 +157,8 @@ class NavigationBar extends React.Component {
                     <div className="sidebar__menu">
                       <Nav.Link
                         className={
-                          currentLocation == "/"
+                          (currentLocation == "/home") |
+                          (currentLocation === "/")
                             ? "sidebar__item active"
                             : "sidebar__item"
                         }
@@ -188,11 +189,12 @@ class NavigationBar extends React.Component {
                         }}
                         aria-controls="collapse-module"
                         aria-expanded={this.state.isToggleMenu}
+                        href="/specification/d"
                       >
                         <div className="sidebar__icon">
                           <IconSVG name="video"></IconSVG>
                         </div>
-                        <div className="sidebar__text">Learning</div>
+                        <div className="sidebar__text">Specification</div>
                       </Nav.Link>
 
                       <Collapse in={this.state.isToggleMenu}>

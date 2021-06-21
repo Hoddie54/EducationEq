@@ -1,13 +1,13 @@
-import firebase from "./../../config/FirebasConfig";
-import "firebase/firestore";
+import firebase from "./../../config/FirebasConfig"
+import "firebase/firestore"
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-  if (!userAuth) return;
-  const userRef = firebase.firestore().doc(`users/${userAuth.uid}`);
-  const snapShot = await userRef.get();
+  if (!userAuth) return
+  const userRef = firebase.firestore().doc(`users/${userAuth.uid}`)
+  const snapShot = await userRef.get()
   if (!snapShot.exists) {
-    const { first_name, last_name, email } = userAuth;
-    const creation_date = Date.now();
+    const { first_name, last_name, email } = userAuth
+    const creation_date = Date.now()
     try {
       userRef.set({
         first_name,
@@ -15,13 +15,57 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         email,
         creation_date,
         ...additionalData,
-      });
+      })
     } catch (error) {
-      console.log("Error creating user:", error.message);
+      console.log("Error creating user:", error.message)
     }
   }
-  return userRef;
-};
+  return userRef
+}
+
+export const getSubtopics = (topic) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("topics")
+      .doc(topic)
+      .collection("subtopics")
+      .get()
+      .then((querySnapshot) => {
+        let subtopics = []
+        querySnapshot.forEach((doc) => {
+          subtopics.push({ ...doc.data(), id: doc.id })
+        })
+        resolve(subtopics)
+      })
+      .catch((error) => {
+        console.log("Error getting subtopics: ", error)
+        reject(error)
+      })
+  })
+}
+
+export const getTopics = (subject, exam_board) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("topics")
+      .where("subject", "==", subject)
+      .where("exam_board", "==", exam_board)
+      .get()
+      .then((querySnapshot) => {
+        let topics = []
+        querySnapshot.forEach((doc) => {
+          topics.push({ ...doc.data(), id: doc.id })
+        })
+        resolve(topics)
+      })
+      .catch((error) => {
+        console.log("Error getting topics: ", error)
+        reject(error)
+      })
+  })
+}
 
 // MARK: - READING
 export const fetchUser = (uid) => {
@@ -33,105 +77,105 @@ export const fetchUser = (uid) => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          resolve(doc.data());
+          resolve(doc.data())
         }
       })
       .catch((err) => {
-        console.log("Fetch User Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Fetch User Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const fetchSchools = () => {
   return new Promise((resolve, reject) => {
-    let query = firebase.firestore().collection("schools");
+    let query = firebase.firestore().collection("schools")
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          return;
+          return
         }
-        let schools = [];
+        let schools = []
         querySnapshot.forEach((snap) => {
-          schools.push(snap.data());
-        });
-        resolve(schools);
+          schools.push(snap.data())
+        })
+        resolve(schools)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch schools Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch schools Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchCourse = (course_id, dropDownObj) => {
   return new Promise((resolve, reject) => {
-    let query = firebase.firestore().collection("courses");
+    let query = firebase.firestore().collection("courses")
     if (course_id) {
-      query = query.doc(course_id);
+      query = query.doc(course_id)
     } else {
-      query = query = query.where("subject", "==", dropDownObj.subject);
-      query = query.where("level", "==", dropDownObj.level);
-      query = query.where("exam_board", "==", dropDownObj.examBoard);
-      query = query.where("is_public", "==", true);
+      query = query = query.where("subject", "==", dropDownObj.subject)
+      query = query.where("level", "==", dropDownObj.level)
+      query = query.where("exam_board", "==", dropDownObj.examBoard)
+      query = query.where("is_public", "==", true)
     }
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          reject("This course does not exist. Please contact admin");
-          return;
+          reject("This course does not exist. Please contact admin")
+          return
         }
         if (course_id && querySnapshot.data() == undefined) {
-          reject("This course does not exist. Please contact admin");
-          return;
+          reject("This course does not exist. Please contact admin")
+          return
         }
 
         const course = course_id
           ? querySnapshot.data()
-          : querySnapshot.docs[0].data();
+          : querySnapshot.docs[0].data()
         resolve({
           id: querySnapshot.id,
           ...course,
-        });
+        })
       },
       (error) => {
-        console.log("Fetch course Error", error.message);
-        reject(error.message);
+        console.log("Fetch course Error", error.message)
+        reject(error.message)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchCourses = (uid) => {
   return new Promise((resolve, reject) => {
     let query = firebase
       .firestore()
       .collection("courses")
-      .where("creator_id", "!=", uid);
+      .where("creator_id", "!=", uid)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          return;
+          return
         }
-        let courses = [];
+        let courses = []
         querySnapshot.forEach((snap) => {
           courses.push({
             id: snap.id,
             ...snap.data(),
-          });
-        });
-        resolve(courses);
+          })
+        })
+        resolve(courses)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch courses Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch courses Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchPublicCourses = (uid) => {
   return new Promise((resolve, reject) => {
@@ -139,59 +183,59 @@ export const fetchPublicCourses = (uid) => {
       .firestore()
       .collection("courses")
       .where("creator_id", "!=", uid)
-      .where("is_public", "==", true);
+      .where("is_public", "==", true)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          return;
+          return
         }
-        let courses = [];
+        let courses = []
         querySnapshot.forEach((snap) => {
           courses.push({
             id: snap.id,
             ...snap.data(),
-          });
-        });
-        resolve(courses);
+          })
+        })
+        resolve(courses)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch public courses Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch public courses Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchCreatedCourses = (uid) => {
   return new Promise((resolve, reject) => {
     let query = firebase
       .firestore()
       .collection("courses")
-      .where("owners", "array-contains", uid);
+      .where("owners", "array-contains", uid)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
-          return;
+          resolve([])
+          return
         }
-        let courses = [];
+        let courses = []
         querySnapshot.forEach((snap) => {
           courses.push({
             id: snap.id,
             ...snap.data(),
-          });
-        });
-        resolve(courses);
+          })
+        })
+        resolve(courses)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch courses Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch courses Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchAvailableCourses = (uid) => {
   return new Promise((resolve, reject) => {
@@ -199,28 +243,28 @@ export const fetchAvailableCourses = (uid) => {
       .firestore()
       .collection("users")
       .doc(uid)
-      .collection("courses");
+      .collection("courses")
 
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
-          return;
+          resolve([])
+          return
         }
-        let courses = [];
+        let courses = []
         querySnapshot.forEach((snap) => {
-          courses.push(snap.data());
-        });
-        resolve(courses);
+          courses.push(snap.data())
+        })
+        resolve(courses)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch courses Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch courses Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchTopics = async (course_id) => {
   return new Promise((resolve, reject) => {
@@ -228,29 +272,29 @@ export const fetchTopics = async (course_id) => {
       .firestore()
       .collection("courses")
       .doc(course_id)
-      .collection("topics");
+      .collection("topics")
 
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
-          return;
+          return
         }
-        let topics = [];
+        let topics = []
         for (const snap of querySnapshot.docs) {
-          const lessons = await fetchLessons(course_id, snap.id);
-          const topic = { id: snap.id, lessons: lessons, ...snap.data() };
-          topics.push(topic);
+          const lessons = await fetchLessons(course_id, snap.id)
+          const topic = { id: snap.id, lessons: lessons, ...snap.data() }
+          topics.push(topic)
         }
-        resolve(topics);
+        resolve(topics)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch topics Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch topics Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchTopic = (course_id, topic_id) => {
   return new Promise((resolve, reject) => {
@@ -259,25 +303,25 @@ export const fetchTopic = (course_id, topic_id) => {
       .collection("courses")
       .doc(course_id)
       .collection("topics")
-      .doc(topic_id);
+      .doc(topic_id)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve({});
+          resolve({})
         }
         resolve({
           id: querySnapshot.id,
           ...querySnapshot.data(),
-        });
+        })
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch topic Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch topic Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchLesson = (course_id, topic_id, lesson_id) => {
   return new Promise((resolve, reject) => {
@@ -288,47 +332,47 @@ export const fetchLesson = (course_id, topic_id, lesson_id) => {
       .collection("topics")
       .doc(topic_id)
       .collection("lessons")
-      .doc(lesson_id);
+      .doc(lesson_id)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve({});
+          resolve({})
         }
         resolve({
           id: querySnapshot.id,
           ...querySnapshot.data(),
-        });
+        })
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch lesson Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch lesson Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchStudent = (student_id) => {
   return new Promise((resolve, reject) => {
-    let query = firebase.firestore().collection("users").doc(student_id);
+    let query = firebase.firestore().collection("users").doc(student_id)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve({});
+          resolve({})
         }
         resolve({
           id: querySnapshot.id,
           ...querySnapshot.data(),
-        });
+        })
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch student Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch student Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchLessons = async (course_id, topic_id) => {
   return new Promise((resolve, reject) => {
@@ -338,29 +382,29 @@ export const fetchLessons = async (course_id, topic_id) => {
       .doc(course_id)
       .collection("topics")
       .doc(topic_id)
-      .collection("lessons");
+      .collection("lessons")
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
-          return;
+          resolve([])
+          return
         }
-        let lessons = [];
+        let lessons = []
         for (const snap of querySnapshot.docs) {
-          const questions = await fetchQuestions(course_id, topic_id, snap.id);
-          var lesson = { id: snap.id, questions: questions, ...snap.data() };
-          lessons.push(lesson);
+          const questions = await fetchQuestions(course_id, topic_id, snap.id)
+          var lesson = { id: snap.id, questions: questions, ...snap.data() }
+          lessons.push(lesson)
         }
-        resolve(lessons);
+        resolve(lessons)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch topics Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch topics Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchQuestions = (course_id, topic_id, lesson_id) => {
   return new Promise((resolve, reject) => {
@@ -372,29 +416,29 @@ export const fetchQuestions = (course_id, topic_id, lesson_id) => {
       .doc(topic_id)
       .collection("lessons")
       .doc(lesson_id)
-      .collection("questions");
+      .collection("questions")
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
+          resolve([])
         }
-        let questions = [];
+        let questions = []
         if (Symbol.iterator in Object(querySnapshot.docs)) {
           querySnapshot.forEach((snap) => {
-            var question = { id: snap.id, ...snap.data() };
-            questions.push(question);
-          });
+            var question = { id: snap.id, ...snap.data() }
+            questions.push(question)
+          })
         }
-        resolve(questions);
+        resolve(questions)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch questions Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch questions Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchQuestion = (course_id, topic_id, lesson_id, question_id) => {
   return new Promise((resolve, reject) => {
@@ -407,25 +451,25 @@ export const fetchQuestion = (course_id, topic_id, lesson_id, question_id) => {
       .collection("lessons")
       .doc(lesson_id)
       .collection("questions")
-      .doc(question_id);
+      .doc(question_id)
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve({});
+          resolve({})
         }
         resolve({
           id: querySnapshot.id,
           ...querySnapshot.data(),
-        });
+        })
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch question Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch question Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const fetchAnswers = (lesson_id) => {
   return new Promise((resolve, reject) => {
@@ -433,20 +477,20 @@ export const fetchAnswers = (lesson_id) => {
       .firestore()
       .collection("answers")
       .where("student_id", "==", firebase.auth().currentUser.uid)
-      .where("lesson_id", "==", lesson_id);
+      .where("lesson_id", "==", lesson_id)
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
-          return;
+          resolve([])
+          return
         }
-        const { course_id, topic_id } = querySnapshot.docs[0].data();
-        const questions = await fetchQuestions(course_id, topic_id, lesson_id);
+        const { course_id, topic_id } = querySnapshot.docs[0].data()
+        const questions = await fetchQuestions(course_id, topic_id, lesson_id)
         var total_marks = questions.reduce(function (r, a) {
-          return r + a.marks_available;
-        }, 0);
+          return r + a.marks_available
+        }, 0)
 
-        let answers = [];
+        let answers = []
 
         for (const snap of querySnapshot.docs) {
           const question = await fetchQuestion(
@@ -454,32 +498,32 @@ export const fetchAnswers = (lesson_id) => {
             topic_id,
             lesson_id,
             snap.data().question_id
-          );
+          )
           answers.push({
             id: snap.id,
             question,
             ...snap.data(),
-          });
+          })
         }
-        const filteredAnswers = filtedAnswers(answers);
+        const filteredAnswers = filtedAnswers(answers)
         resolve({
           questions_count: questions.length,
           questions_answered: filteredAnswers.length,
           current_mark: filteredAnswers.reduce(function (r, a) {
-            return r + a.number_of_marks;
+            return r + a.number_of_marks
           }, 0),
           total_marks,
           answers: filteredAnswers,
-        });
+        })
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch answers Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch answers Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 const filtedAnswers = (arr) => {
   const result = Object.values(
@@ -488,17 +532,17 @@ const filtedAnswers = (arr) => {
         if (a[b.question_id].time_stamp < b.time_stamp)
           a[b.question_id] = {
             ...b,
-          };
+          }
       } else
         a[b.question_id] = {
           ...b,
-        };
+        }
 
-      return a;
+      return a
     }, {})
-  );
-  return result;
-};
+  )
+  return result
+}
 
 // MARK: - WRITING
 export const saveUserToFirestore = (data) => {
@@ -509,15 +553,15 @@ export const saveUserToFirestore = (data) => {
       .doc(data.uid)
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully saved user to firestore!");
-        resolve();
+        console.log("Successfully saved user to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Save User to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save User to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const createCourse = () => {
   const data = {
@@ -532,7 +576,7 @@ export const createCourse = () => {
     is_public: false,
     is_verified: false,
     associated_email: false,
-  };
+  }
   return new Promise((resolve, reject) => {
     firebase
       .firestore()
@@ -545,38 +589,38 @@ export const createCourse = () => {
           .doc(docRef.id)
           .set({ class_code: docRef.id }, { merge: true })
           .then(() => {
-            console.log("Successfully created course!");
-            resolve(docRef.id);
+            console.log("Successfully created course!")
+            resolve(docRef.id)
           })
           .catch((err) =>
             reject("err saving class code to course:" + err.message)
-          );
+          )
       })
       .catch((err) => {
-        console.log("Create course Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Create course Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const joinCourse = async (course_code, dropDownObj) => {
-  const uid = firebase.auth().currentUser.uid;
+  const uid = firebase.auth().currentUser.uid
   const course = await fetchCourse(
     course_code ? course_code : undefined,
     course_code ? undefined : dropDownObj
-  );
-  const joinedCourses = await fetchAvailableCourses(uid);
+  )
+  const joinedCourses = await fetchAvailableCourses(uid)
 
   const data = {
     id: course.id,
     title: course.title,
     subject: course.subject,
     date_joined: Date(),
-  };
+  }
   return new Promise((resolve, reject) => {
-    const joinedCoursesID = joinedCourses.map((course) => course.id);
+    const joinedCoursesID = joinedCourses.map((course) => course.id)
     if (joinedCoursesID.includes(course.id)) {
-      reject("You have already joined this course");
+      reject("You have already joined this course")
     }
     firebase
       .firestore()
@@ -594,20 +638,20 @@ export const joinCourse = async (course_code, dropDownObj) => {
           .doc(uid)
           .set({ uid: uid, date_joined: Date() })
           .then(() => {
-            console.log("Successfully Saved student to course!:", data.id);
-            resolve(data.id);
+            console.log("Successfully Saved student to course!:", data.id)
+            resolve(data.id)
           })
           .catch((err) => {
-            console.log("Save student to course Error", err.message);
-            reject("Could not save user to course");
-          });
+            console.log("Save student to course Error", err.message)
+            reject("Could not save user to course")
+          })
       })
       .catch((err) => {
-        console.log("Join course Error", err.message);
-        reject("This course does not exist. Please contact admin");
-      });
-  });
-};
+        console.log("Join course Error", err.message)
+        reject("This course does not exist. Please contact admin")
+      })
+  })
+}
 
 export const fetchStudentsFor = (course_id) => {
   return new Promise((resolve, reject) => {
@@ -615,29 +659,29 @@ export const fetchStudentsFor = (course_id) => {
       .firestore()
       .collection("courses")
       .doc(course_id)
-      .collection("students");
+      .collection("students")
 
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve([]);
-          return;
+          resolve([])
+          return
         }
-        let students = [];
+        let students = []
         for (const snap of querySnapshot.docs) {
-          const student = await fetchStudent(snap.data().uid);
-          students.push(student);
+          const student = await fetchStudent(snap.data().uid)
+          students.push(student)
         }
-        resolve(students);
+        resolve(students)
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch students Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch students Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const saveCourseToFirestore = (data) => {
   return new Promise((resolve, reject) => {
@@ -647,15 +691,15 @@ export const saveCourseToFirestore = (data) => {
       .doc()
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully saved course to firestore!");
-        resolve();
+        console.log("Successfully saved course to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Save Course to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save Course to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const updateCourseDetails = (data) => {
   return new Promise((resolve, reject) => {
@@ -665,15 +709,15 @@ export const updateCourseDetails = (data) => {
       .doc(data.id)
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully updated course!");
-        resolve();
+        console.log("Successfully updated course!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Update Course Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Update Course Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveTopicToFirestore = (data) => {
   return new Promise((resolve, reject) => {
@@ -692,15 +736,15 @@ export const saveTopicToFirestore = (data) => {
         { merge: true }
       )
       .then(() => {
-        console.log("Successfully saved topic to firestore!");
-        resolve();
+        console.log("Successfully saved topic to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Save Course to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save Course to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const updateTopic = (course_id, topic_id, topic) => {
   return new Promise((resolve, reject) => {
@@ -712,15 +756,15 @@ export const updateTopic = (course_id, topic_id, topic) => {
       .doc(topic_id)
       .set(topic, { merge: true })
       .then(() => {
-        console.log("Successfully updated topic!");
-        resolve();
+        console.log("Successfully updated topic!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Update Topic Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Update Topic Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveLessonToFirestore = (course_id, data) => {
   return new Promise((resolve, reject) => {
@@ -736,14 +780,14 @@ export const saveLessonToFirestore = (course_id, data) => {
         resolve({
           id: docRef.id,
           ...data,
-        });
+        })
       })
       .catch((err) => {
-        console.log("Save Lesson to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save Lesson to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const updateLesson = (course_id, topic_id, lesson_id, data) => {
   return new Promise((resolve, reject) => {
@@ -757,15 +801,15 @@ export const updateLesson = (course_id, topic_id, lesson_id, data) => {
       .doc(lesson_id)
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully updated lesson!");
-        resolve();
+        console.log("Successfully updated lesson!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Update lesson Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Update lesson Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const deleteQuestionsFromFirestore = async (
   course_id,
@@ -780,7 +824,7 @@ export const deleteQuestionsFromFirestore = async (
     .doc(topic_id)
     .collection("lessons")
     .doc(lesson_id)
-    .collection("questions");
+    .collection("questions")
   query
     .get()
     .then(async (querySnapshot) => {
@@ -792,22 +836,22 @@ export const deleteQuestionsFromFirestore = async (
               topic_id,
               lesson_id,
               snap.id
-            );
+            )
           }
-          return;
+          return
         } else {
-          console.log("Querysnapshot is not iteratable");
+          console.log("Querysnapshot is not iteratable")
         }
       } else {
-        console.log("Querysnapshot does not exist:", querySnapshot.docs);
+        console.log("Querysnapshot does not exist:", querySnapshot.docs)
       }
     })
     .catch((err) => {
-      console.log(err);
-      console.log("delete questions Error", err.message);
-      return;
-    });
-};
+      console.log(err)
+      console.log("delete questions Error", err.message)
+      return
+    })
+}
 
 export const deleteQuestionFromFirestore = (
   course_id,
@@ -828,14 +872,14 @@ export const deleteQuestionFromFirestore = (
       .doc(question_id)
       .delete()
       .then(() => {
-        resolve();
+        resolve()
       })
       .catch((err) => {
-        console.log("delete question from Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("delete question from Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveQuestionsToFirestore = async (
   course_id,
@@ -843,17 +887,17 @@ export const saveQuestionsToFirestore = async (
   lesson_id,
   questions
 ) => {
-  console.log("Saving q:", questions);
+  console.log("Saving q:", questions)
 
   return new Promise(async (resolve, reject) => {
-    await deleteQuestionsFromFirestore(course_id, topic_id, lesson_id);
+    await deleteQuestionsFromFirestore(course_id, topic_id, lesson_id)
     questions &&
       (await questions.forEach(async (question) => {
-        await saveQuestionToFirestore(course_id, topic_id, lesson_id, question);
-      }));
-    resolve();
-  });
-};
+        await saveQuestionToFirestore(course_id, topic_id, lesson_id, question)
+      }))
+    resolve()
+  })
+}
 
 export const updateVideoLink = async (course_id, topic_id, lesson_id, link) => {
   return new Promise((resolve, reject) => {
@@ -867,15 +911,15 @@ export const updateVideoLink = async (course_id, topic_id, lesson_id, link) => {
       .doc(lesson_id)
       .set({ video_link: link }, { merge: true })
       .then(() => {
-        console.log("Successfully updated video link to firestore!");
-        resolve();
+        console.log("Successfully updated video link to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Update video link to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Update video link to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveQuestionToFirestore = async (
   course_id,
@@ -896,18 +940,18 @@ export const saveQuestionToFirestore = async (
       .doc()
       .set(question, { merge: false })
       .then(() => {
-        console.log("Successfully saved question to firestore!");
-        resolve();
+        console.log("Successfully saved question to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Save question to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save question to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveAnswerToFirestore = async (data) => {
-  const uid = firebase.auth().currentUser.uid;
+  const uid = firebase.auth().currentUser.uid
   return new Promise((resolve, reject) => {
     firebase
       .firestore()
@@ -915,47 +959,47 @@ export const saveAnswerToFirestore = async (data) => {
       .doc()
       .set(data)
       .then(() => {
-        console.log("Successfully saved answer to firestore!");
-        resolve();
+        console.log("Successfully saved answer to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Save answer to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Save answer to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const saveAnswersToFirestore = async (data) => {
-  var total_marks_achieved = 0;
-  var total_marks_available = 0;
-  var total_number_questions_answered = 0;
-  var total_number_questions_full_marks = 0;
+  var total_marks_achieved = 0
+  var total_marks_available = 0
+  var total_number_questions_answered = 0
+  var total_number_questions_full_marks = 0
 
   const answers = data.map((val) => ({
     student_id: firebase.auth().currentUser.uid,
     ...val,
-  }));
-  if (answers.length == 0) return;
+  }))
+  if (answers.length == 0) return
   const aggr_ref = firebase
     .firestore()
     .collection("users")
     .doc(answers[0].student_id)
     .collection("courses")
-    .doc(answers[0].course_id);
+    .doc(answers[0].course_id)
   return new Promise(async (resolve, reject) => {
     for (const answer of answers) {
-      total_marks_achieved += answer.number_of_marks;
-      total_marks_available += answer.total_marks;
-      total_number_questions_answered += 1;
+      total_marks_achieved += answer.number_of_marks
+      total_marks_available += answer.total_marks
+      total_number_questions_answered += 1
       if (answer.number_of_marks == answer.total_marks) {
-        total_number_questions_full_marks += 1;
+        total_number_questions_full_marks += 1
       }
       await saveAnswerToFirestore(answer).catch((err) => {
-        reject(err);
-      });
+        reject(err)
+      })
     }
 
-    const fv = firebase.firestore.FieldValue;
+    const fv = firebase.firestore.FieldValue
     aggr_ref
       .set(
         {
@@ -968,27 +1012,20 @@ export const saveAnswersToFirestore = async (data) => {
             total_number_questions_full_marks
           ),
 
-          ["topic_" +
-          answers[0].topic_id +
-          "_total_marks_achieved"]: fv.increment(total_marks_achieved),
-          ["topic_" +
-          answers[0].topic_id +
-          "_total_marks_available"]: fv.increment(total_marks_available),
-          ["topic_" +
-          answers[0].topic_id +
-          "_total_number_questions_answered"]: fv.increment(
-            total_number_questions_answered
-          ),
+          ["topic_" + answers[0].topic_id + "_total_marks_achieved"]:
+            fv.increment(total_marks_achieved),
+          ["topic_" + answers[0].topic_id + "_total_marks_available"]:
+            fv.increment(total_marks_available),
+          ["topic_" + answers[0].topic_id + "_total_number_questions_answered"]:
+            fv.increment(total_number_questions_answered),
           ["topic_" +
           answers[0].topic_id +
           "_total_number_questions_full_marks"]: 2,
 
-          ["lesson_" +
-          answers[0].lesson_id +
-          "_total_marks_achieved"]: fv.increment(total_marks_achieved),
-          ["lesson_" +
-          answers[0].lesson_id +
-          "_total_marks_available"]: fv.increment(total_marks_available),
+          ["lesson_" + answers[0].lesson_id + "_total_marks_achieved"]:
+            fv.increment(total_marks_achieved),
+          ["lesson_" + answers[0].lesson_id + "_total_marks_available"]:
+            fv.increment(total_marks_available),
           ["lesson_" +
           answers[0].lesson_id +
           "_total_number_questions_answered"]: fv.increment(
@@ -1003,11 +1040,11 @@ export const saveAnswersToFirestore = async (data) => {
         { merge: true }
       )
       .then(() => {
-        resolve();
-      });
+        resolve()
+      })
     // resolve();
-  });
-};
+  })
+}
 
 export const deleteAccountFromFirestore = (uid) => {
   return new Promise((resolve, reject) => {
@@ -1017,14 +1054,14 @@ export const deleteAccountFromFirestore = (uid) => {
       .doc(uid)
       .delete()
       .then(() => {
-        resolve();
+        resolve()
       })
       .catch((error) => {
-        console.log("Error deleting user from Firestore:", error.message);
-        reject(error);
-      });
-  });
-};
+        console.log("Error deleting user from Firestore:", error.message)
+        reject(error)
+      })
+  })
+}
 
 export const deleteLessonFromFirestore = (course_id, topic_id, lesson_id) => {
   return new Promise((resolve, reject) => {
@@ -1038,42 +1075,42 @@ export const deleteLessonFromFirestore = (course_id, topic_id, lesson_id) => {
       .doc(lesson_id)
       .delete()
       .then(() => {
-        resolve();
+        resolve()
       })
       .catch((error) => {
-        console.log("Error deleting lesson from Firestore:", error.message);
-        reject(error);
-      });
-  });
-};
+        console.log("Error deleting lesson from Firestore:", error.message)
+        reject(error)
+      })
+  })
+}
 
 // --- Analytics ---
 
 export const fetchCourseAggregation = (data) => {
-  const { user_id, course_id } = data;
+  const { user_id, course_id } = data
   return new Promise((resolve, reject) => {
     let query = firebase
       .firestore()
       .collection("users")
       .doc(user_id)
       .collection("courses")
-      .doc(course_id);
+      .doc(course_id)
 
     query.onSnapshot(
       (querySnapshot) => {
         if (querySnapshot.empty) {
-          return;
+          return
         }
-        resolve(querySnapshot.data());
+        resolve(querySnapshot.data())
       },
       (error) => {
-        console.log(error);
-        console.log("Fetch courses Error", error.message);
-        reject(error);
+        console.log(error)
+        console.log("Fetch courses Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const uploadLesson = (data) => {
   return new Promise((resolve, reject) => {
@@ -1087,18 +1124,18 @@ export const uploadLesson = (data) => {
       .doc()
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully uploaded lesson to firestore!");
-        resolve();
+        console.log("Successfully uploaded lesson to firestore!")
+        resolve()
       })
       .catch((err) => {
-        console.log("Upload lessson to Firestore Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Upload lessson to Firestore Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const updateUserInfo = (data) => {
-  const uid = firebase.auth().currentUser.uid;
+  const uid = firebase.auth().currentUser.uid
   return new Promise((resolve, reject) => {
     firebase
       .firestore()
@@ -1106,18 +1143,18 @@ export const updateUserInfo = (data) => {
       .doc(uid)
       .set(data, { merge: true })
       .then(() => {
-        console.log("Successfully updated user info");
-        resolve();
+        console.log("Successfully updated user info")
+        resolve()
       })
       .catch((err) => {
-        console.log("Update User Error", err.message);
-        reject(err);
-      });
-  });
-};
+        console.log("Update User Error", err.message)
+        reject(err)
+      })
+  })
+}
 
 export const getCourseAggregation = (course_id, student_id) => {
-  const uid = student_id ? student_id : firebase.auth().currentUser.uid;
+  const uid = student_id ? student_id : firebase.auth().currentUser.uid
   return new Promise((resolve, reject) => {
     // let query = firebase
     //   .firestore()
@@ -1130,16 +1167,16 @@ export const getCourseAggregation = (course_id, student_id) => {
       .collection("users")
       .doc(uid)
       .collection("courses")
-      .doc(course_id);
+      .doc(course_id)
 
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
-          resolve(0);
-          return;
+          resolve(0)
+          return
         }
-        const marks = querySnapshot.data().total_marks_achieved;
-        const total_marks = querySnapshot.data().total_marks_available;
+        const marks = querySnapshot.data().total_marks_achieved
+        const total_marks = querySnapshot.data().total_marks_available
         // querySnapshot.data();
         // const answers = querySnapshot.docs.map((snap) => snap.data());
 
@@ -1150,46 +1187,46 @@ export const getCourseAggregation = (course_id, student_id) => {
         // const total_marks = filteredAnswers.reduce(function (r, a) {
         //   return r + a.total_marks;
         // }, 0);
-        const percentage = (marks / total_marks) * 100;
+        const percentage = (marks / total_marks) * 100
 
-        resolve(percentage);
+        resolve(percentage)
       },
       (error) => {
-        console.log("getCourseAggregation Error", error.message);
-        reject(error);
+        console.log("getCourseAggregation Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const getTopicsAggregation = (course_id, student_id) => {
   return new Promise(async (resolve, reject) => {
-    const topics = await fetchTopics(course_id);
-    let result = [];
+    const topics = await fetchTopics(course_id)
+    let result = []
     for (const topic of topics) {
       const topicAggregation = await getTopicAggregation(
         course_id,
         topic.id,
         student_id
-      );
-      result.push(topicAggregation);
+      )
+      result.push(topicAggregation)
     }
-    result = result.sort((a, b) => (a.percentage < b.percentage ? 1 : -1));
+    result = result.sort((a, b) => (a.percentage < b.percentage ? 1 : -1))
     // console.log("================================");
     // console.log("Topics aggregation:", result);
-    resolve(result);
-  });
-};
+    resolve(result)
+  })
+}
 
 const getTopicAggregation = (course_id, topic_id, student_id) => {
-  const uid = student_id ? student_id : firebase.auth().currentUser.uid;
+  const uid = student_id ? student_id : firebase.auth().currentUser.uid
   return new Promise(async (resolve, reject) => {
     let query = firebase
       .firestore()
       .collection("answers")
       .where("student_id", "==", uid)
-      .where("topic_id", "==", topic_id);
-    const topic = await fetchTopic(course_id, topic_id);
+      .where("topic_id", "==", topic_id)
+    const topic = await fetchTopic(course_id, topic_id)
     query.onSnapshot(
       async (querySnapshot) => {
         if (querySnapshot.empty) {
@@ -1198,76 +1235,76 @@ const getTopicAggregation = (course_id, topic_id, student_id) => {
             questions_answered: 0,
             questions_full_mark: 0,
             percentage: 0,
-          });
-          return;
+          })
+          return
         }
 
-        const answers = querySnapshot.docs.map((snap) => snap.data());
-        const filteredAnswers = filtedAnswers(answers);
+        const answers = querySnapshot.docs.map((snap) => snap.data())
+        const filteredAnswers = filtedAnswers(answers)
         const correctAnswers = filteredAnswers.filter(
           (answer) => answer.number_of_marks == answer.total_marks
-        );
+        )
         const marks = filteredAnswers.reduce(function (r, a) {
-          return r + a.number_of_marks;
-        }, 0);
+          return r + a.number_of_marks
+        }, 0)
         const total_marks = filteredAnswers.reduce(function (r, a) {
-          return r + a.total_marks;
-        }, 0);
-        const percentage = ((marks / total_marks) * 100).toFixed(0);
+          return r + a.total_marks
+        }, 0)
+        const percentage = ((marks / total_marks) * 100).toFixed(0)
 
         const result = {
           title: topic.title,
           questions_answered: filteredAnswers.length,
           questions_full_mark: correctAnswers.length,
           percentage,
-        };
+        }
         // console.log("Topic aggregation:", result);
-        resolve(result);
+        resolve(result)
       },
       (error) => {
-        console.log("getCourseAggregation Error", error.message);
-        reject(error);
+        console.log("getCourseAggregation Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
 
 export const getLessonsAggregation = (course_id, student_id) => {
-  const uid = firebase.auth().currentUser.uid;
+  const uid = firebase.auth().currentUser.uid
 
   return new Promise(async (resolve, reject) => {
-    const topics = await fetchTopics(course_id);
-    let result = [];
+    const topics = await fetchTopics(course_id)
+    let result = []
     for (const topic of topics) {
-      const lessons = await fetchLessons(course_id, topic.id);
+      const lessons = await fetchLessons(course_id, topic.id)
       for (const lesson of lessons) {
         const lessonAggregation = await getLessonAggregation(
           course_id,
           topic.id,
           lesson.id,
           student_id
-        );
-        result.push(lessonAggregation);
+        )
+        result.push(lessonAggregation)
       }
     }
-    result = result.sort((a, b) => (a.percentage > b.percentage ? 1 : -1));
+    result = result.sort((a, b) => (a.percentage > b.percentage ? 1 : -1))
     // console.log("================================");
     // console.log("Lessons aggregation:", result);
-    resolve(result.slice(0, 3));
-  });
-};
+    resolve(result.slice(0, 3))
+  })
+}
 
 const getLessonAggregation = (course_id, topic_id, lesson_id, student_id) => {
-  const uid = student_id ? student_id : firebase.auth().currentUser.uid;
+  const uid = student_id ? student_id : firebase.auth().currentUser.uid
   return new Promise(async (resolve, reject) => {
     let query = firebase
       .firestore()
       .collection("answers")
       .where("student_id", "==", uid)
-      .where("lesson_id", "==", lesson_id);
+      .where("lesson_id", "==", lesson_id)
 
-    const lesson = await fetchLesson(course_id, topic_id, lesson_id);
-    const topic = await fetchTopic(course_id, topic_id);
+    const lesson = await fetchLesson(course_id, topic_id, lesson_id)
+    const topic = await fetchTopic(course_id, topic_id)
 
     query.onSnapshot(
       async (querySnapshot) => {
@@ -1276,32 +1313,32 @@ const getLessonAggregation = (course_id, topic_id, lesson_id, student_id) => {
             topic_title: topic.title,
             lesson_title: lesson.title,
             percentage: 0,
-          });
-          return;
+          })
+          return
         }
 
-        const answers = querySnapshot.docs.map((snap) => snap.data());
-        const filteredAnswers = filtedAnswers(answers);
+        const answers = querySnapshot.docs.map((snap) => snap.data())
+        const filteredAnswers = filtedAnswers(answers)
         const marks = filteredAnswers.reduce(function (r, a) {
-          return r + a.number_of_marks;
-        }, 0);
+          return r + a.number_of_marks
+        }, 0)
         const total_marks = filteredAnswers.reduce(function (r, a) {
-          return r + a.total_marks;
-        }, 0);
-        const percentage = ((marks / total_marks) * 100).toFixed(0);
+          return r + a.total_marks
+        }, 0)
+        const percentage = ((marks / total_marks) * 100).toFixed(0)
 
         const result = {
           topic_title: topic.title,
           lesson_title: lesson.title,
           percentage,
-        };
+        }
         // console.log("Lesson aggregation:", result);
-        resolve(result);
+        resolve(result)
       },
       (error) => {
-        console.log("getCourseAggregation Error", error.message);
-        reject(error);
+        console.log("getCourseAggregation Error", error.message)
+        reject(error)
       }
-    );
-  });
-};
+    )
+  })
+}
