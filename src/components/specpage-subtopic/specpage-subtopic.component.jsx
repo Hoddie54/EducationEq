@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useCallback, useEffect } from "react"
+
 import "./specpage-subtopic.styles.scss"
 
 function SpecPageSubtopic(props) {

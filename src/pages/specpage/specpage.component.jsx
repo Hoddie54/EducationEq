@@ -1,10 +1,28 @@
 import "./specpage.styles.scss"
 import Basepage from "../basepage/basepage.component"
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import SpecPageSubtopic from "../../components/specpage-subtopic/specpage-subtopic.component"
+import { getTopics } from "../../utils/firebase/firestore"
+import SpinnerPage from "../spinner/spinner.component"
 
 function SpecPage() {
   const [topic, setTopic] = useState(1)
+  const [topics, setTopics] = useState([])
+
+  const getData = useCallback(async () => {
+    const topics = await getTopics("Chemistry", "Edexcel")
+    setTopics(topics)
+  }, [])
+  useEffect(() => {
+    getData()
+  }, [getData])
+
+  let topicsJSX = <SpinnerPage />
+  if (topics.length > 0) {
+    topicsJSX = topics.map((topic) => {
+      return <SpecPageSubtopic title={topic.name} />
+    })
+  }
 
   return (
     <Basepage menu_col={true}>
@@ -27,11 +45,7 @@ function SpecPage() {
           <option value={2}>Topic 2</option>
         </select>
       </div>
-      <div className="spec-main">
-        <SpecPageSubtopic title="1.0 Groups in the periodic table" />
-        <SpecPageSubtopic title="2.0 Key concepts in Chemistry " />
-        <SpecPageSubtopic title="3.0 Groups in the periodic table" />
-      </div>
+      <div className="spec-main">{topicsJSX}</div>
     </Basepage>
   )
 }
