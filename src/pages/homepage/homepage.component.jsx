@@ -69,7 +69,7 @@ class HomePage extends Component {
   }
 
   async getTopics() {
-    const topics = await getTopics("chemistry", "OCR_A")
+    const topics = await getTopics("Chemistry", "Edexcel")
     this.setState({ topics: topics })
   }
 
@@ -426,6 +426,7 @@ class HomePage extends Component {
             name={topic.name}
             subject={topic.subject}
             id={topic.id}
+            key={topic.id}
           />
         )
       })

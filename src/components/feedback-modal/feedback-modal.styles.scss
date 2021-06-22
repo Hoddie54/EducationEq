@@ -49,8 +49,9 @@
     );
     border-radius: 15px;
     font-style: normal;
+    padding: 0.2rem 1rem;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 22px;
     /* identical to box height */
 
@@ -58,7 +59,11 @@
 
     color: #ffffff;
     margin: 0.5rem 0;
-    min-width: 13%;
+    width: 6rem;
+  }
+
+  button:hover {
+    font-size: 1.25rem;
   }
 
   textarea {

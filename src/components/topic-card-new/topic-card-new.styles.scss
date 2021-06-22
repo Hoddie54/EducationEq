@@ -27,8 +27,9 @@
 .subtopic__content {
   display: flex;
   align-items: stretch;
-  justify-content: center;
-  justify-items: stretch;
+  justify-content: flex-start;
+
+  flex-wrap: wrap;
   // grid-template-columns: 25% 25% 25% 25%;
   // grid-template-rows: auto;
   transition: visibility 0s, opacity 1s ease-in, height 1s ease-in;

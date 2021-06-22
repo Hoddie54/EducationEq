@@ -37,8 +37,10 @@ function EdeqSearch() {
               </select>
             </div>
           </div>
-          <button>
-            <div className="blue-text text-format">Search now</div>
+          <button className="search-button">
+            <div className="blue-text text-format search-button-click">
+              Search now
+            </div>
           </button>
         </form>
       </div>

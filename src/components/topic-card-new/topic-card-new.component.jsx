@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, memo, useCallback } from "react"
 import { Spinner } from "react-bootstrap"
 import SearchSVG from "../../assets/search-svg"
 import SpinnerPage from "../../pages/spinner/spinner.component"
@@ -17,14 +17,14 @@ function TopicCard(props) {
     })
   }
 
-  useEffect(() => {
-    handleSubtopics(props.id)
-  }, [])
-
-  async function handleSubtopics() {
+  const handleSubtopics = useCallback(async () => {
     const subtopics = await getSubtopics(props.id)
     setSubtopics(subtopics)
-  }
+  }, [])
+
+  useEffect(() => {
+    handleSubtopics(props.id)
+  }, [handleSubtopics])
 
   let subtopicJSX = <Spinner />
   if (subtopics.length > 0) {
@@ -35,6 +35,9 @@ function TopicCard(props) {
           subject={props.subject}
           name={subtopic.name}
           lesson_id={subtopic.lesson_id}
+          topic_id={props.id}
+          subtopic_id={subtopic.id}
+          key={subtopic.id}
         />
       )
     })
@@ -59,4 +62,4 @@ function TopicCard(props) {
   )
 }
 
-export default TopicCard
+export default TopicCard = memo(TopicCard)

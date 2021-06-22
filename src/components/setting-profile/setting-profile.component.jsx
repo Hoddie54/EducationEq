@@ -12,7 +12,7 @@ export default class SettingProfile extends Component {
     this.state = {
       isEditing: false,
       display_name: currentUser.full_name,
-      profilePic: null,
+      profilePic: "",
       school_name: currentUser.school_name,
       exam_board: currentUser.subjects[0].exam_board,
       level: currentUser.subjects[0].level,

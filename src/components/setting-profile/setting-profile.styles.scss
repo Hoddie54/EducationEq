@@ -112,6 +112,10 @@
   padding: 0.3rem;
 }
 
+.agreement-button:hover {
+  font-size: 1.05rem;
+}
+
 .agreement-button:focus {
   outline: none;
 }
@@ -132,6 +136,14 @@
   padding: 0.3rem;
 }
 
-.account-action__button {
+.account-action__button:hover {
+  font-size: 1.05rem;
+  color: white;
+  background: #2378ff;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.account-action__button:focus {
   outline: none;
 }

@@ -84,7 +84,11 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           {/* <Route exact path="/courses/:id" component={CoursesPage} />
           <Route exact path="/teaching/:id" component={TeacherPage}></Route> */}
-          <Route exact path="/subtopic/:id" component={SubtopicPage} />
+          <Route
+            exact
+            path="/subtopic/:topic_id/:subtopic_id"
+            component={SubtopicPage}
+          />
           <Route exact path="/settings" component={SettingsPage} />
           <Route exact path="/terms-condition" component={TermsConditionPage} />
           <Route exact path="/video/:id" component={VideoPage} />

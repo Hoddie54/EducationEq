@@ -1,4 +1,5 @@
 import "./subtopic-card.styles.scss"
+import { Link } from "react-router-dom"
 
 function SubtopicCard(props) {
   return (
@@ -12,7 +13,11 @@ function SubtopicCard(props) {
         </div>
         <div className="lesson-title blue-text">{props.name}</div>
         <div className="lesson-text"></div>
-        <button className="lesson-button blue-text">Explore Subtopic</button>
+        <Link to={`/subtopic/${props.topic_id}/${props.subtopic_id}`}>
+          <button className="lesson-button blue-text explore-subtopic">
+            Explore Subtopic
+          </button>
+        </Link>
       </div>
     </div>
   )

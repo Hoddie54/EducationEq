@@ -23,19 +23,40 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+export const getSubtopic = (topic, subtopic) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("topics")
+      .doc(topic)
+      .collection("subtopic")
+      .doc(subtopic)
+      .get()
+      .then((doc) => {
+        resolve({ ...doc.data(), id: doc.id })
+      })
+      .catch((error) => {
+        console.log("Error getting subtopics: ", error)
+        reject(error)
+      })
+  })
+}
+
 export const getSubtopics = (topic) => {
   return new Promise((resolve, reject) => {
     firebase
       .firestore()
       .collection("topics")
       .doc(topic)
-      .collection("subtopics")
+      .collection("subtopic")
+      .orderBy("lesson_id", "asc")
       .get()
       .then((querySnapshot) => {
         let subtopics = []
         querySnapshot.forEach((doc) => {
           subtopics.push({ ...doc.data(), id: doc.id })
         })
+        console.log("Reads :", querySnapshot.size)
         resolve(subtopics)
       })
       .catch((error) => {
@@ -52,12 +73,14 @@ export const getTopics = (subject, exam_board) => {
       .collection("topics")
       .where("subject", "==", subject)
       .where("exam_board", "==", exam_board)
+      .orderBy("name", "asc")
       .get()
       .then((querySnapshot) => {
         let topics = []
         querySnapshot.forEach((doc) => {
           topics.push({ ...doc.data(), id: doc.id })
         })
+        console.log("Reads :", querySnapshot.size)
         resolve(topics)
       })
       .catch((error) => {

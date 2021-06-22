@@ -67,6 +67,14 @@
   }
 }
 
+.search-button:focus {
+  outline: none;
+}
+
+.search-button-click:hover {
+  font-size: 1.05rem;
+}
+
 @media only screen and (max-width: 767px) {
   .search-form form {
     flex-direction: column;
