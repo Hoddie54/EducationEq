@@ -69,8 +69,14 @@ class HomePage extends Component {
   }
 
   async getTopics() {
-    const topics = await getTopics("Chemistry", "Edexcel")
-    this.setState({ topics: topics })
+    const currentUser = this.props.currentUser
+    if (currentUser.subjects) {
+      const subject = currentUser.subjects[0].name
+      const exam_board = currentUser.subjects[0].exam_board
+
+      const topics = await getTopics(subject, exam_board)
+      this.setState({ topics: topics })
+    }
   }
 
   // fetchAggregations = () => {

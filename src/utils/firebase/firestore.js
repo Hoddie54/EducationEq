@@ -23,6 +23,112 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+export const sendFeedback = (feedback) => {
+  return new Promise((resolve, reject) => {
+    console.log(firebase.auth().currentUser)
+    firebase
+      .firestore()
+      .collection("feedback")
+      .add({
+        feedback: feedback,
+        user_name: firebase.auth().currentUser.uid,
+        name: firebase.auth().currentUser.displayName,
+        email: firebase.auth().currentUser.email,
+      })
+      .then(() => {
+        resolve()
+      })
+      .catch((error) => {
+        console.log("Error sending feedback: ", error)
+        reject(error)
+      })
+  })
+}
+
+export const getVideos = (topic, subtopic) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("videos")
+      .where("topic_id", "==", topic)
+      .where("subtopic_id", "==", subtopic)
+      .get()
+      .then((querySnapshot) => {
+        let videos = []
+        querySnapshot.forEach((doc) => {
+          videos.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("Reads :", querySnapshot.size)
+        resolve(videos)
+      })
+      .catch((error) => {
+        console.log("Error getting videos: ", error)
+        reject(error)
+      })
+  })
+}
+
+export const getVideo = (video) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("videos")
+      .doc(video)
+      .get()
+      .then((doc) => {
+        resolve({ ...doc.data(), id: doc.id })
+        console.log("Reads :", 1)
+      })
+      .catch((error) => {
+        console.log("Error getting videos: ", error)
+        reject(error)
+      })
+  })
+}
+
+export const getSpecpoint = (id) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("specpoints")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        console.log("Reads :", 1)
+        resolve({ ...doc.data(), id: doc.id })
+      })
+      .catch((error) => {
+        console.log("Error getting specpoint: ", error)
+        reject(error)
+      })
+  })
+}
+
+//TODO - FIx when connor fixees
+export const getSpecpoints = (topic, subtopic) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("specpoints")
+      .where("topic_id", "==", topic)
+      // .where("subtopic_id", "==", subtopic)
+      .limit(3)
+      .get()
+      .then((querySnapshot) => {
+        let specpoints = []
+        querySnapshot.forEach((doc) => {
+          specpoints.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("Reads :", querySnapshot.size)
+        resolve(specpoints)
+      })
+      .catch((error) => {
+        console.log("Error getting specpoints: ", error)
+        reject(error)
+      })
+  })
+}
+
 export const getSubtopic = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
     firebase
@@ -34,6 +140,7 @@ export const getSubtopic = (topic, subtopic) => {
       .get()
       .then((doc) => {
         resolve({ ...doc.data(), id: doc.id })
+        console.log("Reads :", 1)
       })
       .catch((error) => {
         console.log("Error getting subtopics: ", error)

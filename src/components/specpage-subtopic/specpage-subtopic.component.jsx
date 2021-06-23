@@ -1,9 +1,12 @@
 import { useState, useCallback, useEffect } from "react"
-
+import { getSpecpoints, getSubtopics } from "../../utils/firebase/firestore"
+import SpinnerPage from "../../pages/spinner/spinner.component"
 import "./specpage-subtopic.styles.scss"
 
 function SpecPageSubtopic(props) {
-  const [isShown, setIsShown] = useState(false)
+  const isDefaultShown = props.topic_id === props.topic_display ? true : false
+  const [isShown, setIsShown] = useState(isDefaultShown)
+  const [subtopicData, setSubtopicData] = useState([])
 
   function toggleIsShown() {
     setIsShown((current_state) => {
@@ -22,14 +25,36 @@ function SpecPageSubtopic(props) {
   }
 
   function SubTopic(props) {
-    const [isShown, setIsShown] = useState(false)
-
-    const default_text =
-      "Understand how to calculate the valence of metal ions when they are bonding in hydrogen and that the electrons in the outer shell is consumed first by the atmosheric gases in the ozone layer."
+    const isDefaultShown =
+      props.subtopic_id === props.subtopic_display ? true : false
+    const [isShown, setIsShown] = useState(isDefaultShown)
+    const [specpointData, setSpecPointData] = useState([])
 
     function toggleIsShown() {
       setIsShown((current_state) => {
         return !current_state
+      })
+    }
+
+    const getSpecPointData = useCallback(async () => {
+      const specpoints = await getSpecpoints(props.topic_id, props.subtopic_id)
+      setSpecPointData(specpoints)
+    }, [])
+
+    useEffect(() => {
+      getSpecPointData()
+    }, [getSubtopicData])
+
+    let specpointJSX = <SpinnerPage />
+    if (specpointData.length > 0) {
+      specpointJSX = specpointData.map((specpoint) => {
+        return (
+          <SpecPoint
+            number={specpoint.spec_number_and_tier}
+            text={specpoint.text}
+            key={specpoint.spec_number_and_tier}
+          />
+        )
       })
     }
 
@@ -42,16 +67,33 @@ function SpecPageSubtopic(props) {
           </div>
         </div>
         <hr className="hr" />
-        {isShown ? (
-          <>
-            <SpecPoint number="1.2.3" text={default_text} />
-            <SpecPoint number="1.2.3" text={default_text} />
-          </>
-        ) : (
-          ""
-        )}
+        {isShown ? <>{specpointJSX}</> : ""}
       </div>
     )
+  }
+
+  const getSubtopicData = useCallback(async () => {
+    const subtopics = await getSubtopics(props.topic_id)
+    setSubtopicData(subtopics)
+  }, [])
+
+  useEffect(() => {
+    getSubtopicData()
+  }, [getSubtopicData])
+
+  let subtopicsJSX = <SpinnerPage />
+  if (subtopicData.length > 0) {
+    subtopicsJSX = subtopicData.map((subtopic) => {
+      return (
+        <SubTopic
+          title={subtopic.name}
+          topic_id={props.topic_id}
+          subtopic_id={subtopic.uid}
+          key={subtopic.uid}
+          subtopic_display={props.subtopic_display}
+        />
+      )
+    })
   }
 
   return (
@@ -64,14 +106,7 @@ function SpecPageSubtopic(props) {
       </div>
       <hr className="hr" />
       <div className="spec-page__main">
-        {isShown ? (
-          <>
-            <SubTopic title="TEST" />
-            <SubTopic title="I am a generic suybtoic" />
-          </>
-        ) : (
-          ""
-        )}
+        {isShown ? <>{subtopicsJSX}</> : ""}
       </div>
     </>
   )

@@ -2,19 +2,26 @@ import "./subtopicpage.styles.scss"
 import VideoCardNew from "../../components/video-card-new/video-card-new.component"
 import Basepage from "../basepage/basepage.component"
 import { useEffect, useCallback, useState } from "react"
-import { getSubtopic } from "../../utils/firebase/firestore"
+import { getSubtopic, getVideos } from "../../utils/firebase/firestore"
 import SpinnerPage from "../spinner/spinner.component"
 
 function SubtopicPage(props) {
   const [data, setData] = useState([])
+  const [videos, setVideos] = useState([])
 
   const getData = useCallback(async () => {
     const subtopic = await getSubtopic(
       props.match.params.topic_id,
       props.match.params.subtopic_id
     )
+    const videos = await getVideos(
+      props.match.params.topic_id,
+      props.match.params.subtopic_id
+    )
     setData(subtopic)
+    setVideos(videos)
   }, [])
+
   useEffect(() => {
     getData()
   }, [getData])
@@ -41,10 +48,20 @@ function SubtopicPage(props) {
                 </div>
               </div>
               <div className="subtopic-content__container">
-                <VideoCardNew />
-                <VideoCardNew />
-                <VideoCardNew />
-                <VideoCardNew />
+                {videos.length === 0
+                  ? ""
+                  : videos.map((video) => {
+                      return (
+                        <VideoCardNew
+                          key={video.uid}
+                          id={video.uid}
+                          title={video.title}
+                          url={video.url}
+                          specpoints={video.specpoints}
+                          description={video.description}
+                        />
+                      )
+                    })}
               </div>
             </div>
           </>

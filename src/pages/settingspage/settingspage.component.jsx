@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import NavigationBar from "../../navigation/navigation-bar/navigation-bar.component"
 import SettingProfile from "../../components/setting-profile/setting-profile.component"
-import SettingAccount from "../../components/setting-account/setting-account.component"
-import SettingLorem from "../../components/setting-lorem/setting-lorem.component"
-import { Button } from "react-bootstrap"
+// import SettingAccount from "../../components/setting-account/setting-account.component"
+// import SettingLorem from "../../components/setting-lorem/setting-lorem.component"
+// import { Button } from "react-bootstrap"
 import { withRouter } from "react-router"
 import { logoutUser } from "./../../utils/firebase/auth"
 import { connect } from "react-redux"
 import "./settingspage.styles.scss"
 import logo from "../../assets/logo.svg"
-import { deleteAccountFromFirestore } from "../../utils/firebase/firestore"
+import { deleteAccount } from "../../utils/firebase/auth"
 class SettingsPage extends Component {
   constructor(props) {
     super(props)
@@ -47,8 +47,8 @@ class SettingsPage extends Component {
     window.location.href = "/"
   }
 
-  handleAccountDeletion = () => {
-    deleteAccountFromFirestore()
+  handleAccountDeletion = async () => {
+    await deleteAccount()
     window.location.href = "/"
   }
 
@@ -84,7 +84,7 @@ class SettingsPage extends Component {
                     <SettingProfile
                       currentUser={this.props.currentUser}
                       handleLogout={this.handleLogout}
-                      handleAccountDeletion={this.handleLogout}
+                      handleAccountDeletion={this.handleAccountDeletion}
                     ></SettingProfile>
 
                     {/* <SettingAccount></SettingAccount>

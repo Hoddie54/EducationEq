@@ -9,17 +9,25 @@ export default class SettingProfile extends Component {
   constructor(props) {
     super(props)
     const { currentUser } = this.props
+    let exam_board = "",
+      level = ""
+    if (currentUser.subjects) {
+      exam_board = currentUser.subjects[0].exam_board
+      level = currentUser.subjects[0].level
+    }
     this.state = {
+      isModal: false,
       isEditing: false,
       display_name: currentUser.full_name,
       profilePic: "",
       school_name: currentUser.school_name,
-      exam_board: currentUser.subjects[0].exam_board,
-      level: currentUser.subjects[0].level,
+      exam_board: exam_board,
+      level: level,
       ...currentUser,
     }
     this.inputOpenFileRef = React.createRef()
-    console.log(this.state.exam_board)
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
   showOpenFileDlg = () => {
     this.inputOpenFileRef.current.click()
@@ -70,10 +78,46 @@ export default class SettingProfile extends Component {
       </div>
     )
   }
+
+  AreYouSureModal(props) {
+    return (
+      <div className="sure-modal__container">
+        <div class="sure-message">Are you sure?</div>
+        <div class="sure-desc">
+          This action will permenantly delete your EdEq account
+        </div>
+        <div class="buttons">
+          <button onClick={props.closeModal}>Cancel</button>
+          <button onClick={props.handleAccountDeletion}>Delete</button>
+        </div>
+      </div>
+    )
+  }
+
+  openModal() {
+    this.setState(() => {
+      return { isModal: true }
+    })
+  }
+
+  closeModal() {
+    this.setState(() => {
+      return { isModal: false }
+    })
+  }
+
   render() {
-    const { isEditing } = this.state
+    const { isEditing, isModal } = this.state
     return (
       <div className="details profile-card">
+        {isModal ? (
+          <this.AreYouSureModal
+            closeModal={this.closeModal}
+            handleAccountDeletion={this.props.handleAccountDeletion}
+          />
+        ) : (
+          ""
+        )}
         <div
           className={
             !isEditing
@@ -205,7 +249,7 @@ export default class SettingProfile extends Component {
                   })
                 }}
               >
-                <option value="OCR_A">OCR A</option>
+                <option value="OCR">OCR A</option>
                 <option value="Edexcel">Edexcel</option>
                 <option value="AQA">AQA</option>
               </Form.Control>
@@ -257,7 +301,7 @@ export default class SettingProfile extends Component {
             </button>
             <button
               className="account-action__button blue-text"
-              onClick={this.props.handleAccountDeletion}
+              onClick={this.openModal}
             >
               Delete my account
             </button>

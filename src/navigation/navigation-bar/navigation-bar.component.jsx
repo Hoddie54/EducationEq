@@ -184,12 +184,15 @@ class NavigationBar extends React.Component {
                       </Nav.Link> */}
                       <Nav.Link
                         className="sidebar__item"
+                        // onClick={() => {
+                        //   this.toggleMenu(!this.state.isToggleMenu)
+                        // }}
                         onClick={() => {
-                          this.toggleMenu(!this.state.isToggleMenu)
+                          history.push("/specification/")
                         }}
                         aria-controls="collapse-module"
                         aria-expanded={this.state.isToggleMenu}
-                        href="/specification/d"
+                        // href="/specification"
                       >
                         <div className="sidebar__icon">
                           <IconSVG name="video"></IconSVG>

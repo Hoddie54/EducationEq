@@ -236,7 +236,7 @@ class AdditionInformationForm extends React.Component {
                         }}
                       >
                         <option value="AQA">AQA</option>
-                        <option value="OCR_A">OCR A</option>
+                        <option value="OCR">OCR A</option>
                         <option value="Edexcel">EdExcel</option>
                       </select>
                       <select

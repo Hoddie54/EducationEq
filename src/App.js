@@ -77,7 +77,11 @@ class App extends Component {
             path="/home"
             // component={HomePage}
             render={() =>
-              this.props.currentUser ? <HomePage /> : <Redirect to="/" />
+              this.props.currentUser ? (
+                <HomePage currentUser={this.props.currentUser} />
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
           <Route exact path="/signin" component={SignIn} />
@@ -92,7 +96,13 @@ class App extends Component {
           <Route exact path="/settings" component={SettingsPage} />
           <Route exact path="/terms-condition" component={TermsConditionPage} />
           <Route exact path="/video/:id" component={VideoPage} />
-          <Route exact path="/specification/:id" component={SpecPage} />
+          <Route
+            exact
+            path="/specification"
+            render={(props) => (
+              <SpecPage {...props} currentUser={this.props.currentUser} />
+            )}
+          />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {

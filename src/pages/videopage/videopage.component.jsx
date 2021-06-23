@@ -1,8 +1,36 @@
 import Basepage from "../basepage/basepage.component"
 import "./videopage.styles.scss"
 import Badge from "../../components/badge/badge.component"
+import { getSpecpoint, getVideo } from "../../utils/firebase/firestore"
+import { useCallback, useEffect, useState } from "react"
+import SpinnerPage from "../spinner/spinner.component"
+import queryString from "query-string"
 
-function VideoPage() {
+function VideoPage(props) {
+  const video_id = props.match.params.id
+
+  const [data, setData] = useState([])
+  const [specpoints, setSpecpoints] = useState([])
+
+  const getData = useCallback(async () => {
+    const obtainedData = await getVideo(video_id)
+    const specs = []
+    for (let specpoint of obtainedData.specpoints) {
+      const obtained_point = await getSpecpoint(specpoint)
+      specs.push(obtained_point)
+    }
+
+    setData(obtainedData)
+    setSpecpoints(specs)
+  }, [])
+
+  useEffect(() => {
+    getData()
+  }, [getData])
+
+  const search = queryString.parse(data.url)
+  const key = search["https://www.youtube.com/watch?v"]
+
   return (
     <Basepage menu_col={true}>
       <div className="subtopic-title__container">
@@ -10,34 +38,42 @@ function VideoPage() {
         <div className="subtopic-title__exam">EdExcel</div>
       </div>
       <div className="videopage__container">
-        <div className="videopage__video">
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/Onif1UmyiTQ"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div className="videopage__info">
-          <div className="blue-text videopage__spec">1.43</div>
-          <div className="videopage__text">
-            <div>Iconic bonding in Compounds</div>
-            <div>
-              {" "}
-              elit, sed do eiusmod tempor incididunt ut lab...Lorem ipsum dolor
-              sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut lab.
+        {data.length === 0 ? (
+          <SpinnerPage />
+        ) : (
+          <>
+            <div className="videopage__video">
+              <iframe
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${key}`}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
-          </div>
-          <div className="videopage__badges">
-            <Badge number="1.2" />
-            <Badge number="1.2.3" />
-            <Badge number="1.2.3" />
-          </div>
-        </div>
+            <div className="videopage__info">
+              <div className="blue-text videopage__spec">1.43</div>
+              <div className="videopage__text">
+                <div>{data.title}</div>
+                <div>{data.description}</div>
+              </div>
+              <div className="videopage__badges">
+                {specpoints.map((specpoint) => {
+                  return (
+                    <Badge
+                      key={specpoint.uid}
+                      number={specpoint.spec_number_and_tier}
+                      topic_id={specpoint.topic_id}
+                      subtopic_id={specpoint.subtopic_id}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </Basepage>
   )
