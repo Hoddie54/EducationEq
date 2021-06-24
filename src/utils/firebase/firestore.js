@@ -47,153 +47,210 @@ export const sendFeedback = (feedback) => {
 
 export const getVideos = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
-    firebase
+    const query = firebase
       .firestore()
       .collection("videos")
       .where("topic_id", "==", topic)
       .where("subtopic_id", "==", subtopic)
-      .get()
-      .then((querySnapshot) => {
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         let videos = []
         querySnapshot.forEach((doc) => {
           videos.push({ ...doc.data(), id: doc.id })
         })
         console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
         resolve(videos)
-      })
-      .catch((error) => {
-        console.log("Error getting videos: ", error)
-        reject(error)
-      })
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting videos: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 export const getVideo = (video) => {
   return new Promise((resolve, reject) => {
-    firebase
-      .firestore()
-      .collection("videos")
-      .doc(video)
-      .get()
-      .then((doc) => {
-        resolve({ ...doc.data(), id: doc.id })
+    const query = firebase.firestore().collection("videos").doc(video)
+
+    const thenClause = (doc) => {
+      if (doc.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         console.log("Reads :", 1)
-      })
-      .catch((error) => {
-        console.log("Error getting videos: ", error)
-        reject(error)
-      })
+        var source = doc.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve({ ...doc.data(), id: doc.id })
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting videos: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 export const getSpecpoint = (id) => {
   return new Promise((resolve, reject) => {
-    firebase
-      .firestore()
-      .collection("specpoints")
-      .doc(id)
-      .get()
-      .then((doc) => {
+    const query = firebase.firestore().collection("specpoints").doc(id)
+    const thenClause = (doc) => {
+      if (doc.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         console.log("Reads :", 1)
+        var source = doc.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
         resolve({ ...doc.data(), id: doc.id })
-      })
-      .catch((error) => {
-        console.log("Error getting specpoint: ", error)
-        reject(error)
-      })
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting specpoint: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 //TODO - FIx when connor fixees
 export const getSpecpoints = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
-    firebase
+    const query = firebase
       .firestore()
       .collection("specpoints")
       .where("topic_id", "==", topic)
-      // .where("subtopic_id", "==", subtopic)
-      .limit(3)
-      .get()
-      .then((querySnapshot) => {
+      .where("subtopic_id", "==", subtopic)
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.size === 0) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         let specpoints = []
         querySnapshot.forEach((doc) => {
           specpoints.push({ ...doc.data(), id: doc.id })
         })
         console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
         resolve(specpoints)
-      })
-      .catch((error) => {
-        console.log("Error getting specpoints: ", error)
-        reject(error)
-      })
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting specpoints: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 export const getSubtopic = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
-    firebase
+    const query = firebase
       .firestore()
       .collection("topics")
       .doc(topic)
       .collection("subtopic")
       .doc(subtopic)
-      .get()
-      .then((doc) => {
+
+    const thenClause = (doc) => {
+      if (doc.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         resolve({ ...doc.data(), id: doc.id })
         console.log("Reads :", 1)
-      })
-      .catch((error) => {
-        console.log("Error getting subtopics: ", error)
-        reject(error)
-      })
+        var source = doc.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting subtopics: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 export const getSubtopics = (topic) => {
   return new Promise((resolve, reject) => {
-    firebase
+    const query = firebase
       .firestore()
       .collection("topics")
       .doc(topic)
       .collection("subtopic")
       .orderBy("lesson_id", "asc")
-      .get()
-      .then((querySnapshot) => {
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.size === 0) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         let subtopics = []
         querySnapshot.forEach((doc) => {
           subtopics.push({ ...doc.data(), id: doc.id })
         })
         console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
         resolve(subtopics)
-      })
-      .catch((error) => {
-        console.log("Error getting subtopics: ", error)
-        reject(error)
-      })
+      }
+    }
+
+    const catchClause = (error) => {
+      console.log("Error getting subtopics: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
 export const getTopics = (subject, exam_board) => {
   return new Promise((resolve, reject) => {
-    firebase
+    const query = firebase
       .firestore()
       .collection("topics")
       .where("subject", "==", subject)
       .where("exam_board", "==", exam_board)
       .orderBy("name", "asc")
-      .get()
-      .then((querySnapshot) => {
+
+    const thenClause = (querySnapshot) => {
+      // console.log(querySnapshot.size)
+      if (querySnapshot.size === 0) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
         let topics = []
         querySnapshot.forEach((doc) => {
           topics.push({ ...doc.data(), id: doc.id })
         })
         console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
         resolve(topics)
-      })
-      .catch((error) => {
-        console.log("Error getting topics: ", error)
-        reject(error)
-      })
+      }
+    }
+
+    const catchClause = (error) => {
+      console.log("Error getting topics: ", error)
+      reject(error)
+    }
+
+    //let snap = query.get()
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 

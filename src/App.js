@@ -2,7 +2,10 @@ import React, { Component } from "react"
 import { Route, Router, Switch, Redirect } from "react-router-dom"
 import loadable from "@loadable/component"
 import { auth } from "./utils/firebase/auth"
-import { createUserProfileDocument } from "./utils/firebase/firestore"
+import {
+  createUserProfileDocument,
+  enablePersistence,
+} from "./utils/firebase/firestore"
 import "./assets/font/font-style.scss"
 import { connect } from "react-redux"
 import { setCurrentUser } from "./utils/redux/user/user.action"
