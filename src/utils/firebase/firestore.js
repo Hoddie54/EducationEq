@@ -45,6 +45,37 @@ export const sendFeedback = (feedback) => {
   })
 }
 
+export const getVideosFromSpecpoint = (specpoint) => {
+  return new Promise((resolve, reject) => {
+    const query = firebase
+      .firestore()
+      .collection("videos")
+      .where("specpoints", "array-contains", specpoint)
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
+        let videos = []
+        querySnapshot.forEach((doc) => {
+          videos.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(videos)
+      }
+    }
+    const catchClause = (error) => {
+      console.log("Error getting videos: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
+  })
+}
+
 export const getVideos = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
     const query = firebase
@@ -131,6 +162,7 @@ export const getSpecpoints = (topic, subtopic) => {
       .collection("specpoints")
       .where("topic_id", "==", topic)
       .where("subtopic_id", "==", subtopic)
+      .orderBy("spec_number_and_tier", "asc")
 
     const thenClause = (querySnapshot) => {
       if (querySnapshot.size === 0) {

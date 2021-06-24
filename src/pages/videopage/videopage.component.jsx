@@ -54,7 +54,7 @@ function VideoPage(props) {
               ></iframe>
             </div>
             <div className="videopage__info">
-              <div className="blue-text videopage__spec">1.43</div>
+              <div className="blue-text videopage__spec">{data.lesson_id}</div>
               <div className="videopage__text">
                 <div>{data.title}</div>
                 <div>{data.description}</div>

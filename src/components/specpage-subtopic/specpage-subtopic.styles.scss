@@ -1,7 +1,6 @@
 .spec-page__container {
   display: flex;
   justify-content: space-between;
-
   align-items: center;
 }
 
@@ -60,6 +59,7 @@ hr {
 
 .spec-point__container {
   margin: 0.2rem 1rem;
+  cursor: pointer;
 }
 
 .spec-point__number {

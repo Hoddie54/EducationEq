@@ -469,7 +469,7 @@ class HomePage extends Component {
                   <>
                     <Feedback showModal={this.showModal} />
                     <main>
-                      <EdeqSearch />
+                      {/* <EdeqSearch /> */}
                       {topicCards}
                     </main>
                   </>

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react"
 import { getSpecpoints, getSubtopics } from "../../utils/firebase/firestore"
 import SpinnerPage from "../../pages/spinner/spinner.component"
 import "./specpage-subtopic.styles.scss"
+import { useHistory } from "react-router"
 
 function SpecPageSubtopic(props) {
   const isDefaultShown = props.topic_id === props.topic_display ? true : false
@@ -15,8 +16,15 @@ function SpecPageSubtopic(props) {
   }
 
   function SpecPoint(props) {
+    const history = useHistory()
+
     return (
-      <div className="spec-point__container">
+      <div
+        className="spec-point__container"
+        onClick={() => {
+          history.push(`/spec/${props.id}`)
+        }}
+      >
         <span className="spec-point__number">{`${props.number} `}</span>
         <span className="spec-point__text">{props.text}</span>
         <hr />
@@ -52,6 +60,7 @@ function SpecPageSubtopic(props) {
           <SpecPoint
             number={specpoint.spec_number_and_tier}
             text={specpoint.text}
+            id={specpoint.uid}
             key={specpoint.spec_number_and_tier}
           />
         )

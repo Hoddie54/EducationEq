@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import { setCurrentUser } from "./utils/redux/user/user.action"
 import history from "./history"
 import SpecPage from "./pages/specpage/specpage.component"
+import Specvideos from "./pages/specvideos/specvideos.component"
 
 const HomePage = loadable(() => import("./pages/homepage/homepage.component"))
 // const ParallaxLanding = loadable(() =>
@@ -106,6 +107,7 @@ class App extends Component {
               <SpecPage {...props} currentUser={this.props.currentUser} />
             )}
           />
+          <Route exact path="/spec/:id" component={Specvideos} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {
