@@ -5,6 +5,7 @@ import queryString from "query-string"
 import { useHistory } from "react-router-dom"
 import { useState, useCallback, useEffect } from "react"
 import { getSpecpoint } from "../../utils/firebase/firestore"
+import { FormLabel } from "react-bootstrap"
 
 function VideoCardNew(props) {
   const search = queryString.parse(props.url)
@@ -27,6 +28,16 @@ function VideoCardNew(props) {
     getData()
   }, [getData])
 
+  const descriptions = props.description.split("|")
+  let description = descriptions.map((d) => {
+    return (
+      <>
+        <span>{d}</span>
+        <br />
+      </>
+    )
+  })
+
   return (
     <div className="video-card__container">
       <div
@@ -42,8 +53,8 @@ function VideoCardNew(props) {
       </div>
       <div className="video-card__title blue-text">Chemistry</div>
       <div className="video-card__sub-title blue-text">{props.title}</div>
-      <div className="video-card__spec">1.4.3</div>
-      <div className="video-card__desc">{props.description}</div>
+      <div className="video-card__spec">{props.lesson_id}</div>
+      <div className="video-card__desc">{description}</div>
       <div className="badge-container">
         {specpoints.map((specpoint) => {
           return (
