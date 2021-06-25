@@ -1,5 +1,4 @@
 .subtopic-title__container {
-  width: 95%;
   display: flex;
   justify-content: space-between;
   background: white;
@@ -52,7 +51,7 @@
     margin-right: 0.5rem;
   }
 
-  .button-container {
+  .button-container-sub {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -89,6 +88,7 @@
   align-items: stretch;
   flex-wrap: wrap;
   padding: 1rem 0;
+  margin: auto;
   height: 100%;
 }
 
@@ -101,7 +101,7 @@
       width: 100%;
       margin-bottom: 0.5rem;
     }
-    .button-container {
+    .button-container-sub {
       justify-content: center;
       margin: 0;
       padding: 0;

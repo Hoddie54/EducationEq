@@ -1,5 +1,4 @@
 .subtopic-title__container {
-  width: 95%;
   display: flex;
   justify-content: space-between;
   background: white;
@@ -99,7 +98,7 @@
 
 @media only screen and (max-width: 767px) {
   .videopage__container {
-    width: 90%;
+    width: 95%;
     text-align: center;
   }
   .videopage__info {

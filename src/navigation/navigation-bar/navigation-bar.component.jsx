@@ -201,7 +201,7 @@ class NavigationBar extends React.Component {
                       </Nav.Link>
 
                       <Collapse in={this.state.isToggleMenu}>
-                        <div id="ollapse-module">
+                        <div id="collapse-module">
                           {this.state.courses.map((course, index) => {
                             return (
                               <Nav.Link

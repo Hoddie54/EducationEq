@@ -42,7 +42,7 @@ function SubtopicPage(props) {
             <div className="subtopic-main-content">
               <div className="subtopic-header">
                 <div className="subtopic-header__text">{data.name}</div>
-                <div className="button-container">
+                <div className="button-container-sub">
                   <button className="selected">Featured</button>
                   <button className="">Extra videos</button>
                 </div>
