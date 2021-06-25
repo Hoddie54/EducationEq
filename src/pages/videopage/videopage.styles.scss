@@ -69,7 +69,7 @@
       margin: 0 2rem;
     }
 
-    .videopage__text :nth-child(1) {
+    .videopage__text .title {
       font-style: normal;
       font-weight: bold;
       font-size: 2rem;
@@ -78,7 +78,7 @@
       color: #5a5a5a;
       margin-bottom: 0.5rem;
     }
-    .videopage__text :nth-child(2) {
+    .videopage__text .desc {
       font-style: normal;
       font-weight: 300;
       font-size: 1rem;

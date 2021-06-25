@@ -31,6 +31,19 @@ function VideoPage(props) {
   const search = queryString.parse(data.url)
   const key = search["https://www.youtube.com/watch?v"]
 
+  let description = ""
+  if (data.description) {
+    const descriptions = data.description.split("|")
+    description = descriptions.map((d) => {
+      return (
+        <>
+          <span>{d}</span>
+          <br />
+        </>
+      )
+    })
+  }
+
   return (
     <Basepage menu_col={true}>
       <div className="subtopic-title__container">
@@ -56,8 +69,8 @@ function VideoPage(props) {
             <div className="videopage__info">
               <div className="blue-text videopage__spec">{data.lesson_id}</div>
               <div className="videopage__text">
-                <div>{data.title}</div>
-                <div>{data.description}</div>
+                <div className="title">{data.title}</div>
+                <div className="desc">{description}</div>
               </div>
               <div className="videopage__badges">
                 {specpoints.map((specpoint) => {

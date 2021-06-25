@@ -134,6 +134,7 @@ export const getVideo = (video) => {
 export const getSpecpoint = (id) => {
   return new Promise((resolve, reject) => {
     const query = firebase.firestore().collection("specpoints").doc(id)
+
     const thenClause = (doc) => {
       if (doc.empty) {
         query.get().then(thenClause).catch(catchClause)
@@ -154,7 +155,6 @@ export const getSpecpoint = (id) => {
   })
 }
 
-//TODO - FIx when connor fixees
 export const getSpecpoints = (topic, subtopic) => {
   return new Promise((resolve, reject) => {
     const query = firebase
@@ -162,7 +162,7 @@ export const getSpecpoints = (topic, subtopic) => {
       .collection("specpoints")
       .where("topic_id", "==", topic)
       .where("subtopic_id", "==", subtopic)
-      .orderBy("spec_number_and_tier", "asc")
+      .orderBy("order", "asc")
 
     const thenClause = (querySnapshot) => {
       if (querySnapshot.size === 0) {
