@@ -172,6 +172,9 @@ export const getSpecpoints = (topic, subtopic) => {
         querySnapshot.forEach((doc) => {
           specpoints.push({ ...doc.data(), id: doc.id })
         })
+        specpoints = specpoints.sort((a, b) => {
+          return a.order - b.order
+        })
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
@@ -234,6 +237,7 @@ export const getSubtopics = (topic) => {
         querySnapshot.forEach((doc) => {
           subtopics.push({ ...doc.data(), id: doc.id })
         })
+
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
