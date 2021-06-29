@@ -241,6 +241,7 @@ export const getSubtopics = (topic) => {
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
+
         resolve(subtopics)
       }
     }
@@ -276,6 +277,7 @@ export const getTopics = (subject, exam_board) => {
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
+
         resolve(topics)
       }
     }
