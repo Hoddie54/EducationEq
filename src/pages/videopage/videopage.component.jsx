@@ -36,10 +36,10 @@ function VideoPage(props) {
     const descriptions = data.description.split("|")
     description = descriptions.map((d) => {
       return (
-        <>
+        <div key={d}>
           <span>{d}</span>
           <br />
-        </>
+        </div>
       )
     })
   }
@@ -48,7 +48,9 @@ function VideoPage(props) {
     <Basepage menu_col={true}>
       <div className="subtopic-title__container">
         <div className="subtopic-title__text blue-text">GCSE Chemistry</div>
-        <div className="subtopic-title__exam">EdExcel</div>
+        <div className="subtopic-title__exam">
+          {props.currentUser.subjects[0].exam_board}
+        </div>
       </div>
       <div className="videopage__container">
         {data.length === 0 ? (

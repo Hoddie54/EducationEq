@@ -9,10 +9,10 @@ import { connect } from "react-redux"
 import { capitalize } from "lodash"
 import history from "../../history"
 import SpinnerPage from "../../pages/spinner/spinner.component"
-import {
-  fetchCreatedCourses,
-  fetchAvailableCourses,
-} from "./../../utils/firebase/firestore"
+// import {
+//   fetchCreatedCourses,
+//   fetchAvailableCourses,
+// } from "./../../utils/firebase/firestore"
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -22,26 +22,24 @@ class NavigationBar extends React.Component {
       isCollapsed: true,
       isToggleMenu: false,
       isTeachingExpanded: false,
-      courses: [],
     }
     this.sidebar_click = this.sidebar_click.bind(this)
-    this.handleFetchCourses()
-    this.fetchCreatedCourses()
+    // this.handleFetchCourses()
+    // this.fetchCreatedCourses()
   }
 
   componentDidMount() {
-    let currentLocation = window.location.pathname
-    if (currentLocation == "/courses") {
-      this.setState({
-        isToggleMenu: true,
-      })
-    }
-
-    if (currentLocation == "/teaching") {
-      this.setState({
-        isTeachingExpanded: true,
-      })
-    }
+    // let currentLocation = window.location.pathname
+    // if (currentLocation == "/courses") {
+    //   this.setState({
+    //     isToggleMenu: true,
+    //   })
+    // }
+    // if (currentLocation == "/teaching") {
+    //   this.setState({
+    //     isTeachingExpanded: true,
+    //   })
+    // }
   }
 
   sidebar_click() {
@@ -65,30 +63,30 @@ class NavigationBar extends React.Component {
     this.setState({ isTeachingExpanded: value })
   }
 
-  handleFetchCourses = () => {
-    const { currentUser } = this.props
-    if (!currentUser) return
-    fetchAvailableCourses(currentUser.uid)
-      .then((courses) => {
-        this.setState({ courses })
-      })
-      .catch((err) => {
-        alert(err.message)
-      })
-  }
+  // handleFetchCourses = () => {
+  //   const { currentUser } = this.props
+  //   if (!currentUser) return
+  //   fetchAvailableCourses(currentUser.uid)
+  //     .then((courses) => {
+  //       this.setState({ courses })
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message)
+  //     })
+  // }
 
-  fetchCreatedCourses = () => {
-    const { currentUser } = this.props
-    if (!currentUser) return
-    fetchCreatedCourses(currentUser.uid)
-      .then((createdCourses) => {
-        console.log("created courses:", createdCourses)
-        this.setState({ createdCourses })
-      })
-      .catch((err) => {
-        alert(err.message)
-      })
-  }
+  // fetchCreatedCourses = () => {
+  //   const { currentUser } = this.props
+  //   if (!currentUser) return
+  //   fetchCreatedCourses(currentUser.uid)
+  //     .then((createdCourses) => {
+  //       console.log("created courses:", createdCourses)
+  //       this.setState({ createdCourses })
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message)
+  //     })
+  // }
 
   onClick = () => {}
 
@@ -200,7 +198,7 @@ class NavigationBar extends React.Component {
                         <div className="sidebar__text">Specification</div>
                       </Nav.Link>
 
-                      <Collapse in={this.state.isToggleMenu}>
+                      {/* <Collapse in={this.state.isToggleMenu}>
                         <div id="collapse-module">
                           {this.state.courses.map((course, index) => {
                             return (
@@ -222,8 +220,8 @@ class NavigationBar extends React.Component {
                             )
                           })}
                         </div>
-                      </Collapse>
-                      {currentUser.user_type == "teacher" &&
+                      </Collapse> */}
+                      {/* {currentUser.user_type == "teacher" &&
                       this.state.createdCourses ? (
                         <React.Fragment>
                           <Nav.Link
@@ -273,7 +271,7 @@ class NavigationBar extends React.Component {
                         </React.Fragment>
                       ) : (
                         <React.Fragment />
-                      )}
+                      )} */}
 
                       {/* <Nav.Link
                         className={

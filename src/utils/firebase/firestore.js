@@ -335,72 +335,72 @@ export const fetchSchools = () => {
   })
 }
 
-export const fetchCourse = (course_id, dropDownObj) => {
-  return new Promise((resolve, reject) => {
-    let query = firebase.firestore().collection("courses")
-    if (course_id) {
-      query = query.doc(course_id)
-    } else {
-      query = query = query.where("subject", "==", dropDownObj.subject)
-      query = query.where("level", "==", dropDownObj.level)
-      query = query.where("exam_board", "==", dropDownObj.examBoard)
-      query = query.where("is_public", "==", true)
-    }
-    query.onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          reject("This course does not exist. Please contact admin")
-          return
-        }
-        if (course_id && querySnapshot.data() == undefined) {
-          reject("This course does not exist. Please contact admin")
-          return
-        }
+// export const fetchCourse = (course_id, dropDownObj) => {
+//   return new Promise((resolve, reject) => {
+//     let query = firebase.firestore().collection("courses")
+//     if (course_id) {
+//       query = query.doc(course_id)
+//     } else {
+//       query = query = query.where("subject", "==", dropDownObj.subject)
+//       query = query.where("level", "==", dropDownObj.level)
+//       query = query.where("exam_board", "==", dropDownObj.examBoard)
+//       query = query.where("is_public", "==", true)
+//     }
+//     query.onSnapshot(
+//       (querySnapshot) => {
+//         if (querySnapshot.empty) {
+//           reject("This course does not exist. Please contact admin")
+//           return
+//         }
+//         if (course_id && querySnapshot.data() == undefined) {
+//           reject("This course does not exist. Please contact admin")
+//           return
+//         }
 
-        const course = course_id
-          ? querySnapshot.data()
-          : querySnapshot.docs[0].data()
-        resolve({
-          id: querySnapshot.id,
-          ...course,
-        })
-      },
-      (error) => {
-        console.log("Fetch course Error", error.message)
-        reject(error.message)
-      }
-    )
-  })
-}
+//         const course = course_id
+//           ? querySnapshot.data()
+//           : querySnapshot.docs[0].data()
+//         resolve({
+//           id: querySnapshot.id,
+//           ...course,
+//         })
+//       },
+//       (error) => {
+//         console.log("Fetch course Error", error.message)
+//         reject(error.message)
+//       }
+//     )
+//   })
+// }
 
-export const fetchCourses = (uid) => {
-  return new Promise((resolve, reject) => {
-    let query = firebase
-      .firestore()
-      .collection("courses")
-      .where("creator_id", "!=", uid)
-    query.onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          return
-        }
-        let courses = []
-        querySnapshot.forEach((snap) => {
-          courses.push({
-            id: snap.id,
-            ...snap.data(),
-          })
-        })
-        resolve(courses)
-      },
-      (error) => {
-        console.log(error)
-        console.log("Fetch courses Error", error.message)
-        reject(error)
-      }
-    )
-  })
-}
+// export const fetchCourses = (uid) => {
+//   return new Promise((resolve, reject) => {
+//     let query = firebase
+//       .firestore()
+//       .collection("courses")
+//       .where("creator_id", "!=", uid)
+//     query.onSnapshot(
+//       (querySnapshot) => {
+//         if (querySnapshot.empty) {
+//           return
+//         }
+//         let courses = []
+//         querySnapshot.forEach((snap) => {
+//           courses.push({
+//             id: snap.id,
+//             ...snap.data(),
+//           })
+//         })
+//         resolve(courses)
+//       },
+//       (error) => {
+//         console.log(error)
+//         console.log("Fetch courses Error", error.message)
+//         reject(error)
+//       }
+//     )
+//   })
+// }
 
 export const fetchPublicCourses = (uid) => {
   return new Promise((resolve, reject) => {
@@ -432,64 +432,64 @@ export const fetchPublicCourses = (uid) => {
   })
 }
 
-export const fetchCreatedCourses = (uid) => {
-  return new Promise((resolve, reject) => {
-    let query = firebase
-      .firestore()
-      .collection("courses")
-      .where("owners", "array-contains", uid)
-    query.onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          resolve([])
-          return
-        }
-        let courses = []
-        querySnapshot.forEach((snap) => {
-          courses.push({
-            id: snap.id,
-            ...snap.data(),
-          })
-        })
-        resolve(courses)
-      },
-      (error) => {
-        console.log(error)
-        console.log("Fetch courses Error", error.message)
-        reject(error)
-      }
-    )
-  })
-}
+// export const fetchCreatedCourses = (uid) => {
+//   return new Promise((resolve, reject) => {
+//     let query = firebase
+//       .firestore()
+//       .collection("courses")
+//       .where("owners", "array-contains", uid)
+//     query.onSnapshot(
+//       (querySnapshot) => {
+//         if (querySnapshot.empty) {
+//           resolve([])
+//           return
+//         }
+//         let courses = []
+//         querySnapshot.forEach((snap) => {
+//           courses.push({
+//             id: snap.id,
+//             ...snap.data(),
+//           })
+//         })
+//         resolve(courses)
+//       },
+//       (error) => {
+//         console.log(error)
+//         console.log("Fetch courses Error", error.message)
+//         reject(error)
+//       }
+//     )
+//   })
+// }
 
-export const fetchAvailableCourses = (uid) => {
-  return new Promise((resolve, reject) => {
-    let query = firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .collection("courses")
+// export const fetchAvailableCourses = (uid) => {
+//   return new Promise((resolve, reject) => {
+//     let query = firebase
+//       .firestore()
+//       .collection("users")
+//       .doc(uid)
+//       .collection("courses")
 
-    query.onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          resolve([])
-          return
-        }
-        let courses = []
-        querySnapshot.forEach((snap) => {
-          courses.push(snap.data())
-        })
-        resolve(courses)
-      },
-      (error) => {
-        console.log(error)
-        console.log("Fetch courses Error", error.message)
-        reject(error)
-      }
-    )
-  })
-}
+//     query.onSnapshot(
+//       (querySnapshot) => {
+//         if (querySnapshot.empty) {
+//           resolve([])
+//           return
+//         }
+//         let courses = []
+//         querySnapshot.forEach((snap) => {
+//           courses.push(snap.data())
+//         })
+//         resolve(courses)
+//       },
+//       (error) => {
+//         console.log(error)
+//         console.log("Fetch courses Error", error.message)
+//         reject(error)
+//       }
+//     )
+//   })
+// }
 
 export const fetchTopics = async (course_id) => {
   return new Promise((resolve, reject) => {
@@ -828,55 +828,55 @@ export const createCourse = () => {
   })
 }
 
-export const joinCourse = async (course_code, dropDownObj) => {
-  const uid = firebase.auth().currentUser.uid
-  const course = await fetchCourse(
-    course_code ? course_code : undefined,
-    course_code ? undefined : dropDownObj
-  )
-  const joinedCourses = await fetchAvailableCourses(uid)
+// export const joinCourse = async (course_code, dropDownObj) => {
+//   const uid = firebase.auth().currentUser.uid
+//   const course = await fetchCourse(
+//     course_code ? course_code : undefined,
+//     course_code ? undefined : dropDownObj
+//   )
+//   const joinedCourses = await fetchAvailableCourses(uid)
 
-  const data = {
-    id: course.id,
-    title: course.title,
-    subject: course.subject,
-    date_joined: Date(),
-  }
-  return new Promise((resolve, reject) => {
-    const joinedCoursesID = joinedCourses.map((course) => course.id)
-    if (joinedCoursesID.includes(course.id)) {
-      reject("You have already joined this course")
-    }
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .collection("courses")
-      .doc(course.id)
-      .set(data, { merge: true }) // .add(data, { merge: true })
-      .then(() => {
-        firebase
-          .firestore()
-          .collection("courses")
-          .doc(course.id)
-          .collection("students")
-          .doc(uid)
-          .set({ uid: uid, date_joined: Date() })
-          .then(() => {
-            console.log("Successfully Saved student to course!:", data.id)
-            resolve(data.id)
-          })
-          .catch((err) => {
-            console.log("Save student to course Error", err.message)
-            reject("Could not save user to course")
-          })
-      })
-      .catch((err) => {
-        console.log("Join course Error", err.message)
-        reject("This course does not exist. Please contact admin")
-      })
-  })
-}
+//   const data = {
+//     id: course.id,
+//     title: course.title,
+//     subject: course.subject,
+//     date_joined: Date(),
+//   }
+//   return new Promise((resolve, reject) => {
+//     const joinedCoursesID = joinedCourses.map((course) => course.id)
+//     if (joinedCoursesID.includes(course.id)) {
+//       reject("You have already joined this course")
+//     }
+//     firebase
+//       .firestore()
+//       .collection("users")
+//       .doc(uid)
+//       .collection("courses")
+//       .doc(course.id)
+//       .set(data, { merge: true }) // .add(data, { merge: true })
+//       .then(() => {
+//         firebase
+//           .firestore()
+//           .collection("courses")
+//           .doc(course.id)
+//           .collection("students")
+//           .doc(uid)
+//           .set({ uid: uid, date_joined: Date() })
+//           .then(() => {
+//             console.log("Successfully Saved student to course!:", data.id)
+//             resolve(data.id)
+//           })
+//           .catch((err) => {
+//             console.log("Save student to course Error", err.message)
+//             reject("Could not save user to course")
+//           })
+//       })
+//       .catch((err) => {
+//         console.log("Join course Error", err.message)
+//         reject("This course does not exist. Please contact admin")
+//       })
+//   })
+// }
 
 export const fetchStudentsFor = (course_id) => {
   return new Promise((resolve, reject) => {
@@ -1311,31 +1311,31 @@ export const deleteLessonFromFirestore = (course_id, topic_id, lesson_id) => {
 
 // --- Analytics ---
 
-export const fetchCourseAggregation = (data) => {
-  const { user_id, course_id } = data
-  return new Promise((resolve, reject) => {
-    let query = firebase
-      .firestore()
-      .collection("users")
-      .doc(user_id)
-      .collection("courses")
-      .doc(course_id)
+// export const fetchCourseAggregation = (data) => {
+//   const { user_id, course_id } = data
+//   return new Promise((resolve, reject) => {
+//     let query = firebase
+//       .firestore()
+//       .collection("users")
+//       .doc(user_id)
+//       .collection("courses")
+//       .doc(course_id)
 
-    query.onSnapshot(
-      (querySnapshot) => {
-        if (querySnapshot.empty) {
-          return
-        }
-        resolve(querySnapshot.data())
-      },
-      (error) => {
-        console.log(error)
-        console.log("Fetch courses Error", error.message)
-        reject(error)
-      }
-    )
-  })
-}
+//     query.onSnapshot(
+//       (querySnapshot) => {
+//         if (querySnapshot.empty) {
+//           return
+//         }
+//         resolve(querySnapshot.data())
+//       },
+//       (error) => {
+//         console.log(error)
+//         console.log("Fetch courses Error", error.message)
+//         reject(error)
+//       }
+//     )
+//   })
+// }
 
 export const uploadLesson = (data) => {
   return new Promise((resolve, reject) => {

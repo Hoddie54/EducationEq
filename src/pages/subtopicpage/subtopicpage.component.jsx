@@ -37,7 +37,9 @@ function SubtopicPage(props) {
               <div className="subtopic-title__text blue-text">
                 GCSE Chemistry
               </div>
-              <div className="subtopic-title__exam">EdExcel</div>
+              <div className="subtopic-title__exam">
+                {props.currentUser.subjects[0].exam_board}
+              </div>
             </div>
             <div className="subtopic-main-content">
               <div className="subtopic-header">

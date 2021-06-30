@@ -9191,6 +9191,7 @@ body.dark .mfp-bg {
   background: linear-gradient(180deg, #2276ff 0%, #0340ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: #0340ff;
 }
 
 .text-format {

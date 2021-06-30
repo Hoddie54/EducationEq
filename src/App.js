@@ -40,6 +40,14 @@ const VideoPage = loadable(() =>
   import("./pages/videopage/videopage.component")
 )
 
+// const SpecPage = loadable(() => {
+//   import("./pages/specpage/specpage.component")
+// })
+
+// const Specvideos = loadable(() => {
+//   import("./pages/specvideos/specvideos.component")
+// })
+
 class App extends Component {
   unsubscribeFromAuth = null
 
@@ -95,11 +103,19 @@ class App extends Component {
           <Route
             exact
             path="/subtopic/:topic_id/:subtopic_id"
-            component={SubtopicPage}
+            render={(props) => (
+              <SubtopicPage {...props} currentUser={this.props.currentUser} />
+            )}
           />
           <Route exact path="/settings" component={SettingsPage} />
           <Route exact path="/terms-condition" component={TermsConditionPage} />
-          <Route exact path="/video/:id" component={VideoPage} />
+          <Route
+            exact
+            path="/video/:id"
+            render={(props) => (
+              <VideoPage {...props} currentUser={this.props.currentUser} />
+            )}
+          />
           <Route
             exact
             path="/specification"
