@@ -9187,11 +9187,18 @@ body.dark .mfp-bg {
 }
 /*# sourceMappingURL=app.css.map */
 
-.blue-text {
-  background: linear-gradient(180deg, #2276ff 0%, #0340ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #0340ff;
+@supports (background: linear-gradient(180deg, #2276ff 0%, #0340ff 100%)) {
+  .blue-text {
+    background: linear-gradient(180deg, #2276ff 0%, #0340ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@supports not (background: linear-gradient(180deg, #2276ff 0%, #0340ff 100%)) {
+  .blue-text {
+    color: #0340ff;
+  }
 }
 
 .text-format {
