@@ -13,7 +13,7 @@ import history from "./history"
 import SpecPage from "./pages/specpage/specpage.component"
 import Specvideos from "./pages/specvideos/specvideos.component"
 
-const HomePage = loadable(() => import("./pages/homepage/homepage.component"))
+const HomePage = loadable(() => import("./pages/homepage2/homepage2.component"))
 // const ParallaxLanding = loadable(() =>
 //   import("./pages/landing/landing.component")
 // )
@@ -38,6 +38,10 @@ const SubtopicPage = loadable(() =>
 
 const VideoPage = loadable(() =>
   import("./pages/videopage/videopage.component")
+)
+
+const QuestionsPage = loadable(() =>
+  import("./pages/questions/questions.component")
 )
 
 // const SpecPage = loadable(() => {
@@ -124,6 +128,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/spec/:id" component={Specvideos} />
+          <Route exact path="/questions/:id" component={QuestionsPage} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {
