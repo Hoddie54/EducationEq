@@ -44,6 +44,10 @@ const QuestionsPage = loadable(() =>
   import("./pages/questions/questions.component")
 )
 
+const FlashcardPage = loadable(() =>
+  import("./pages/flashcards/flashcards.component")
+)
+
 // const SpecPage = loadable(() => {
 //   import("./pages/specpage/specpage.component")
 // })
@@ -129,6 +133,7 @@ class App extends Component {
           />
           <Route exact path="/spec/:id" component={Specvideos} />
           <Route exact path="/questions/:id" component={QuestionsPage} />
+          <Route exact path="/flashcard/:id" component={FlashcardPage} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {

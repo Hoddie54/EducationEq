@@ -38,8 +38,16 @@ function Basepage(props) {
 
   return (
     <>
-      <NavigationBar menu_col={props.menu_col}></NavigationBar>
-      <div className="page">
+      {props.blurred ? (
+        <div className="basepage__modal-container">
+          <div className="basepage__modal">{props.modal_content}</div>
+        </div>
+      ) : (
+        ""
+      )}
+      <div className={`page ${props.blurred ? "blurred" : ""}`}>
+        <NavigationBar menu_col={props.menu_col}></NavigationBar>
+
         <div className={props.menu_col ? "page__wrapper_1" : "page__wrapper"}>
           <div className="page__center">
             <div className="header">

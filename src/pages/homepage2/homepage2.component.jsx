@@ -16,6 +16,7 @@ function Homepage2() {
   ]
   const initialTabActiveStates = {}
   tabComponents.forEach((text) => (initialTabActiveStates[text] = false))
+  initialTabActiveStates["Video lessons"] = true
   const [tabActiveStates, setTabActiveStates] = useState(initialTabActiveStates)
 
   function hideModal() {

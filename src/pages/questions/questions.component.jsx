@@ -5,6 +5,8 @@ import QuestionCard from "../../components/question-card/question-card.componten
 function Questions() {
   const [selectedQuestion, setSelectedQuestion] = useState("1a")
   const [colors, setColors] = useState({})
+  const [blurred, setBlurred] = useState(false)
+  const [modalContent, setModalContent] = useState()
 
   const questions = [
     { number: "1a", marks: 1, image_url: "" },
@@ -49,12 +51,14 @@ function Questions() {
           image_url={question.image_url}
           changeColor={changeColor}
           color={colors[question.number]}
+          setBlurred={setBlurred}
+          setModalContent={setModalContent}
         />
       )
     })
 
   return (
-    <Basepage>
+    <Basepage blurred={blurred} modal_content={modalContent}>
       <div className="questions__title">1.1 Cell structure</div>
       <div className="questions__text">Questions</div>
       <div className="questions__labels-container">{labels}</div>
