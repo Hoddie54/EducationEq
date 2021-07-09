@@ -1,0 +1,40 @@
+.notes__title {
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 15px;
+  background-color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.notes__content {
+  border-radius: 15px;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: white;
+  overflow-y: scroll;
+
+  font-size: 0.7rem;
+
+  .spec__text {
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .spec__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  ul > li {
+    list-style-type: disc;
+    text-indent: 1rem;
+    list-style-position: inside;
+  }
+
+  img {
+    height: 50vh;
+    text-align: center;
+  }
+}

@@ -5,9 +5,10 @@ import "./question-card.styles.scss"
 function QuestionCard(props) {
   const [showAnswer, setShowAnswer] = useState(false)
 
+  const ans_url = props.image_url.replace("Q", "A")
   const modalContent = (
     <div className="question-card__img-container" onClick={toggleAnswer}>
-      <img src={"/questions/q1aans.png"} />
+      <img src={`/questions/${ans_url}`} />
     </div>
   )
 
@@ -30,7 +31,7 @@ function QuestionCard(props) {
           <div className="marks">Marks: {props.marks}</div>
         </div>
         <div className="question-card__image">
-          <img src={"/questions/q1a.png"} />
+          <img src={`/questions/${props.image_url}`} />
         </div>
         <div className="question-card__footer">
           <div className="score__container">

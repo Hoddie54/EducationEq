@@ -19,6 +19,8 @@ function Homepage2() {
   initialTabActiveStates["Video lessons"] = true
   const [tabActiveStates, setTabActiveStates] = useState(initialTabActiveStates)
 
+  const [selectedSubtopic, setSelectedSubtopic] = useState("1")
+
   function hideModal() {
     setIsFeedbackShown(false)
   }
@@ -59,14 +61,19 @@ function Homepage2() {
           </div>
           <div className="homepage__dropdown">
             <select>
-              <option>Topic 1</option>
+              <option>Atomic Structure and the Periodic Table</option>
             </select>
-            <select>
-              <option>
+            <select
+              value={selectedSubtopic}
+              onChange={(event) => {
+                setSelectedSubtopic(event.target.value)
+              }}
+            >
+              <option value={1}>
                 A simple model of the atoms, symbols, relative atomic mass,
                 electronic charge and isotopes
               </option>
-              <option>The periodic table</option>
+              <option value={2}>The periodic table</option>
             </select>
           </div>
           <hr className="homepage__line" />
@@ -83,7 +90,10 @@ function Homepage2() {
             })}
           </div>
           <div className="homepage__main">
-            <FilteredCards tabActiveStates={tabActiveStates} />
+            <FilteredCards
+              tabActiveStates={tabActiveStates}
+              subtopic={selectedSubtopic}
+            />
           </div>
         </>
       )}
