@@ -2,6 +2,11 @@
   "name": "ee-webapp",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@loadable/component": "^5.14.1",

@@ -52,6 +52,8 @@ const Notespage = loadable(() =>
   import("./pages/notespage/notespage.component")
 )
 
+const Mainpage = loadable(() => import("./pages/main-page/main-page.component"))
+
 // const SpecPage = loadable(() => {
 //   import("./pages/specpage/specpage.component")
 // })
@@ -139,6 +141,7 @@ class App extends Component {
           <Route exact path="/questions/:id" component={QuestionsPage} />
           <Route exact path="/flashcard/:id" component={FlashcardPage} />
           <Route exact path="/notes/:id" component={Notespage} />
+          <Route exact path="/main" component={Mainpage} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {

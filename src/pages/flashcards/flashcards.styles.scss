@@ -5,15 +5,6 @@
   justify-content: center;
 }
 
-@keyframes flip {
-  from {
-    transform: rotate3d(0);
-  }
-  to {
-    transform: rotate3d(0, 1, 0, 360deg);
-  }
-}
-
 .animate {
   animation: flip 500ms ease;
 }
@@ -189,5 +180,14 @@
   }
   .flashcard__status {
     width: 100%;
+  }
+}
+
+@keyframes flip {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 360deg);
   }
 }

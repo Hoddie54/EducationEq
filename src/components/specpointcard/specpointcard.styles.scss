@@ -1,0 +1,35 @@
+.speccard__container {
+  width: 30%;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem;
+  .speccard__title {
+    font-weight: bold;
+  }
+  .speccard__number {
+    font-weight: bold;
+  }
+  .speccard__text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.8rem;
+    line-height: 19px;
+    text-align: center;
+    color: #000001;
+  }
+  .speccard__buttons {
+    display: grid;
+    margin: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    .speccard__button {
+      margin: 1rem;
+      font-weight: bold;
+    }
+  }
+}
