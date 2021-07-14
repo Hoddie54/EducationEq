@@ -1,11 +1,14 @@
 import "./specpointcard.styles.scss"
+import { useHistory } from "react-router-dom"
 
 function SpecPointCard(props) {
+  const history = useHistory()
+
   function VideoIcon() {
     return (
       <svg
-        width="59"
-        height="52"
+        width="40"
+        height="40"
         viewBox="0 0 59 52"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -39,13 +42,44 @@ function SpecPointCard(props) {
       <div className="speccard__number blue-text">{props.number}</div>
       <div className="speccard__text">{props.text}</div>
       <div className="speccard__buttons">
-        <div className="speccard__button blue-text">
+        <div
+          className="speccard__button blue-text"
+          onClick={() => {
+            //history.push(`/videos2/${props.video_link}`)
+            history.push(`/videos2`)
+          }}
+        >
           <VideoIcon />
-          <span>VIDEOS</span>
+          <div>VIDEOS</div>
         </div>
-        <div className="speccard__button">B</div>
-        <div className="speccard__button">C</div>
-        <div className="speccard__button">D</div>
+        <div
+          className="speccard__button blue-text"
+          onClick={() => {
+            history.push(`/notes/${props.notes_link}`)
+          }}
+        >
+          <VideoIcon />
+          <div>NOTES</div>
+        </div>
+        <div
+          className="speccard__button blue-text"
+          //history.push(`/questions/${props.questions_link}`)
+          onClick={() => {
+            history.push(`/questions2`)
+          }}
+        >
+          <VideoIcon />
+          <div>QUESTIONS</div>
+        </div>
+        <div
+          className="speccard__button blue-text"
+          onClick={() => {
+            history.push(`/flashcard/1`)
+          }}
+        >
+          <VideoIcon />
+          <div>FLASHCARDS</div>
+        </div>
       </div>
     </div>
   )

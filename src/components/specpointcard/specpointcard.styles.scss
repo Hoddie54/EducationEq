@@ -9,6 +9,7 @@
   margin: 1rem;
   .speccard__title {
     font-weight: bold;
+    font-size: 1.2rem;
   }
   .speccard__number {
     font-weight: bold;
@@ -20,16 +21,17 @@
     line-height: 19px;
     text-align: center;
     color: #000001;
+    margin-bottom: 1rem;
   }
   .speccard__buttons {
     display: grid;
-    margin: 1rem;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-
+    font-size: 0.8rem;
     .speccard__button {
-      margin: 1rem;
+      margin: 0.5rem;
       font-weight: bold;
+      cursor: pointer;
     }
   }
 }

@@ -1,12 +1,14 @@
 import "./main-page.styles.scss"
 import Basepage from "../basepage/basepage.component"
 import SpecPointCard from "../../components/specpointcard/specpointcard.component"
+import Feedback from "../../components/feedback/feedback.component"
 
 function MainPage() {
   const initial_data = [0, 0, 0, 0, 0]
 
   return (
     <Basepage>
+      <Feedback />
       <div className="main-page__selector">
         <div className="main-page__topic">
           <span>Topic: </span>
@@ -30,7 +32,7 @@ function MainPage() {
               key={Math.random()}
               title="Dalton model"
               number="1.1.1"
-              text="I am a lorem ipsum cheese wheel"
+              text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
             />
           )
         })}

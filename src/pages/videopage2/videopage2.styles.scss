@@ -1,0 +1,125 @@
+.video__title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  margin: 1rem 0;
+  width: 90%;
+
+  .video__back-button {
+    border: 1.5px solid #0340ff;
+    font-size: 1rem;
+    margin: 0.5rem;
+    border-radius: 10px;
+    padding: 0.1rem 0.5rem;
+    cursor: pointer;
+    > div {
+      display: inline-block;
+      transform: rotate(90deg) scale(0.7);
+    }
+  }
+
+  .video__title {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .video__exam-board {
+    margin-right: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #5a5a5a;
+  }
+}
+
+.video__content-container {
+  display: flex;
+  .video__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    .video {
+      margin-bottom: 1rem;
+    }
+    .other-content-container {
+      display: flex;
+      width: 100%;
+      .other-content {
+        width: 45%;
+        margin: 1rem;
+        border-radius: 15px;
+        background-color: white;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        > div {
+          font-size: 1.5rem;
+          padding: 0 1rem;
+          margin: 0.5rem;
+          border-radius: 10px;
+          border: 1.5px solid #0340ff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .button {
+      font-size: 1.2rem;
+      padding: 0 1rem;
+      margin: 0.5rem 2rem;
+      border-radius: 10px;
+      border: 1.5px solid #0340ff;
+      cursor: pointer;
+    }
+    .next {
+      background: linear-gradient(93.1deg, #2379ff -0.83%, #0544ff 99.15%);
+      color: white;
+    }
+  }
+}
+
+.video__specpoints {
+  width: 30%;
+  overflow-y: visible;
+  background-color: white;
+  border-radius: 15px;
+  //   padding: 0.5rem;
+
+  .specpoints__number {
+    border-radius: 15px;
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.25));
+    background: radial-gradient(
+      145.26% 1798.35% at -45.26% -50%,
+      #369aff 0%,
+      #003bff 100%
+    );
+    padding: 1rem;
+    color: white;
+    font-size: 0.8rem;
+  }
+  > div {
+    padding: 0.5rem;
+  }
+  .specpoints__title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+  }
+  .specpoints__specpoint {
+    font-size: 0.9rem;
+    // text-align: center;
+    :first-child {
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.related__specpoints {
+  width: 30%;
+  overflow-y: visible;
+  background-color: white;
+  border-radius: 15px;
+  //   padding: 0.5rem;
+
+  .specpoints__number {
+    border-radius: 15px;
+    filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.25));
+    background: radial-gradient(
+      145.26% 1798.35% at -45.26% -50%,
+      #369aff 0%,
+      #003bff 100%
+    );
+    padding: 1rem;
+    color: white;
+    font-size: 0.8rem;
+  }
+  > div {
+    padding: 0.5rem;
+  }
+  .specpoints__title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+  }
+  .specpoints__specpoint {
+    font-size: 0.9rem;
+    // text-align: center;
+    :first-child {
+      font-size: 1rem;
+    }
+  }
+}

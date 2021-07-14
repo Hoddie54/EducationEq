@@ -13,7 +13,7 @@ import history from "./history"
 import SpecPage from "./pages/specpage/specpage.component"
 import Specvideos from "./pages/specvideos/specvideos.component"
 
-const HomePage = loadable(() => import("./pages/homepage2/homepage2.component"))
+const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
 //   import("./pages/landing/landing.component")
 // )
@@ -53,6 +53,14 @@ const Notespage = loadable(() =>
 )
 
 const Mainpage = loadable(() => import("./pages/main-page/main-page.component"))
+
+const Videopage2 = loadable(() =>
+  import("./pages/videopage2/videopage2.component")
+)
+
+const Questionpage2 = loadable(() =>
+  import("./pages/questions2/questions2.component")
+)
 
 // const SpecPage = loadable(() => {
 //   import("./pages/specpage/specpage.component")
@@ -142,6 +150,8 @@ class App extends Component {
           <Route exact path="/flashcard/:id" component={FlashcardPage} />
           <Route exact path="/notes/:id" component={Notespage} />
           <Route exact path="/main" component={Mainpage} />
+          <Route exact path="/videos2" component={Videopage2} />
+          <Route exact path="/questions2" component={Questionpage2} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {
