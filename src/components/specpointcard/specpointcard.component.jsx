@@ -45,8 +45,7 @@ function SpecPointCard(props) {
         <div
           className="speccard__button blue-text"
           onClick={() => {
-            //history.push(`/videos2/${props.video_link}`)
-            history.push(`/videos2`)
+            history.push(`/videos2/${props.spec_uid}`)
           }}
         >
           <VideoIcon />

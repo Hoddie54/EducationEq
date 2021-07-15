@@ -149,8 +149,14 @@ class App extends Component {
           <Route exact path="/questions/:id" component={QuestionsPage} />
           <Route exact path="/flashcard/:id" component={FlashcardPage} />
           <Route exact path="/notes/:id" component={Notespage} />
-          <Route exact path="/main" component={Mainpage} />
-          <Route exact path="/videos2" component={Videopage2} />
+          <Route
+            exact
+            path="/main"
+            render={(props) => (
+              <Mainpage {...props} currentUser={this.props.currentUser} />
+            )}
+          />
+          <Route exact path="/videos2/:id" component={Videopage2} />
           <Route exact path="/questions2" component={Questionpage2} />
           {/* <Route
             path="/teaching/:id"
