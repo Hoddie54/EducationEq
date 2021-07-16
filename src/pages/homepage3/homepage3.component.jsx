@@ -1,4 +1,5 @@
 import { useHistory } from "react-router"
+import { Link } from "react-router-dom"
 import Feedback from "../../components/feedback/feedback.component"
 import Basepage from "../basepage/basepage.component"
 import "./homepage3.styles.scss"
@@ -14,14 +15,11 @@ function Homepage3() {
             <div className="subject__text">{props.text}</div>
           </div>
         </div>
-        <div
-          className={`button ${props.disabled ? "disabled" : ""}`}
-          onClick={() => {
-            history.push("./main")
-          }}
-        >
-          <span>{props.disabled ? "Coming soon" : "Go"}</span>
-        </div>
+        <Link to="/main">
+          <div className={`button ${props.disabled ? "disabled" : ""}`}>
+            <span>{props.disabled ? "Coming soon" : "Go"}</span>
+          </div>
+        </Link>
       </div>
     )
   }

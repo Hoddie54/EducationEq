@@ -2,13 +2,13 @@ import "./videopage2.styles.scss"
 import Basepage from "../basepage/basepage.component"
 import { IconSVG } from "../../components/icon-svg"
 import RelatedSpecpoints from "../../components/related-specpoints/related-specpoints.components"
-import { useStore } from "react-redux"
+
 import { useEffect } from "react"
 import { useState } from "react"
 import { getAllDataForVideopage2 } from "../../utils/firebase/firestore"
 import SpinnerPage from "../spinner/spinner.component"
 import queryString from "query-string"
-import { useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function VideoPage2(props) {
   function PenTool() {
@@ -79,13 +79,11 @@ function VideoPage2(props) {
     )
   }
 
-  const spec_id = props.match.params.id
-
-  const [specId, setSpecId] = useState(props.match.params.id)
+  const [spec_id, setSpecId] = useState(props.match.params.id)
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState()
 
-  const history = useHistory()
+  // const history = useHistory()
 
   let key = ""
 
@@ -102,7 +100,7 @@ function VideoPage2(props) {
       setIsLoading(false)
     }
     getData()
-  }, [])
+  }, [spec_id])
 
   return (
     <Basepage>
@@ -111,15 +109,14 @@ function VideoPage2(props) {
       ) : (
         <>
           <div className="video__title-container">
-            <div
-              className="video__back-button blue-text"
-              onClick={history.goBack}
-            >
-              <div>
-                <IconSVG name="arrow-down" />
+            <Link to="/main">
+              <div className="video__back-button blue-text">
+                <div>
+                  <IconSVG name="arrow-down" />
+                </div>
+                Back
               </div>
-              Back
-            </div>
+            </Link>
             <div className="video__title blue-text">GCSE Chemistry</div>
             <div className="video__exam-board">{data.exam_board}</div>
           </div>
@@ -139,28 +136,35 @@ function VideoPage2(props) {
               <div className="other-content-container">
                 <div className="other-content">
                   <PenTool />
-                  <div className="blue-text">Test yourself</div>
+                  <Link to={`/questions2/${spec_id}`}>
+                    <div className="blue-text">Test yourself</div>
+                  </Link>
                 </div>
+
                 <div className="other-content">
                   <OpenBook />
-                  <div className="blue-text">Learn with notes</div>
+                  <Link to="/notes/a">
+                    <div className="blue-text">Learn with notes</div>
+                  </Link>
                 </div>
               </div>
+
               <div className="buttons">
                 <div
                   className="button blue-text"
                   onClick={() => {
-                    history.push(`/videos2/${data.back}`)
-                    // history.go()
+                    setIsLoading(true)
+                    setSpecId(data.back)
                   }}
                 >
                   Back
                 </div>
+
                 <div
                   className="button next"
                   onClick={() => {
-                    history.push(`/videos2/${data.forward}`)
-                    // history.go()
+                    setIsLoading(true)
+                    setSpecId(data.forward)
                   }}
                 >
                   Next
@@ -170,6 +174,7 @@ function VideoPage2(props) {
             <RelatedSpecpoints
               specpoint={spec_id}
               specpoints={data.related_spec_points}
+              question_or_video="video"
             />
           </div>
         </>

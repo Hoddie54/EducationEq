@@ -10,7 +10,8 @@ function RelatedSpecpoints(props) {
   return (
     <div className="related__specpoints">
       <div className="specpoints__number">
-        This video addresses {data.length} specficiation point
+        This {props.question_or_video} addresses {data.length} specficiation
+        point
         {`${data.length === 1 ? "." : "s."}`}
       </div>
       <div>
@@ -22,7 +23,8 @@ function RelatedSpecpoints(props) {
         {data.length > 1 ? (
           <>
             <div className="specpoints__title">
-              This video also contains the following spec points
+              This {props.question_or_video} also contains the following spec
+              points
             </div>
             {data.map((specpoint) => {
               if (specpoint.UID === props.specpoint) return ""

@@ -25,7 +25,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 export const sendFeedback = (feedback) => {
   return new Promise((resolve, reject) => {
-    console.log(firebase.auth().currentUser)
     firebase
       .firestore()
       .collection("feedback")
@@ -42,6 +41,70 @@ export const sendFeedback = (feedback) => {
         console.log("Error sending feedback: ", error)
         reject(error)
       })
+  })
+}
+
+export const getAllContentForSubtopic = (subtopic_uid) => {
+  return new Promise((resolve, reject) => {
+    const query = firebase
+      .firestore()
+      .collection("subtopic_notes")
+      .where("subtopic_uid", "==", subtopic_uid)
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
+        let content = []
+        querySnapshot.forEach((doc) => {
+          content.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(content)
+      }
+    }
+
+    const catchClause = (error) => {
+      console.log("Error getting content: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
+  })
+}
+
+export const getAllDataForQuestions = (specpoint_uid) => {
+  return new Promise((resolve, reject) => {
+    const query = firebase
+      .firestore()
+      .collection("questions")
+      .where("specpoints", "array-contains", specpoint_uid)
+
+    const thenClause = (querySnapshot) => {
+      if (querySnapshot.empty) {
+        query.get().then(thenClause).catch(catchClause)
+      } else {
+        let questions = []
+        querySnapshot.forEach((doc) => {
+          questions.push({ ...doc.data(), id: doc.id })
+        })
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(questions)
+      }
+    }
+
+    const catchClause = (error) => {
+      console.log("Error getting questions: ", error)
+      query.get().then(thenClause).catch(catchClause)
+      reject(error)
+    }
+
+    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
 
@@ -65,7 +128,7 @@ export const getAllDataForVideopage2 = (specpoint_uid) => {
     const catchClause = (error) => {
       console.log("Error getting videos: ", error)
       query.get().then(thenClause).catch(catchClause)
-      reject(error)
+      // reject(error)
     }
     query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })

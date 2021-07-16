@@ -1,5 +1,5 @@
 import "./specpointcard.styles.scss"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 function SpecPointCard(props) {
   const history = useHistory()
@@ -42,34 +42,27 @@ function SpecPointCard(props) {
       <div className="speccard__number blue-text">{props.number}</div>
       <div className="speccard__text">{props.text}</div>
       <div className="speccard__buttons">
-        <div
-          className="speccard__button blue-text"
-          onClick={() => {
-            history.push(`/videos2/${props.spec_uid}`)
-          }}
-        >
-          <VideoIcon />
-          <div>VIDEOS</div>
-        </div>
-        <div
-          className="speccard__button blue-text"
-          onClick={() => {
-            history.push(`/notes/${props.notes_link}`)
-          }}
-        >
-          <VideoIcon />
-          <div>NOTES</div>
-        </div>
-        <div
-          className="speccard__button blue-text"
-          //history.push(`/questions/${props.questions_link}`)
-          onClick={() => {
-            history.push(`/questions2`)
-          }}
-        >
-          <VideoIcon />
-          <div>QUESTIONS</div>
-        </div>
+        <Link to={`/videos2/${props.spec_uid}`}>
+          <div className="speccard__button blue-text">
+            <VideoIcon />
+            <div>VIDEOS</div>
+          </div>
+        </Link>
+        <Link to={`/notes/${props.subtopic_uid}`}>
+          <div className="speccard__button blue-text">
+            <VideoIcon />
+            <div>NOTES</div>
+          </div>
+        </Link>
+        <Link to={`/questions2/${props.spec_uid}`}>
+          <div
+            className="speccard__button blue-text"
+            //history.push(`/questions/${props.questions_link}`)
+          >
+            <VideoIcon />
+            <div>QUESTIONS</div>
+          </div>
+        </Link>
         <div
           className="speccard__button blue-text"
           onClick={() => {

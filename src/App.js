@@ -12,6 +12,8 @@ import { setCurrentUser } from "./utils/redux/user/user.action"
 import history from "./history"
 import SpecPage from "./pages/specpage/specpage.component"
 import Specvideos from "./pages/specvideos/specvideos.component"
+import Videopage2 from "./pages/videopage2/videopage2.component"
+import Mainpage from "./pages/main-page/main-page.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -52,11 +54,11 @@ const Notespage = loadable(() =>
   import("./pages/notespage/notespage.component")
 )
 
-const Mainpage = loadable(() => import("./pages/main-page/main-page.component"))
+// const Mainpage = loadable(() => import("./pages/main-page/main-page.component"))
 
-const Videopage2 = loadable(() =>
-  import("./pages/videopage2/videopage2.component")
-)
+// const Videopage2 = loadable(() =>
+//   import("./pages/videopage2/videopage2.component")
+// )
 
 const Questionpage2 = loadable(() =>
   import("./pages/questions2/questions2.component")
@@ -157,7 +159,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/videos2/:id" component={Videopage2} />
-          <Route exact path="/questions2" component={Questionpage2} />
+          <Route exact path="/questions2/:id" component={Questionpage2} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {
