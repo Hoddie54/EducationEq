@@ -143,7 +143,7 @@ function VideoPage2(props) {
 
                 <div className="other-content">
                   <OpenBook />
-                  <Link to="/notes/a">
+                  <Link to={`/notes/${data.subtopic_uid}`}>
                     <div className="blue-text">Learn with notes</div>
                   </Link>
                 </div>
