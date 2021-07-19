@@ -151,8 +151,11 @@ function VideoPage2(props) {
 
               <div className="buttons">
                 <div
-                  className="button blue-text"
+                  className={`button blue-text ${
+                    data.back === "disabled" ? "disabled" : ""
+                  }`}
                   onClick={() => {
+                    if (data.back === "disabled") return
                     setIsLoading(true)
                     setSpecId(data.back)
                   }}
@@ -161,8 +164,11 @@ function VideoPage2(props) {
                 </div>
 
                 <div
-                  className="button next"
+                  className={`button next ${
+                    data.forward === "disabled" ? "disabled" : ""
+                  }`}
                   onClick={() => {
+                    if (data.forward === "disabled") return
                     setIsLoading(true)
                     setSpecId(data.forward)
                   }}

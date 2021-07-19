@@ -84,6 +84,11 @@
       background: linear-gradient(93.1deg, #2379ff -0.83%, #0544ff 99.15%);
       color: white;
     }
+    .disabled {
+      color: gray;
+      border-color: darkgrey;
+      cursor: not-allowed;
+    }
   }
 }
 

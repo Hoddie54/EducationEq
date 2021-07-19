@@ -62,7 +62,10 @@ export const getAllContentForSubtopic = (subtopic_uid) => {
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
-        resolve(content)
+        const sorted_content = content.sort((a, b) => {
+          return parseInt(a.spec_order) - parseInt(b.spec_order)
+        })
+        resolve(sorted_content)
       }
     }
 
@@ -72,7 +75,7 @@ export const getAllContentForSubtopic = (subtopic_uid) => {
       reject(error)
     }
 
-    query.get({ source: "cache" }).then(thenClause).catch(catchClause)
+    query.get().then(thenClause).catch(catchClause)
   })
 }
 

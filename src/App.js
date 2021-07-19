@@ -94,10 +94,10 @@ class App extends Component {
       }
     })
 
-    if (process.env.NODE_END === "development") {
+    if (process.env.REACT_APP_projectId === "education-equation-testing") {
       ReactGA.initialize("UA-201626326-1")
     } else {
-      ReactGA.initialize("UA-202036186-1'")
+      ReactGA.initialize("UA-202036186-1")
     }
   }
 
