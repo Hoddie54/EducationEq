@@ -11,7 +11,7 @@ import {
   signInWithGoogle,
 } from "./../../utils/firebase/auth"
 import { saveUserToFirestore } from "./../../utils/firebase/firestore"
-import { Link } from "react-scroll"
+import ReactGA from "react-ga"
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -37,7 +37,9 @@ export default class Signup extends React.Component {
     // this.setState({
     //   isSignIn: false,
     // })
-    loginUser(data.email, data.password, changeErrorMessage)
+    loginUser(data.email, data.password, changeErrorMessage).then(() => {
+      ReactGA.event({ category: "User", action: "Account login" })
+    })
   }
 
   showSignUp = () => {
@@ -64,7 +66,7 @@ export default class Signup extends React.Component {
         },
       },
       () => {
-        registerUser(this.state.signUpData)
+        registerUser(this.state.signUpData).then(this.registerEvent)
       }
     )
   }
@@ -85,9 +87,11 @@ export default class Signup extends React.Component {
         email: res.user.email,
         creation_date: Date.now(),
       }
-      saveUserToFirestore(userObject).catch((err) => {
-        console.log("error saving google auth user:", err)
-      })
+      saveUserToFirestore(userObject)
+        .then(this.registerEvent)
+        .catch((err) => {
+          console.log("error saving google auth user:", err)
+        })
     })
   }
 
@@ -96,6 +100,10 @@ export default class Signup extends React.Component {
       isSignUp: false,
       isSignIn: false,
     })
+  }
+
+  registerEvent = () => {
+    ReactGA.event({ category: "User", action: "Account creation" })
   }
 
   // #002DC3

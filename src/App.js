@@ -99,6 +99,16 @@ class App extends Component {
     } else {
       ReactGA.initialize("UA-202036186-1")
     }
+    if (this.props.currentUser) {
+      ReactGA.set({ userId: this.props.currentUser.id })
+    }
+
+    window.performance.mark("end")
+    window.performance.measure("time", "start", "end")
+    const time = Math.round(
+      window.performance.getEntriesByType("measure")[0].duration
+    )
+    ReactGA.timing({ category: "page", variable: "load", value: time })
   }
 
   componentWillUnmount() {
@@ -106,6 +116,7 @@ class App extends Component {
   }
 
   render() {
+    window.performance.mark("start")
     return (
       <Router history={history}>
         <Switch>

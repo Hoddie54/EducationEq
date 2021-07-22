@@ -7,6 +7,7 @@ import firebase from "firebase/app"
 // Add the Firebase products that you want to use
 import "firebase/auth"
 import "firebase/firestore"
+import "firebase/firebase-analytics"
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -32,6 +33,7 @@ const firebaseConfig = {
 console.log(process.env)
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
+firebase.analytics()
 firebase
   .firestore()
   .enablePersistence({ synchronizeTabs: true })

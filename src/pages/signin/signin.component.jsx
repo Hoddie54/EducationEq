@@ -3,6 +3,7 @@ import "./signin.component.scss"
 import SignIn from "../../components/sign-in/sign-in.component"
 import { loginUser, signInWithGoogle } from "./../../utils/firebase/auth"
 import { saveUserToFirestore } from "./../../utils/firebase/firestore"
+import ReactGA from "react-ga"
 
 export default class Signin extends React.Component {
   constructor(props) {
@@ -18,7 +19,9 @@ export default class Signin extends React.Component {
     //   isSignIn: false,
     // })
 
-    loginUser(data.email, data.password, changeErrorMessage)
+    loginUser(data.email, data.password, changeErrorMessage).then(
+      this.registerEvent
+    )
   }
 
   signUpWithGoogle = (user_type) => {
@@ -36,6 +39,10 @@ export default class Signin extends React.Component {
         console.log("error saving google auth user:", err)
       })
     })
+  }
+
+  registerEvent() {
+    ReactGA.event({ category: "User", action: "Account login" })
   }
 
   render() {

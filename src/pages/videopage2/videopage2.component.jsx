@@ -152,7 +152,7 @@ function VideoPage2(props) {
               <div className="buttons">
                 <div
                   className={`button blue-text ${
-                    data.back === "disabled" ? "disabled" : ""
+                    data.back === "Disable" ? "disabled" : ""
                   }`}
                   onClick={() => {
                     if (data.back === "disabled") return
@@ -165,7 +165,7 @@ function VideoPage2(props) {
 
                 <div
                   className={`button next ${
-                    data.forward === "disabled" ? "disabled" : ""
+                    data.forward === "Disable" ? "disabled" : ""
                   }`}
                   onClick={() => {
                     if (data.forward === "disabled") return

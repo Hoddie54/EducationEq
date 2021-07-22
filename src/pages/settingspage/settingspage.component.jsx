@@ -10,6 +10,7 @@ import { connect } from "react-redux"
 import "./settingspage.styles.scss"
 import logo from "../../assets/logo.svg"
 import { deleteAccount } from "../../utils/firebase/auth"
+import ReactGA from "react-ga"
 class SettingsPage extends Component {
   constructor(props) {
     super(props)
@@ -43,6 +44,11 @@ class SettingsPage extends Component {
   }
 
   handleLogout = () => {
+    ReactGA.event({
+      category: "User",
+      action: "Log out",
+      label: "User has logged out via LogOut button",
+    })
     logoutUser()
     window.location.href = "/"
   }
