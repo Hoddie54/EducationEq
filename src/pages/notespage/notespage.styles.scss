@@ -53,14 +53,38 @@
   font-size: 0.8rem;
 }
 
-.spec__title {
+.spec__title__container {
   font-size: 1.3rem;
   font-weight: bold;
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-.spec__number {
-  font-size: 1.2rem;
-  font-weight: bold;
+  .spec__number {
+    font-size: 0.8rem;
+
+    margin: 0 0.5rem;
+    border-radius: 15px;
+    background: radial-gradient(
+      145.26% 1798.35% at -45.26% -50%,
+      #369aff 0%,
+      #003bff 100%
+    );
+    color: white;
+    // font-weight: bold;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .spec__test {
+    font-size: 0.8rem;
+    border-radius: 15px;
+    background: cornflowerblue;
+    margin: 0 0.5rem;
+    padding: 0.2rem 0.5rem;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .spec__text {

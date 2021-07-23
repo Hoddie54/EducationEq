@@ -69,6 +69,9 @@ function MainPage(props) {
               </select>
             </div>
           </div>
+          <div className="main-page__message blue-text">
+            Rate how confident you are on each spec point by changing the level
+          </div>
           <div className="main-page__content">
             {data.content[selectedTopic].subtopics[
               selectedSubtopic

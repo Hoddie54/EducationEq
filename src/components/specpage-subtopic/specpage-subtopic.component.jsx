@@ -19,16 +19,25 @@ function SpecPageSubtopic(props) {
     const history = useHistory()
 
     return (
-      <div
-        className="spec-point__container"
-        onClick={() => {
-          history.push(`/spec/${props.id}`)
-        }}
-      >
-        <span className="spec-point__number">{`${props.number} `}</span>
-        <span className="spec-point__text">{props.text}</span>
-        <hr />
-      </div>
+      <>
+        <div className="spec-point__container">
+          <div className="spec-point__content">
+            <div>
+              <span className="spec-point__number">{`${props.number} `}</span>
+              <span className="spec-point__text">{props.text}</span>
+            </div>
+            <div
+              className="spec-point__learn"
+              onClick={() => {
+                history.push(`/videos2/${props.id}`)
+              }}
+            >
+              Learn
+            </div>
+          </div>
+          <hr />
+        </div>
+      </>
     )
   }
 
@@ -69,10 +78,10 @@ function SpecPageSubtopic(props) {
 
     return (
       <div>
-        <div class="spec-page__container smaller">
+        <div class="spec-page__container smaller" onClick={toggleIsShown}>
           <div className="spec-page__text">{props.title}</div>
           <div className="spec-page__button">
-            <button onClick={toggleIsShown}>{isShown ? "-" : "+"}</button>
+            <button>{isShown ? "-" : "+"}</button>
           </div>
         </div>
         <hr className="hr" />
@@ -107,10 +116,10 @@ function SpecPageSubtopic(props) {
 
   return (
     <>
-      <div class="spec-page__container">
+      <div class="spec-page__container" onClick={toggleIsShown}>
         <div className="spec-page__text">{props.title}</div>
         <div className="spec-page__button">
-          <button onClick={toggleIsShown}>{isShown ? "-" : "+"}</button>
+          <button>{isShown ? "-" : "+"}</button>
         </div>
       </div>
       <hr className="hr" />

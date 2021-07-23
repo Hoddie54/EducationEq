@@ -4,6 +4,7 @@ import Feedback from "../../components/feedback/feedback.component"
 import SpinnerPage from "../spinner/spinner.component"
 import { useEffect, useState } from "react"
 import { getAllContentForSubtopic } from "../../utils/firebase/firestore"
+import { Link } from "react-router-dom"
 
 function Notespage(props) {
   function listify(texts) {
@@ -45,7 +46,7 @@ function Notespage(props) {
 
   return (
     <Basepage>
-      <Feedback />
+      {/* <Feedback /> */}
       {isLoading ? (
         <SpinnerPage />
       ) : (
@@ -55,12 +56,17 @@ function Notespage(props) {
             {data.map((spec) => {
               return (
                 <div key={spec.spec_uid}>
-                  <div className="spec__title">
-                    {spec.spec_description[0].name}
+                  <div className="spec__title__container">
+                    <div className="spec__number">{`Specpoint: ${spec.spec_description[0].number} `}</div>
+                    <div className="spec__title">
+                      {" "}
+                      {spec.spec_description[0].name}
+                    </div>
+                    <Link to={`/questions2/${spec.spec_uid}`}>
+                      <div className="spec__test">Test yourself</div>
+                    </Link>
                   </div>
-                  <span className="spec__number blue-text">
-                    {`${spec.spec_description[0].number} `}
-                  </span>
+
                   <span className="spec__text">
                     {spec.spec_description[0].text}
                   </span>

@@ -1,5 +1,6 @@
 import "./specpointcard.styles.scss"
 import { useHistory, Link } from "react-router-dom"
+import { useState } from "react"
 
 function SpecPointCard(props) {
   const history = useHistory()
@@ -36,22 +37,43 @@ function SpecPointCard(props) {
     )
   }
 
+  const [rating, setRating] = useState("")
+
+  function changeRating(event) {
+    setRating(event.target.value)
+  }
+
   return (
     <div className="speccard__container">
+      <div className="speccard__spec-rating">
+        <div className="speccard__spec">{`Spec point: ${props.number}`}</div>
+        <div className={`speccard__rating ${rating}`}>
+          <select
+            value={rating}
+            onChange={changeRating}
+            className={`${rating}`}
+          >
+            <option value="">Rate me</option>
+            <option value="green">Got it</option>
+            <option value="amber">Getting it</option>
+            <option value="red">Soon come</option>
+          </select>
+        </div>
+      </div>
       <div className="speccard__title blue-text">{props.title}</div>
-      <div className="speccard__number blue-text">{props.number}</div>
+      {/* <div className="speccard__number blue-text">{props.number}</div> */}
       <div className="speccard__text">{props.text}</div>
       <div className="speccard__buttons">
         <Link to={`/videos2/${props.spec_uid}`}>
           <div className="speccard__button blue-text">
             <VideoIcon />
-            <div>VIDEOS</div>
+            <div>Watch videos</div>
           </div>
         </Link>
         <Link to={`/notes/${props.subtopic_uid}`}>
           <div className="speccard__button blue-text">
             <VideoIcon />
-            <div>NOTES</div>
+            <div>Explore notes</div>
           </div>
         </Link>
         <Link to={`/questions2/${props.spec_uid}`}>
@@ -60,10 +82,10 @@ function SpecPointCard(props) {
             //history.push(`/questions/${props.questions_link}`)
           >
             <VideoIcon />
-            <div>QUESTIONS</div>
+            <div>Answer questions</div>
           </div>
         </Link>
-        <div
+        {/* <div
           className="speccard__button blue-text"
           onClick={() => {
             history.push(`/flashcard/1`)
@@ -71,7 +93,7 @@ function SpecPointCard(props) {
         >
           <VideoIcon />
           <div>FLASHCARDS</div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

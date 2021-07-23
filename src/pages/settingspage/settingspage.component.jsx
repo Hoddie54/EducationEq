@@ -47,7 +47,7 @@ class SettingsPage extends Component {
     ReactGA.event({
       category: "User",
       action: "Log out",
-      label: "User has logged out via LogOut button",
+      label: this.props.currentUser.id,
     })
     logoutUser()
     window.location.href = "/"

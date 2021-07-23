@@ -31,7 +31,7 @@ function SpecPage(props) {
     topicsJSX = topics.map((topic) => {
       if (
         selectedTopic == null ||
-        selectedTopic === "No filter" ||
+        selectedTopic === "No subject filter" ||
         topic.uid === selectedTopic
       ) {
         return (
@@ -49,32 +49,47 @@ function SpecPage(props) {
 
   return (
     <Basepage menu_col={true}>
-      <div className="spec-info">
+      {/* <div className="spec-info">
         If you click on a specification point, you can search our platform for
         all videos that cover that point. This is amazing for revision and
         making sure you know everything you need for the exam.{" "}
+      </div> */}
+      <div className="spec__page">
+        <div className="spec-title">View your progress on spec</div>
+        <div className="spec__progress-bar">
+          <div className="progress-bar__green"></div>
+          <div className="progress-bar__amber"></div>
+          <div className="progress-bar__red"></div>
+          <div className="progress-bar__unrated"></div>
+        </div>
+        <div className="spec-filters">
+          <div className="selection">GCSE Chemistry</div>
+          <select
+            value={selectedTopic}
+            onChange={(newValue) => {
+              setSelectedTopic(newValue.target.value)
+            }}
+            className="selection"
+          >
+            <option value={null}>No subject filter</option>
+            {topics.map((topic) => {
+              return (
+                <option value={topic.uid} key={topic.uid}>
+                  {topic.name}
+                </option>
+              )
+            })}
+          </select>
+          <select className="selection">
+            <option value="no-filter">No rating filter</option>
+            <option value="">Unrated</option>
+            <option value="green">Got it</option>
+            <option value="amber">Getting it</option>
+            <option valye="red">Soon come</option>
+          </select>
+        </div>
+        <div className="spec-main">{topicsJSX}</div>
       </div>
-      <div className="spec-title">Spec page view</div>
-      <div className="spec-filters">
-        <div className="selection">GCSE Chemistry</div>
-        <select
-          value={selectedTopic}
-          onChange={(newValue) => {
-            setSelectedTopic(newValue.target.value)
-          }}
-          className="selection"
-        >
-          <option value={null}>No filter</option>
-          {topics.map((topic) => {
-            return (
-              <option value={topic.uid} key={topic.uid}>
-                {topic.name}
-              </option>
-            )
-          })}
-        </select>
-      </div>
-      <div className="spec-main">{topicsJSX}</div>
     </Basepage>
   )
 }

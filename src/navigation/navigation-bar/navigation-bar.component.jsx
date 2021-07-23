@@ -195,7 +195,7 @@ class NavigationBar extends React.Component {
                         <div className="sidebar__icon">
                           <IconSVG name="video"></IconSVG>
                         </div>
-                        <div className="sidebar__text">Specification</div>
+                        <div className="sidebar__text">My progress</div>
                       </Nav.Link>
 
                       {/* <Collapse in={this.state.isToggleMenu}>
@@ -286,6 +286,19 @@ class NavigationBar extends React.Component {
                         </div>
                         <div className="sidebar__text">Messages</div>
                       </Nav.Link> */}
+                      <Nav.Link
+                        className={
+                          currentLocation == "/past-papers"
+                            ? "sidebar__item active"
+                            : "sidebar__item"
+                        }
+                        href="/past-papers"
+                      >
+                        <div className="sidebar__icon">
+                          <IconSVG name="student"></IconSVG>
+                        </div>
+                        <div className="sidebar__text">Past papers</div>
+                      </Nav.Link>
                       <Nav.Link
                         className={
                           currentLocation == "/settings"

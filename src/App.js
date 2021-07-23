@@ -93,14 +93,19 @@ class App extends Component {
         setCurrentUser(userAuth)
       }
     })
+    let gaOptions = {}
+    if (this.props.currentUser) {
+      gaOptions = { userId: this.props.currentUser.id }
+    }
 
     if (process.env.REACT_APP_projectId === "education-equation-testing") {
-      ReactGA.initialize("UA-201626326-1")
+      ReactGA.initialize("UA-201626326-1", gaOptions)
     } else {
-      ReactGA.initialize("UA-202036186-1")
+      ReactGA.initialize("UA-202036186-1", gaOptions)
     }
     if (this.props.currentUser) {
-      ReactGA.set({ userId: this.props.currentUser.id })
+      // // console.log(this.props.currentUser.id)
+      // ReactGA.set({ userId: this.props.currentUser.id })
     }
 
     window.performance.mark("end")
