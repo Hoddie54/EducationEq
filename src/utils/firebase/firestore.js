@@ -44,6 +44,45 @@ export const sendFeedback = (feedback) => {
   })
 }
 
+export const sendRating = (spec_uid, rating) => {
+  return new Promise((resolve, reject) => {
+    const user_uid = firebase.auth().currentUser.uid
+    firebase
+      .firestore()
+      .collection("ratings")
+      .doc(user_uid)
+      .set({ [spec_uid]: rating }, { merge: true })
+      .then(() => {
+        resolve()
+      })
+      .catch((error) => {
+        console.log("Error sending rating: ", error)
+        reject(error)
+      })
+  })
+}
+
+export const getRatings = (user_uid) => {
+  return new Promise((resolve, reject) => {
+    // const user_uid = firebase.auth().currentUser.uid
+    firebase
+      .firestore()
+      .collection("ratings")
+      .doc(user_uid)
+      .get()
+      .then((doc) => {
+        console.log("Reads :", 1)
+        var source = doc.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve({ ...doc.data(), id: doc.id })
+      })
+      .catch((error) => {
+        console.log("Error getting ratings: ", error)
+        reject(error)
+      })
+  })
+}
+
 export const getAllContentForSubtopic = (subtopic_uid) => {
   return new Promise((resolve, reject) => {
     const query = firebase

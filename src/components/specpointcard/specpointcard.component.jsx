@@ -1,6 +1,7 @@
 import "./specpointcard.styles.scss"
 import { useHistory, Link } from "react-router-dom"
 import { useState } from "react"
+import { sendRating } from "../../utils/firebase/firestore"
 
 function SpecPointCard(props) {
   const history = useHistory()
@@ -37,10 +38,17 @@ function SpecPointCard(props) {
     )
   }
 
-  const [rating, setRating] = useState("")
+  const [rating, setRating] = useState(props.rating)
 
   function changeRating(event) {
     setRating(event.target.value)
+    props.setRatings((old_rating) => {
+      return {
+        ...old_rating,
+        [props.spec_uid]: event.target.value,
+      }
+    })
+    sendRating(props.spec_uid, event.target.value)
   }
 
   return (

@@ -4,7 +4,10 @@ import SpecPointCard from "../../components/specpointcard/specpointcard.componen
 import Feedback from "../../components/feedback/feedback.component"
 import SpinnerPage from "../spinner/spinner.component"
 import { useEffect, useState } from "react"
-import { getAllDataForMainpage } from "../../utils/firebase/firestore"
+import {
+  getAllDataForMainpage,
+  getRatings,
+} from "../../utils/firebase/firestore"
 
 function MainPage(props) {
   const subject = "Chemistry"
@@ -12,6 +15,7 @@ function MainPage(props) {
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState()
+  const [ratings, setRatings] = useState()
 
   const [selectedTopic, setSelectedTopic] = useState("0")
   const [selectedSubtopic, setSelectedSubtopic] = useState("0")
@@ -27,8 +31,16 @@ function MainPage(props) {
 
   useEffect(() => {
     async function getData() {
-      const returned_data = await getAllDataForMainpage(subject, exam_board)
+      // const returned_data = await getAllDataForMainpage(subject, exam_board)
+      // const ratings = await getRatings()
+      const promise = await Promise.all([
+        getAllDataForMainpage(subject, exam_board),
+        getRatings(props.currentUser.uid),
+      ])
+      const returned_data = promise[0]
+      const ratings = promise[1]
       setData(returned_data)
+      setRatings(ratings)
       setIsLoading(false)
     }
     getData()
@@ -86,6 +98,8 @@ function MainPage(props) {
                   subtopic_uid={
                     data.content[selectedTopic].subtopics[selectedSubtopic].UID
                   }
+                  rating={ratings[specpoint.UID] ? ratings[specpoint.UID] : ""}
+                  setRatings={setRatings}
                 />
               )
             })}
