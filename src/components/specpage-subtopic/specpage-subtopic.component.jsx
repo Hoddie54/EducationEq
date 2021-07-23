@@ -62,16 +62,24 @@ function SpecPageSubtopic(props) {
     //   // getSpecPointData()
     // }, [getSubtopicData])
 
-    const specpointJSX = props.specpoints.map((specpoint) => {
-      return (
-        <SpecPoint
-          number={specpoint.number}
-          text={specpoint.text}
-          id={specpoint.UID}
-          key={specpoint.UID}
-        />
-      )
-    })
+    const specpointJSX = props.specpoints
+      .filter((specpoint) => {
+        if (props.selected_rating === "no-filter") return true
+        if (props.selected_rating === props.ratings[specpoint.UID]) return true
+        if (props.selected_rating === "" && !props.ratings[specpoint.UID])
+          return true
+        return false
+      })
+      .map((specpoint) => {
+        return (
+          <SpecPoint
+            number={specpoint.number}
+            text={specpoint.text}
+            id={specpoint.UID}
+            key={specpoint.UID}
+          />
+        )
+      })
 
     return (
       <div>
@@ -105,6 +113,8 @@ function SpecPageSubtopic(props) {
         key={subtopic.UID}
         specpoints={subtopic.specpoints}
         subtopic_display={props.subtopic_display}
+        selected_rating={props.selected_rating}
+        ratings={props.ratings}
       />
     )
   })

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import SpecPageSubtopic from "../../components/specpage-subtopic/specpage-subtopic.component"
 import {
   getAllDataForMainpage,
+  getRatings,
   getTopics,
 } from "../../utils/firebase/firestore"
 import SpinnerPage from "../spinner/spinner.component"
@@ -11,17 +12,26 @@ import queryString from "query-string"
 
 function SpecPage(props) {
   const [selectedTopic, setSelectedTopic] = useState(null)
+  const [selectedRating, setSelectedRating] = useState("no-filter")
   // const [topics, setTopics] = useState([])
   const [data, setData] = useState()
+  const [ratings, setRatings] = useState()
 
   const getData = useCallback(async () => {
     const currentUser = props.currentUser
     const subject = currentUser.subjects[0].name
     const exam_board = currentUser.subjects[0].exam_board
     //const topics = await getTopics(subject, exam_board)
-    const data = await getAllDataForMainpage(subject, exam_board)
+
+    const promise = await Promise.all([
+      getAllDataForMainpage(subject, exam_board),
+      getRatings(currentUser.uid),
+    ])
+    const data = promise[0]
+    const ratings = promise[1]
 
     // setTopics(topics)
+    setRatings(ratings)
     setData(data)
   }, [])
   useEffect(() => {
@@ -33,12 +43,12 @@ function SpecPage(props) {
   const subtopic_display = search.subtopic
 
   let topicsJSX = <SpinnerPage />
-  if (data) {
+  if (data && ratings) {
     topicsJSX = data.content.map((topic) => {
       if (
         selectedTopic == null ||
         selectedTopic === "No subject filter" ||
-        topic.uid === selectedTopic
+        topic.UID === selectedTopic
       ) {
         return (
           <SpecPageSubtopic
@@ -48,6 +58,8 @@ function SpecPage(props) {
             subtopics={topic.subtopics}
             topic_display={topic_display}
             subtopic_display={subtopic_display}
+            selected_rating={selectedRating}
+            ratings={ratings}
           />
         )
       }
@@ -82,19 +94,25 @@ function SpecPage(props) {
             {data
               ? data.content.map((topic) => {
                   return (
-                    <option value={topic.uid} key={topic.uid}>
-                      {topic.name}
+                    <option value={topic.UID} key={topic.UID}>
+                      {topic.topic_name}
                     </option>
                   )
                 })
               : ""}
           </select>
-          <select className="selection">
+          <select
+            className="selection"
+            value={selectedRating}
+            onChange={(newValue) => {
+              setSelectedRating(newValue.target.value)
+            }}
+          >
             <option value="no-filter">No rating filter</option>
             <option value="">Unrated</option>
             <option value="green">Got it</option>
             <option value="amber">Getting it</option>
-            <option valye="red">Soon come</option>
+            <option value="red">Soon come</option>
           </select>
         </div>
         <div className="spec-main">{topicsJSX}</div>
