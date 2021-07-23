@@ -7,7 +7,7 @@ import { useHistory } from "react-router"
 function SpecPageSubtopic(props) {
   const isDefaultShown = props.topic_id === props.topic_display ? true : false
   const [isShown, setIsShown] = useState(isDefaultShown)
-  const [subtopicData, setSubtopicData] = useState([])
+  // const [subtopicData, setSubtopicData] = useState([])
 
   function toggleIsShown() {
     setIsShown((current_state) => {
@@ -45,7 +45,7 @@ function SpecPageSubtopic(props) {
     const isDefaultShown =
       props.subtopic_id === props.subtopic_display ? true : false
     const [isShown, setIsShown] = useState(isDefaultShown)
-    const [specpointData, setSpecPointData] = useState([])
+    // const [specpointData, setSpecPointData] = useState([])
 
     function toggleIsShown() {
       setIsShown((current_state) => {
@@ -53,28 +53,25 @@ function SpecPageSubtopic(props) {
       })
     }
 
-    const getSpecPointData = useCallback(async () => {
-      const specpoints = await getSpecpoints(props.topic_id, props.subtopic_id)
-      setSpecPointData(specpoints)
-    }, [])
+    // const getSpecPointData = useCallback(async () => {
+    //   const specpoints = await getSpecpoints(props.topic_id, props.subtopic_id)
+    //   setSpecPointData(specpoints)
+    // }, [])
 
-    useEffect(() => {
-      getSpecPointData()
-    }, [getSubtopicData])
+    // useEffect(() => {
+    //   // getSpecPointData()
+    // }, [getSubtopicData])
 
-    let specpointJSX = <SpinnerPage />
-    if (specpointData.length > 0) {
-      specpointJSX = specpointData.map((specpoint) => {
-        return (
-          <SpecPoint
-            number={specpoint.spec_number_and_tier}
-            text={specpoint.text}
-            id={specpoint.uid}
-            key={specpoint.spec_number_and_tier}
-          />
-        )
-      })
-    }
+    const specpointJSX = props.specpoints.map((specpoint) => {
+      return (
+        <SpecPoint
+          number={specpoint.number}
+          text={specpoint.text}
+          id={specpoint.UID}
+          key={specpoint.UID}
+        />
+      )
+    })
 
     return (
       <div>
@@ -90,29 +87,27 @@ function SpecPageSubtopic(props) {
     )
   }
 
-  const getSubtopicData = useCallback(async () => {
-    const subtopics = await getSubtopics(props.topic_id)
-    setSubtopicData(subtopics)
-  }, [])
+  // const getSubtopicData = useCallback(async () => {
+  //   const subtopics = await getSubtopics(props.topic_id)
+  //   setSubtopicData(subtopics)
+  // }, [])
 
-  useEffect(() => {
-    getSubtopicData()
-  }, [getSubtopicData])
+  // useEffect(() => {
+  //   // getSubtopicData()
+  // }, [getSubtopicData])
 
-  let subtopicsJSX = <SpinnerPage />
-  if (subtopicData.length > 0) {
-    subtopicsJSX = subtopicData.map((subtopic) => {
-      return (
-        <SubTopic
-          title={subtopic.name}
-          topic_id={props.topic_id}
-          subtopic_id={subtopic.uid}
-          key={subtopic.uid}
-          subtopic_display={props.subtopic_display}
-        />
-      )
-    })
-  }
+  const subtopicsJSX = props.subtopics.map((subtopic) => {
+    return (
+      <SubTopic
+        title={subtopic.name}
+        topic_id={props.topic_id}
+        subtopic_id={subtopic.UID}
+        key={subtopic.UID}
+        specpoints={subtopic.specpoints}
+        subtopic_display={props.subtopic_display}
+      />
+    )
+  })
 
   return (
     <>
