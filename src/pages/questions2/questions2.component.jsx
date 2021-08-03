@@ -4,7 +4,10 @@ import { IconSVG } from "../../components/icon-svg/index"
 import RelatedSpecpoints from "../../components/related-specpoints/related-specpoints.components"
 import { useEffect, useState } from "react"
 import SpinnerPage from "../spinner/spinner.component"
-import { getAllDataForQuestions } from "../../utils/firebase/firestore"
+import {
+  getAllDataForQuestions,
+  getRatings,
+} from "../../utils/firebase/firestore"
 import { Link } from "react-router-dom"
 
 function Questions2(props) {
@@ -12,16 +15,22 @@ function Questions2(props) {
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
+  const [ratings, setRatings] = useState()
 
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0)
 
-  let currentQuestion, my_specpoint
+  let currentQuestion, my_specpoint, color
 
   if (!isLoading) {
     currentQuestion = data[currentQuestionNumber]
     my_specpoint = currentQuestion.related_specpoints.find((specpoint) => {
       return spec_id === specpoint.UID
     })
+    if (ratings[my_specpoint.UID]) {
+      color = ratings[my_specpoint.UID]
+    } else {
+      color = ""
+    }
   }
 
   const [selectedAnswer, setSelectedAnswer] = useState()
@@ -30,9 +39,15 @@ function Questions2(props) {
 
   useEffect(() => {
     async function getData() {
-      const returned_data = await getAllDataForQuestions(spec_id)
-      console.log(returned_data)
+      const promise = await Promise.all([
+        getAllDataForQuestions(spec_id),
+        getRatings(props.currentUser.uid),
+      ])
+      const returned_data = promise[0]
+      const ratings = promise[1]
+      // console.log(returned_data)
       setData(returned_data)
+      setRatings(ratings)
       setIsLoading(false)
     }
     getData()
@@ -53,10 +68,10 @@ function Questions2(props) {
   function answerQuestion(answer) {
     if (selectedAnswer) return
     setSelectedAnswer(answer)
-    if (answer !== currentQuestion.corrections) {
+    if (answer !== currentQuestion.correction) {
       setIncorrects({ [answer]: true })
     }
-    setCorrects({ [currentQuestion.corrections]: true })
+    setCorrects({ [currentQuestion.correction]: true })
   }
 
   return (
@@ -65,7 +80,7 @@ function Questions2(props) {
         <SpinnerPage />
       ) : (
         <>
-          <div className="questions2__title-container">
+          <div className={`questions2__title-container ${color}`}>
             <Link to="/main">
               <div className="button blue-text">
                 <div>
@@ -77,8 +92,11 @@ function Questions2(props) {
             <div className="questions2__title blue-text">
               Questions: {my_specpoint.name}
             </div>
-            <div className="questions2__exam-board">
+            {/* <div className="questions2__exam-board">
               {my_specpoint.exam_board}
+            </div> */}
+            <div className="questions2__spec-point-title">
+              {`Spec point: ${my_specpoint.number}`}
             </div>
           </div>
           <div className="questions2__content-container">
@@ -101,7 +119,7 @@ function Questions2(props) {
                     answerQuestion("A")
                   }}
                 >
-                  <div className="option__title blue-text">Option A</div>
+                  <div className="option__title blue-text">A</div>
                   <div className="option__text">{currentQuestion.A}</div>
                 </div>
                 <div
@@ -113,7 +131,7 @@ function Questions2(props) {
                     answerQuestion("B")
                   }}
                 >
-                  <div className="option__title blue-text">Option B</div>
+                  <div className="option__title blue-text">B</div>
                   <div className="option__text">{currentQuestion.B}</div>
                 </div>
                 <div
@@ -125,10 +143,10 @@ function Questions2(props) {
                     answerQuestion("C")
                   }}
                 >
-                  <div className="option__title blue-text">Option C</div>
+                  <div className="option__title blue-text">C</div>
                   <div className="option__text">{currentQuestion.C}</div>
                 </div>
-                <div
+                {/* <div
                   id="D"
                   className={`option ${corrects["D"] ? "correct" : ""} ${
                     incorrects["D"] ? "incorrect" : ""
@@ -137,9 +155,9 @@ function Questions2(props) {
                     answerQuestion("D")
                   }}
                 >
-                  <div className="option__title blue-text">Option D</div>
+                  <div className="option__title blue-text">D</div>
                   <div className="option__text">{currentQuestion.D}</div>
-                </div>
+                </div> */}
               </div>
               <div className="questions2__explanation">
                 <div className="title blue-text">Explanation: </div>

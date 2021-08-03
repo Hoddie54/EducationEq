@@ -34,3 +34,10 @@
     }
   }
 }
+
+@media screen and (max-width: 767px) {
+  .related__specpoints {
+    width: 100%;
+    margin: 2rem auto;
+  }
+}

@@ -66,8 +66,31 @@ function SpecPage(props) {
     })
   }
 
+  let aggregated_scores = [0, 0, 0, 0]
+  if (data && ratings) {
+    data.content.map((topic) => {
+      topic.subtopics.map((subtopic) => {
+        subtopic.specpoints.map((specpoint) => {
+          if (ratings[specpoint.UID]) {
+            if (ratings[specpoint.UID] === "red") aggregated_scores[0]++
+            if (ratings[specpoint.UID] === "amber") aggregated_scores[1]++
+            if (ratings[specpoint.UID] === "green") aggregated_scores[2]++
+          } else {
+            aggregated_scores[3]++
+          }
+        })
+      })
+    })
+  }
+
+  const aggregated_sum = aggregated_scores.reduce((a, b) => a + b, 0)
+  console.log(aggregated_scores)
+  const aggregrated_percentages = aggregated_scores.map((amount) => {
+    return Math.round((1000 * amount) / aggregated_sum) / 10
+  })
+
   return (
-    <Basepage menu_col={true}>
+    <Basepage menu_col={false}>
       {/* <div className="spec-info">
         If you click on a specification point, you can search our platform for
         all videos that cover that point. This is amazing for revision and
@@ -75,11 +98,27 @@ function SpecPage(props) {
       </div> */}
       <div className="spec__page">
         <div className="spec-title">View your progress on spec</div>
-        <div className="spec__progress-bar">
-          <div className="progress-bar__green"></div>
-          <div className="progress-bar__amber"></div>
-          <div className="progress-bar__red"></div>
-          <div className="progress-bar__unrated"></div>
+        <div className="spec-progress">
+          <div className="spec-progress-item">
+            <div>Overview</div>
+            <div className="red">Weak</div>
+            <div className="blue-text">{`${aggregrated_percentages[0]}%`}</div>
+          </div>
+          <div className="spec-progress-item">
+            <div>Overview</div>
+            <div className="amber">Medium</div>
+            <div className="blue-text"> {`${aggregrated_percentages[1]}%`}</div>
+          </div>
+          <div className="spec-progress-item">
+            <div>Overview</div>
+            <div className="green">Excellent</div>
+            <div className="blue-text"> {`${aggregrated_percentages[2]}%`}</div>
+          </div>
+          <div className="spec-progress-item">
+            <div>Overview</div>
+            <div className="unrated">Unrated</div>
+            <div className="blue-text"> {`${aggregrated_percentages[3]}%`}</div>
+          </div>
         </div>
         <div className="spec-filters">
           <div className="selection">GCSE Chemistry</div>

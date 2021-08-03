@@ -62,7 +62,6 @@ function Basepage(props) {
                 onClick={sidebar_click}
               ></img>
             </div>
-
             {props.children}
           </div>
         </div>

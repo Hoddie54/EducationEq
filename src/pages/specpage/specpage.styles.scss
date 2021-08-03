@@ -36,47 +36,56 @@
   padding: 0.5rem 2rem;
 }
 
-.spec__progress-bar {
-  width: 85%;
-  margin: 0 1rem;
-  height: 10px;
-  border-radius: 10px;
-  background: lightgoldenrodyellow;
+.spec-progress {
   display: flex;
+  margin: 1rem auto;
+  width: 100%;
+  justify-content: center;
 
-  .progress-bar__green {
-    height: 100%;
-    width: 30%;
-    background: #9bef93;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
-  }
+  .spec-progress-item {
+    width: 20%;
+    border-radius: 15px;
+    background: white;
+    padding: 0.5rem;
+    margin: 0.5rem;
 
-  .progress-bar__amber {
-    height: 100%;
-    width: 30%;
-    background: #fec787;
-  }
+    :nth-child(1) {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
 
-  .progress-bar__red {
-    height: 100%;
-    width: 30%;
-    background: #fe8787;
-  }
+    :nth-child(2) {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-  .progress-bar__unrated {
-    height: 100%;
-    width: 10%;
-    background: grey;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    :nth-child(3) {
+      font-size: 1.7rem;
+      font-weight: bold;
+    }
+
+    .red {
+      color: #fe8787;
+    }
+
+    .amber {
+      color: #fec787;
+    }
+
+    .green {
+      color: #9bef93;
+    }
+
+    .unrated {
+      color: #979797;
+    }
   }
 }
 
 .spec-filters {
   display: flex;
   margin: 0.5rem;
-  justify-content: flex-end;
+  justify-content: center;
   width: 95%;
   .selection {
     border-radius: 15px;
@@ -111,5 +120,13 @@
   .spec-filters {
     flex-direction: column;
     justify-content: center;
+  }
+
+  .spec-progress {
+    flex-direction: row;
+    flex-wrap: wrap;
+    .spec-progress-item {
+      width: 45%;
+    }
   }
 }

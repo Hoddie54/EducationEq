@@ -17,6 +17,11 @@ function SpecPageSubtopic(props) {
 
   function SpecPoint(props) {
     const history = useHistory()
+    let color = ""
+
+    if (props.ratings[props.id]) {
+      color = props.ratings[props.id]
+    }
 
     return (
       <>
@@ -27,7 +32,7 @@ function SpecPageSubtopic(props) {
               <span className="spec-point__text">{props.text}</span>
             </div>
             <div
-              className="spec-point__learn"
+              className={`spec-point__learn ${color}`}
               onClick={() => {
                 history.push(`/videos2/${props.id}`)
               }}
@@ -77,6 +82,7 @@ function SpecPageSubtopic(props) {
             text={specpoint.text}
             id={specpoint.UID}
             key={specpoint.UID}
+            ratings={props.ratings}
           />
         )
       })

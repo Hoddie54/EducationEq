@@ -240,7 +240,9 @@ class App extends Component {
             path="/videos2/:id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
-              return <Videopage2 {...props} />
+              return (
+                <Videopage2 {...props} currentUser={this.props.currentUser} />
+              )
             }}
           />
           <Route
@@ -248,7 +250,9 @@ class App extends Component {
             path="/questions2/:id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
-              return <Questions2 {...props} />
+              return (
+                <Questions2 {...props} currentUser={this.props.currentUser} />
+              )
             }}
           />
           {/* <Route

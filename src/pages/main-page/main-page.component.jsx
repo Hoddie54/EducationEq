@@ -48,7 +48,7 @@ function MainPage(props) {
 
   return (
     <Basepage>
-      <Feedback />
+      {/* <Feedback /> */}
       {isLoading ? (
         <SpinnerPage />
       ) : (
@@ -100,6 +100,7 @@ function MainPage(props) {
                   }
                   rating={ratings[specpoint.UID] ? ratings[specpoint.UID] : ""}
                   setRatings={setRatings}
+                  notes_url={specpoint.notes_url}
                 />
               )
             })}

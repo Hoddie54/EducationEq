@@ -5,98 +5,52 @@ import RelatedSpecpoints from "../../components/related-specpoints/related-specp
 
 import { useEffect } from "react"
 import { useState } from "react"
-import { getAllDataForVideopage2 } from "../../utils/firebase/firestore"
+import {
+  getAllDataForVideopage2,
+  getRatings,
+} from "../../utils/firebase/firestore"
 import SpinnerPage from "../spinner/spinner.component"
 import queryString from "query-string"
 import { Link } from "react-router-dom"
+import { Notes, Target } from "../../components/main-icons/MainIcons.component"
 
 function VideoPage2(props) {
-  function PenTool() {
-    return (
-      <svg
-        width="75"
-        height="75"
-        viewBox="0 0 117 117"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.5 92.625L92.625 58.5L107.25 73.125L73.125 107.25L58.5 92.625Z"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M87.75 63.375L80.4375 26.8125L9.75 9.75L26.8125 80.4375L63.375 87.75L87.75 63.375Z"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M9.75 9.75L46.7318 46.7318"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M53.625 63.375C59.0098 63.375 63.375 59.0098 63.375 53.625C63.375 48.2402 59.0098 43.875 53.625 43.875C48.2402 43.875 43.875 48.2402 43.875 53.625C43.875 59.0098 48.2402 63.375 53.625 63.375Z"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    )
-  }
-
-  function OpenBook() {
-    return (
-      <svg
-        width="75"
-        height="75"
-        viewBox="0 0 117 117"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M9.75 14.625H39C44.1717 14.625 49.1316 16.6795 52.7886 20.3364C56.4455 23.9934 58.5 28.9533 58.5 34.125V102.375C58.5 98.4962 56.9592 94.7763 54.2164 92.0336C51.4737 89.2908 47.7538 87.75 43.875 87.75H9.75V14.625Z"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M107.25 14.625H78C72.8283 14.625 67.8684 16.6795 64.2114 20.3364C60.5545 23.9934 58.5 28.9533 58.5 34.125V102.375C58.5 98.4962 60.0408 94.7763 62.7836 92.0336C65.5263 89.2908 69.2462 87.75 73.125 87.75H107.25V14.625Z"
-          stroke="#3889FF"
-          strokeWidth="2"
-          strokeLinecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    )
-  }
-
   const [spec_id, setSpecId] = useState(props.match.params.id)
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState()
+  const [ratings, setRatings] = useState()
 
   // const history = useHistory()
 
   let key = ""
+  let color
+  let my_specpoint
 
   if (!isLoading) {
     const search = queryString.parse(data.video_url)
     key = search["https://www.youtube.com/watch?v"]
+
+    if (ratings[spec_id]) {
+      color = ratings[spec_id]
+    } else {
+      color = ""
+    }
+
+    my_specpoint = data.related_spec_points.find((specpoint) => {
+      return specpoint.UID === spec_id
+    })
   }
 
   useEffect(() => {
     async function getData() {
-      const returned_data = await getAllDataForVideopage2(spec_id)
+      const promise = await Promise.all([
+        getAllDataForVideopage2(spec_id),
+        getRatings(props.currentUser.uid),
+      ])
+      const returned_data = promise[0]
+      const ratings = promise[1]
       setData(returned_data)
-      console.log(returned_data)
+      setRatings(ratings)
       setIsLoading(false)
     }
     getData()
@@ -108,7 +62,7 @@ function VideoPage2(props) {
         <SpinnerPage />
       ) : (
         <>
-          <div className="video__title-container">
+          <div className={`video__title-container ${color}`}>
             <Link to="/main">
               <div className="video__back-button blue-text">
                 <div>
@@ -118,7 +72,7 @@ function VideoPage2(props) {
               </div>
             </Link>
             <div className="video__title blue-text">GCSE Chemistry</div>
-            <div className="video__exam-board">{data.exam_board}</div>
+            <div className="video__exam-board">{`Spec point: ${data.number}`}</div>
           </div>
           <div className="video__content-container">
             <div className="video__content">
@@ -135,17 +89,19 @@ function VideoPage2(props) {
               </div>
               <div className="other-content-container">
                 <div className="other-content">
-                  <PenTool />
+                  <Notes />
+                  Access notes for this specification point
                   <Link to={`/questions2/${spec_id}`}>
                     <div className="blue-text">Test yourself</div>
                   </Link>
                 </div>
 
                 <div className="other-content">
-                  <OpenBook />
-                  <Link to={`/notes/${data.subtopic_uid}`}>
+                  <Target />
+                  Answer questions about this specification point
+                  <a href={my_specpoint.notes_url} target="_blank">
                     <div className="blue-text">Learn with notes</div>
-                  </Link>
+                  </a>
                 </div>
               </div>
 

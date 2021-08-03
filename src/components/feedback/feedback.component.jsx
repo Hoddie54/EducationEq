@@ -13,10 +13,11 @@ function Feedback(props) {
             the best possible experience for you
           </span>
         </div>
-        <button className="feedback-right text-format">
-          <span className="blue-text" onClick={props.showModal}>
-            Tell us how to improve
-          </span>
+        <button
+          className="feedback-right text-format"
+          onClick={props.showModal}
+        >
+          <span className="blue-text">Tell us how to improve</span>
         </button>
       </div>
     </div>
