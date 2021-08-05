@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react"
-import { getSpecpoints, getSubtopics } from "../../utils/firebase/firestore"
-import SpinnerPage from "../../pages/spinner/spinner.component"
+
 import "./specpage-subtopic.styles.scss"
 import { useHistory } from "react-router"
+import { lineify } from "../../utils/helpers/misc"
 
 function SpecPageSubtopic(props) {
   const isDefaultShown = props.topic_id === props.topic_display ? true : false
@@ -29,7 +29,7 @@ function SpecPageSubtopic(props) {
           <div className="spec-point__content">
             <div>
               <span className="spec-point__number">{`${props.number} `}</span>
-              <span className="spec-point__text">{props.text}</span>
+              <span className="spec-point__text">{lineify(props.text)}</span>
             </div>
             <div
               className={`spec-point__learn ${color}`}

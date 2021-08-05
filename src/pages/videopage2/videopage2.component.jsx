@@ -91,17 +91,17 @@ function VideoPage2(props) {
                 <div className="other-content">
                   <Notes />
                   Access notes for this specification point
-                  <Link to={`/questions2/${spec_id}`}>
-                    <div className="blue-text">Test yourself</div>
-                  </Link>
+                  <a href={my_specpoint.notes_url} target="_blank">
+                    <div className="blue-text">Learn with notes</div>
+                  </a>
                 </div>
 
                 <div className="other-content">
                   <Target />
                   Answer questions about this specification point
-                  <a href={my_specpoint.notes_url} target="_blank">
-                    <div className="blue-text">Learn with notes</div>
-                  </a>
+                  <Link to={`/questions2/${spec_id}`}>
+                    <div className="blue-text">Test yourself</div>
+                  </Link>
                 </div>
               </div>
 

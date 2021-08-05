@@ -10,8 +10,14 @@ export const lineify = (text) => {
       return (
         <div key={index} class="lineify">
           {line}
-          <br />
-          <br />
+          {index !== split_text.length - 1 ? (
+            <>
+              <br />
+              <br />
+            </>
+          ) : (
+            ""
+          )}
         </div>
       )
     })
