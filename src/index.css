@@ -9215,3 +9215,7 @@ body.dark .mfp-bg {
   /* identical to box height */
   color: #ffffff;
 }
+
+.lineify::first-letter {
+  text-transform: uppercase;
+}

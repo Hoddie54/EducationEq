@@ -58,7 +58,7 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { show, handleHide, signInWithGoogle } = this.props
+    const { show, handleHide, signInWithGoogle, switchToSignUp } = this.props
     return (
       <Modal
         show={show}
@@ -144,6 +144,15 @@ class SignIn extends React.Component {
                   className="btn-sign-in-google"
                 >
                   Sign In with Google
+                </Button>
+              </div>
+              <div className="sign-in-btn">
+                <Button
+                  variant="outline-primary"
+                  onClick={switchToSignUp}
+                  className="btn-sign-in-google"
+                >
+                  Sign up
                 </Button>
               </div>
               <div className="error-message" style={{ opacity: 1 }}></div>

@@ -4,6 +4,7 @@ import SignIn from "../../components/sign-in/sign-in.component"
 import { loginUser, signInWithGoogle } from "./../../utils/firebase/auth"
 import { saveUserToFirestore } from "./../../utils/firebase/firestore"
 import ReactGA from "react-ga"
+import SignUp from "../../pages/signup/signup.component"
 
 export default class Signin extends React.Component {
   constructor(props) {
@@ -11,7 +12,9 @@ export default class Signin extends React.Component {
     // parse collapsed status from props
     this.state = {
       isUpdateHeaderColor: "rgba(0,0,0,0)",
+      signin: true,
     }
+    this.switchToSignUp = this.switchToSignUp.bind(this)
   }
 
   signIn = (data, changeErrorMessage) => {
@@ -45,19 +48,28 @@ export default class Signin extends React.Component {
     ReactGA.event({ category: "User", action: "Account login" })
   }
 
+  switchToSignUp() {
+    this.setState((state) => {
+      return { ...state, signin: false }
+    })
+  }
+
   render() {
-    return (
-      <div
-        className="landing-page-header__wrapper"
-        style={{ background: this.state.isUpdateHeaderColor }}
-      >
-        <SignIn
-          show={true}
-          handleHide={this.hideModal}
-          handleSignIn={this.signIn}
-          signInWithGoogle={this.signUpWithGoogle}
-        ></SignIn>
-      </div>
-    )
+    if (this.state.signin)
+      return (
+        <div
+          className="landing-page-header__wrapper"
+          style={{ background: this.state.isUpdateHeaderColor }}
+        >
+          <SignIn
+            show={true}
+            handleHide={this.hideModal}
+            handleSignIn={this.signIn}
+            signInWithGoogle={this.signUpWithGoogle}
+            switchToSignUp={this.switchToSignUp}
+          ></SignIn>
+        </div>
+      )
+    return <SignUp></SignUp>
   }
 }

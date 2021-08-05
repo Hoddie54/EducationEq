@@ -286,7 +286,7 @@ class NavigationBar extends React.Component {
                         </div>
                         <div className="sidebar__text">Messages</div>
                       </Nav.Link> */}
-                      <Nav.Link
+                      {/* <Nav.Link
                         className={
                           currentLocation == "/past-papers"
                             ? "sidebar__item active"
@@ -298,7 +298,7 @@ class NavigationBar extends React.Component {
                           <IconSVG name="student"></IconSVG>
                         </div>
                         <div className="sidebar__text">Past papers</div>
-                      </Nav.Link>
+                      </Nav.Link> */}
                       <Nav.Link
                         className={
                           currentLocation == "/settings"

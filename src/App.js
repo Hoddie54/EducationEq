@@ -133,7 +133,7 @@ class App extends Component {
               return this.props.currentUser ? (
                 <Redirect to="/home" />
               ) : (
-                <SignUp />
+                <SignIn />
               )
             }}
           />

@@ -6,7 +6,7 @@ import Feedback from "../../components/feedback/feedback.component"
 import Basepage from "../basepage/basepage.component"
 import "./homepage3.styles.scss"
 
-function Homepage3() {
+function Homepage3(props) {
   function Subject(props) {
     return (
       <div className="subject__container">
@@ -27,8 +27,10 @@ function Homepage3() {
   }
 
   const news = [
-    { title: "News!", news: "Hey there is a new product out there!" },
-    { title: "News2!", news: "Hey there is a new product out there!" },
+    {
+      title: "New product release!",
+      news: "Welcome to Education Equation! This is our first version that is available to the public! We'd love to get your thoughts via the feedback button :)",
+    },
   ]
 
   function NewsItem(props) {
@@ -70,7 +72,9 @@ function Homepage3() {
         <div className="homepage__subjects">
           <div className="homepage3__title">
             <div className="subjects blue-text">Subjects</div>
-            <div className="exam-board">Edexcel</div>
+            <div className="exam-board">
+              {props.currentUser.subjects[0].exam_board}
+            </div>
           </div>
           <Subject
             subject="Chemistry"
@@ -110,7 +114,7 @@ function Homepage3() {
             </div>
             <div className="update__version">
               <div>Last updated</div>
-              <div>02/08/2021</div>
+              <div>03/08/2021</div>
             </div>
           </div>
           <hr />

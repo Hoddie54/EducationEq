@@ -7,9 +7,12 @@ import {
   Target,
   Notes,
 } from "../../components/main-icons/MainIcons.component"
+import { lineify } from "../../utils/helpers/misc"
 
 function SpecPointCard(props) {
   const history = useHistory()
+
+  console.log(props.text)
 
   const [rating, setRating] = useState(props.rating)
 
@@ -27,7 +30,7 @@ function SpecPointCard(props) {
   return (
     <div className="speccard__container">
       <div className="speccard__spec-rating">
-        <div className="speccard__spec">{`Spec point: ${props.number}`}</div>
+        <div className="speccard__spec">{`Spec: ${props.number}`}</div>
         <div className={`speccard__rating ${rating}`}>
           <select
             value={rating}
@@ -43,7 +46,7 @@ function SpecPointCard(props) {
       </div>
       <div className="speccard__title blue-text">{props.title}</div>
       {/* <div className="speccard__number blue-text">{props.number}</div> */}
-      <div className="speccard__text">{props.text}</div>
+      <div className="speccard__text">{lineify(props.text)}</div>
       <div className="speccard__buttons">
         <Link to={`/videos2/${props.spec_uid}`}>
           <div className="speccard__button blue-text">

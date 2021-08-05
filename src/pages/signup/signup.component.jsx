@@ -118,6 +118,7 @@ export default class Signup extends React.Component {
           handleHide={this.hideModal}
           handleSignIn={this.signIn}
           signInWithGoogle={this.signUpWithGoogle}
+          switchToSignUp={this.switchToSignUp}
         ></SignIn>
         <SignUp
           show={this.state.isSignUp}
