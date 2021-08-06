@@ -1,4 +1,5 @@
 import "./related-specpoints.styles.scss"
+import { lineify } from "../../utils/helpers/misc"
 
 function RelatedSpecpoints(props) {
   const data = props.specpoints
@@ -18,7 +19,7 @@ function RelatedSpecpoints(props) {
         <div className="specpoints__title">Your spec point</div>
         <div className="specpoints__specpoint">
           <span className="blue-text">{my_specpoint.number} </span>
-          <span>{my_specpoint.text}</span>
+          <span>{lineify(my_specpoint.text)}</span>
         </div>
         {data.length > 1 ? (
           <>
@@ -31,7 +32,7 @@ function RelatedSpecpoints(props) {
               return (
                 <div className="specpoints__specpoint">
                   <span className="blue-text">{`${specpoint.number} `}</span>
-                  <span>{specpoint.text}</span>
+                  <span>{lineify(specpoint.text)}</span>
                 </div>
               )
             })}

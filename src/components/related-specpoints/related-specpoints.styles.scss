@@ -29,8 +29,11 @@
   .specpoints__specpoint {
     font-size: 0.9rem;
     // text-align: center;
-    :first-child {
-      font-size: 1rem;
+    // :first-child {
+    //   font-size: 1rem;
+    // }
+    div {
+      display: inline;
     }
   }
 }

@@ -31,7 +31,7 @@ function SpecPointCard(props) {
     <div className="speccard__container">
       <div className="speccard__spec-rating">
         <div className="speccard__spec">{`Spec: ${props.number}`}</div>
-        <div className={`speccard__rating ${rating}`}>
+        <div className={`speccard__rating`}>
           <select
             value={rating}
             onChange={changeRating}
