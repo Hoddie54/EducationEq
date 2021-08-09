@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import Feedback from "../../components/feedback/feedback.component"
 import Basepage from "../basepage/basepage.component"
 import "./homepage3.styles.scss"
+import { updateUserInfo } from "../../utils/firebase/firestore"
+import AdditionInformationForm from "../../components/addition-infomation-form"
 
 function Homepage3(props) {
   function Subject(props) {
@@ -56,6 +58,11 @@ function Homepage3(props) {
   const history = useHistory()
   const [isBlurred, setIsBlurred] = useState(false)
 
+  let exam_board = ""
+  if (props.currentUser.subjects) {
+    exam_board = props.currentUser.subjects[0].exam_board
+  }
+
   return (
     <Basepage
       blurred={isBlurred}
@@ -72,9 +79,7 @@ function Homepage3(props) {
         <div className="homepage__subjects">
           <div className="homepage3__title">
             <div className="subjects blue-text">Subjects</div>
-            <div className="exam-board">
-              {props.currentUser.subjects[0].exam_board}
-            </div>
+            <div className="exam-board">{exam_board}</div>
           </div>
           <Subject
             subject="Chemistry"
@@ -130,6 +135,23 @@ function Homepage3(props) {
           </div>
         </div>
       </div>
+      {!props.currentUser.dob ? (
+        <AdditionInformationForm
+          type={"student"}
+          show={true}
+          handleCompleteSignUp={(data) => {
+            updateUserInfo(data)
+          }}
+          handleHide={() => {
+            console.log("handleHide")
+          }}
+          handleAction={() => {
+            console.log("handleAction")
+          }}
+        />
+      ) : (
+        ""
+      )}
     </Basepage>
   )
 }
