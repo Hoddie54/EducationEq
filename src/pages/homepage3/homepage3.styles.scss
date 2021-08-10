@@ -70,10 +70,11 @@
     background: linear-gradient(90.5deg, #247aff 0.33%, #0442ff 99.57%);
     color: white;
     padding: 0.3rem 1rem;
-    width: 15%;
+    min-width: 20%;
     font-size: 1rem;
     display: flex;
     justify-content: center;
+    margin-left: 0.5rem;
   }
 
   .disabled {
