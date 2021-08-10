@@ -11,7 +11,7 @@ function RelatedSpecpoints(props) {
   return (
     <div className="related__specpoints">
       <div className="specpoints__number">
-        This {props.question_or_video} addresses {data.length} specficiation
+        This {props.question_or_video} addresses {data.length} specification
         point
         {`${data.length === 1 ? "." : "s."}`}
       </div>

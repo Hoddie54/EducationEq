@@ -8,6 +8,7 @@ import {
   getAllDataForMainpage,
   getRatings,
 } from "../../utils/firebase/firestore"
+import ReactGA from "react-ga"
 
 function MainPage(props) {
   const subject = "Chemistry"
@@ -44,6 +45,11 @@ function MainPage(props) {
       setIsLoading(false)
     }
     getData()
+    ReactGA.event({
+      category: "Identity",
+      action: "main_page",
+      label: props.currentUser.email.split("@")[0],
+    })
   }, [])
 
   return (

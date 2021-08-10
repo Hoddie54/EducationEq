@@ -71,6 +71,12 @@
     height: 100%;
     margin: 0.5rem 0;
   }
+
+  > div {
+    width: 40vw;
+    height: 40vh;
+    text-align: center;
+  }
 }
 
 .close-circle__container {

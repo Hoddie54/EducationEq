@@ -9,8 +9,6 @@ import { store, persistor } from "./utils/redux/store"
 import { PersistGate } from "redux-persist/integration/react"
 import SpinnerPage from "./pages/spinner/spinner.component"
 
-console.log(process.env.NODE_ENV)
-
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter history={history}>

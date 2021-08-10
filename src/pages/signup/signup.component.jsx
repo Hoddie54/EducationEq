@@ -83,7 +83,7 @@ export default class Signup extends React.Component {
         full_name,
         display_name: full_name,
         uid: res.user.uid,
-        user_type: user_type,
+        user_type: "student",
         email: res.user.email,
         creation_date: Date.now(),
       }

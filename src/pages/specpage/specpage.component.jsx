@@ -101,17 +101,17 @@ function SpecPage(props) {
         <div className="spec-progress">
           <div className="spec-progress-item">
             <div>Overview</div>
-            <div className="red">Weak</div>
+            <div className="red">Work needed</div>
             <div className="blue-text">{`${aggregrated_percentages[0]}%`}</div>
           </div>
           <div className="spec-progress-item">
             <div>Overview</div>
-            <div className="amber">Medium</div>
+            <div className="amber">Getting it</div>
             <div className="blue-text"> {`${aggregrated_percentages[1]}%`}</div>
           </div>
           <div className="spec-progress-item">
             <div>Overview</div>
-            <div className="green">Excellent</div>
+            <div className="green">Got it</div>
             <div className="blue-text"> {`${aggregrated_percentages[2]}%`}</div>
           </div>
           <div className="spec-progress-item">
@@ -151,7 +151,7 @@ function SpecPage(props) {
             <option value="">Unrated</option>
             <option value="green">Got it</option>
             <option value="amber">Getting it</option>
-            <option value="red">Soon come</option>
+            <option value="red">Work needed</option>
           </select>
         </div>
         <div className="spec-main">{topicsJSX}</div>

@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react"
 import "./specpage-subtopic.styles.scss"
 import { useHistory } from "react-router"
 import { lineify } from "../../utils/helpers/misc"
+import { renderToString } from "react-dom/server"
 
 function SpecPageSubtopic(props) {
   const isDefaultShown = props.topic_id === props.topic_display ? true : false
@@ -87,6 +88,7 @@ function SpecPageSubtopic(props) {
         )
       })
 
+    if (specpointJSX.length === 0) return ""
     return (
       <div>
         <div class="spec-page__container smaller" onClick={toggleIsShown}>
@@ -125,6 +127,10 @@ function SpecPageSubtopic(props) {
     )
   })
 
+  const concat_subtopics_jsx_html = subtopicsJSX.reduce((a, b) => {
+    return a + renderToString(b)
+  }, "")
+  if (concat_subtopics_jsx_html === "") return ""
   return (
     <>
       <div class="spec-page__container" onClick={toggleIsShown}>

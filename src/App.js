@@ -16,6 +16,8 @@ import Videopage2 from "./pages/videopage2/videopage2.component"
 import Mainpage from "./pages/main-page/main-page.component"
 import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
+import { iOS } from "./utils/helpers/misc"
+import firebase from "./config/FirebasConfig"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -75,6 +77,10 @@ const Questionpage2 = loadable(() =>
 // })
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = { ios_logged_in: false }
+  }
   unsubscribeFromAuth = null
 
   componentDidMount() {
@@ -114,10 +120,17 @@ class App extends Component {
       window.performance.getEntriesByType("measure")[0].duration
     )
     ReactGA.timing({ category: "page", variable: "load", value: time })
+
+    //Weird bug fix code
   }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth()
+  }
+
+  //For iOS only
+  iOSResetTrigger = () => {
+    this.setState({ ios_logged_in: true })
   }
 
   render() {
@@ -133,7 +146,7 @@ class App extends Component {
               return this.props.currentUser ? (
                 <Redirect to="/home" />
               ) : (
-                <SignIn />
+                <SignIn iOSResetTrigger={this.iOSResetTrigger} />
               )
             }}
           />

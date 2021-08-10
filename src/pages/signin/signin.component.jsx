@@ -5,6 +5,7 @@ import { loginUser, signInWithGoogle } from "./../../utils/firebase/auth"
 import { saveUserToFirestore } from "./../../utils/firebase/firestore"
 import ReactGA from "react-ga"
 import SignUp from "../../pages/signup/signup.component"
+import { iOS } from "../../utils/helpers/misc"
 
 export default class Signin extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class Signin extends React.Component {
         full_name,
         display_name: full_name,
         uid: res.user.uid,
-        user_type: user_type,
+        user_type: "student",
         email: res.user.email,
         creation_date: Date.now(),
       }
@@ -42,6 +43,11 @@ export default class Signin extends React.Component {
         console.log("error saving google auth user:", err)
       })
     })
+    // .then(() => {
+    //   if (iOS()) {
+    //     this.props.iOSResetTrigger()
+    //   }
+    // })
   }
 
   registerEvent() {

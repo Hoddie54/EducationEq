@@ -30,7 +30,7 @@ function Homepage3(props) {
 
   const news = [
     {
-      title: "New product release!",
+      title: "Welcome!",
       news: "Welcome to Education Equation! This is our first version that is available to the public! We'd love to get your thoughts via the feedback button :)",
     },
   ]
@@ -115,11 +115,11 @@ function Homepage3(props) {
           <div className="update__versions">
             <div className="update__version">
               <div>Version</div>
-              <div>Update MVP 4.1</div>
+              <div>Update MVP 4.2</div>
             </div>
             <div className="update__version">
               <div>Last updated</div>
-              <div>03/08/2021</div>
+              <div>10/08/2021</div>
             </div>
           </div>
           <hr />

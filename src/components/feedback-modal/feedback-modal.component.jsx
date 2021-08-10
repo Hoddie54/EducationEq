@@ -4,15 +4,15 @@ import "./feedback-modal.styles.scss"
 import { sendFeedback } from "../../utils/firebase/firestore"
 
 const placeholder_textarea =
-  "Please send through your thoughts, feedback and insights in order to help us build the most powerful experience possible for new users of our platform. Please send through your thoughts, feedback and insights in order to help us build the most powerful experience possible for new users of our platform. "
-
+  "Please give us any thoughts or feedback you have - We really do read every single one!"
 function FeedbackModal(props) {
   const [feedback, setFeedback] = useState("")
+  const [success, setSuccess] = useState(false)
 
   function onSubmitHandler(e) {
     e.preventDefault()
     sendFeedback(feedback)
-    props.hideModal()
+    setSuccess(true)
   }
 
   return (
@@ -24,23 +24,27 @@ function FeedbackModal(props) {
         </div>
       </div>
       <div className="feedback-modal__content">
-        <form onSubmit={onSubmitHandler}>
-          <label>
-            {" "}
-            We would really love your feedback to help us build the best
-            platform experience for you.{" "}
-          </label>
-          <textarea
-            value={feedback}
-            placeholder={placeholder_textarea}
-            onChange={(change) => {
-              setFeedback(change.target.value)
-            }}
-            rows="5"
-            cols="3"
-          />
-          <button type="submit">Submit</button>
-        </form>
+        {!success ? (
+          <form onSubmit={onSubmitHandler}>
+            <label>
+              {" "}
+              We would really love your feedback to help us build the best
+              platform experience for you.{" "}
+            </label>
+            <textarea
+              value={feedback}
+              placeholder={placeholder_textarea}
+              onChange={(change) => {
+                setFeedback(change.target.value)
+              }}
+              rows="5"
+              cols="3"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        ) : (
+          <div>Feedback successfully sent</div>
+        )}
       </div>
     </div>
   )
