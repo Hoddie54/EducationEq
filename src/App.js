@@ -80,7 +80,7 @@ const Questionpage2 = loadable(() =>
 class App extends Component {
   constructor() {
     super()
-    this.state = { ios_logged_in: false }
+    // this.state = { ios_logged_in: false }
   }
   unsubscribeFromAuth = null
 

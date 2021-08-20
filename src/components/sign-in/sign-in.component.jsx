@@ -60,11 +60,7 @@ class SignIn extends React.Component {
   render() {
     const { show, handleHide, signInWithGoogle, switchToSignUp } = this.props
     return (
-      <Modal
-        show={show}
-        //  onHide={handleHide}
-        className="modal-sign-in"
-      >
+      <Modal show={show} onHide={handleHide} className="modal-sign-in">
         <Modal.Body className="sign-in-modal-body">
           {this.state.showForgottenPassword ? (
             <>
