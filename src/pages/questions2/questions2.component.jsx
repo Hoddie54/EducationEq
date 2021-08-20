@@ -57,6 +57,7 @@ function Questions2(props) {
     setCurrentQuestionNumber((current_value) => {
       const new_value = number + current_value
       if (new_value < 0) return current_value
+      if (new_value === data.length) return 0
       if (new_value >= data.length) return current_value
       return new_value
     })

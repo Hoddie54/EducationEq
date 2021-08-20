@@ -249,7 +249,7 @@ export default class SettingProfile extends Component {
                   })
                 }}
               >
-                <option value="OCR">OCR A</option>
+                {/* <option value="OCR">OCR A</option> */}
                 <option value="Edexcel">Edexcel</option>
                 <option value="AQA">AQA</option>
               </Form.Control>

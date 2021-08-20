@@ -18,6 +18,7 @@ import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
 import { iOS } from "./utils/helpers/misc"
 import firebase from "./config/FirebasConfig"
+import ParallaxLanding from "./pages/landing/landing.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -268,6 +269,7 @@ class App extends Component {
               )
             }}
           />
+          <Route exact path="/landing" component={ParallaxLanding} />
           {/* <Route
             path="/teaching/:id"
             render={(props) => {

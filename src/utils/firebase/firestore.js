@@ -184,14 +184,18 @@ export const getAllDataForMainpage = (subject, exam_board) => {
       .where("subject", "==", subject)
       .where("exam_board", "==", exam_board)
 
+    console.log("1")
+
     const thenClause = (querySnapshot) => {
       if (querySnapshot.empty) {
         query.get().then(thenClause).catch(catchClause)
+        console.log("2")
       } else {
         console.log("Reads :", querySnapshot.size)
         var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
         console.log("Data came from " + source)
         resolve(querySnapshot.docs[0].data())
+        console.log("3")
       }
     }
 
@@ -200,7 +204,7 @@ export const getAllDataForMainpage = (subject, exam_board) => {
       query.get().then(thenClause).catch(catchClause)
       reject(error)
     }
-
+    console.log("4")
     query.get({ source: "cache" }).then(thenClause).catch(catchClause)
   })
 }
