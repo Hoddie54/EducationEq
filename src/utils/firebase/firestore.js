@@ -62,6 +62,55 @@ export const sendRating = (spec_uid, rating) => {
   })
 }
 
+export const getAllClasses = () => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("classes")
+      .where("start_time_and_date", ">=", Date.now())
+      .get()
+      .then((querySnapshot) => {
+        const classes = []
+        querySnapshot.forEach((doc) =>
+          classes.push({ ...doc.data(), id: doc.id })
+        )
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(classes)
+      })
+      .catch((err) => {
+        console.log("Error getting all classes: ", err)
+        reject(err)
+      })
+  })
+}
+
+export const getAllMyClasses = (user_uid) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("classes")
+      .where("start_time_and_date", ">=", Date.now())
+      .where("students", "array-contains", user_uid)
+      .get()
+      .then((querySnapshot) => {
+        const classes = []
+        querySnapshot.forEach((doc) =>
+          classes.push({ ...doc.data(), id: doc.id })
+        )
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(classes)
+      })
+      .catch((err) => {
+        console.log("Error getting my classes: ", err)
+        reject(err)
+      })
+  })
+}
+
 export const getRatings = (user_uid) => {
   return new Promise((resolve, reject) => {
     // const user_uid = firebase.auth().currentUser.uid

@@ -7,6 +7,8 @@ import Basepage from "../basepage/basepage.component"
 import "./homepage3.styles.scss"
 import { updateUserInfo } from "../../utils/firebase/firestore"
 import AdditionInformationForm from "../../components/addition-infomation-form"
+import TutoringOffer from "../../components/tutoring-offer/tutoring-offer.component"
+import UpcomingBookings from "../../components/upcoming-bookings/upcoming-bookings.component"
 
 function Homepage3(props) {
   function Subject(props) {
@@ -77,9 +79,12 @@ function Homepage3(props) {
       />
       <div className="homepage__container">
         <div className="homepage__subjects">
-          <div className="homepage3__title">
+          {/* <div className="homepage3__title">
             <div className="subjects blue-text">Subjects</div>
             <div className="exam-board">{exam_board}</div>
+          </div> */}
+          <div className="homepage__tutoring-offer">
+            <TutoringOffer />
           </div>
           <Subject
             subject="Chemistry"
@@ -106,32 +111,37 @@ function Homepage3(props) {
           />
         </div>
 
-        <div className="homepage__updates">
-          <div className="blue-text update__title">
-            EdEq Updates
-            <hr />
-          </div>
+        <div className="homepage__updates-and-classes">
+          <div className="homepage__updates">
+            <div className="blue-text update__title">
+              EdEq Updates
+              <hr />
+            </div>
 
-          <div className="update__versions">
-            <div className="update__version">
-              <div>Version</div>
-              <div>Update MVP 4.2</div>
+            <div className="update__versions">
+              <div className="update__version">
+                <div>Version</div>
+                <div>Update MVP 4.2</div>
+              </div>
+              <div className="update__version">
+                <div>Last updated</div>
+                <div>10/08/2021</div>
+              </div>
             </div>
-            <div className="update__version">
-              <div>Last updated</div>
-              <div>10/08/2021</div>
+            <hr />
+            <div className="update__news">
+              <div className="update__news-title blue-text">What's new?</div>
+              <div className="update__news__container">
+                {news.map((item, index) => {
+                  return (
+                    <NewsItem title={item.title} key={index} news={item.news} />
+                  )
+                })}
+              </div>
             </div>
           </div>
-          <hr />
-          <div className="update__news">
-            <div className="update__news-title blue-text">What's new?</div>
-            <div className="update__news__container">
-              {news.map((item, index) => {
-                return (
-                  <NewsItem title={item.title} key={index} news={item.news} />
-                )
-              })}
-            </div>
+          <div className="homepage__classes">
+            <UpcomingBookings currentUser={props.currentUser} />
           </div>
         </div>
       </div>

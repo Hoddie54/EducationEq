@@ -1,0 +1,144 @@
+.class-wrapper {
+  width: 28%;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 0.7rem;
+  margin: 1rem;
+
+  .class-card {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+
+    .class-header {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+
+      :nth-child(1) {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #0645ff;
+      }
+
+      :nth-child(2) {
+        color: white;
+        background: radial-gradient(
+          145.26% 1798.35% at -45.26% -50%,
+          #369aff 0%,
+          #003bff 100%
+        );
+        border-radius: 30px;
+        line-height: 30px;
+        text-align: center;
+        height: 30px;
+        font-weight: bold;
+        width: 30px;
+      }
+    }
+
+    .topic-and-cancel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      //Topic
+      :nth-child(1) {
+        font-weight: normal;
+        font-size: 1rem;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.8);
+      }
+
+      //Cancel
+      :nth-child(2) {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 0.8rem;
+        color: #fe8787;
+        cursor: pointer;
+      }
+    }
+
+    .information {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      > div {
+        width: 45%;
+        display: flex;
+        justify-content: flex-start;
+        margin: 0.2rem;
+
+        img {
+          width: 25px;
+          height: 25px;
+        }
+
+        :nth-child(2) {
+          font-weight: bold;
+          font-size: 1rem;
+          color: #000000;
+          margin-left: 0.2rem;
+        }
+      }
+    }
+
+    .topic-and-description {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      .topic {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      // .description {
+
+      // }
+    }
+
+    .class-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: auto;
+      text-align: center;
+      width: 100%;
+
+      .button {
+        background: radial-gradient(
+          145.26% 1798.35% at -45.26% -50%,
+          #369aff 0%,
+          #003bff 100%
+        );
+        border-radius: 15px;
+        color: white;
+        font-size: 1rem;
+        padding: 0.2rem;
+        margin: 0.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.animate-flip {
+  animation: flip 500ms ease;
+}
+
+@keyframes flip {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 360deg);
+  }
+}

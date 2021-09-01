@@ -8,6 +8,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
 import "firebase/firebase-analytics"
+import "firebase/functions"
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -34,6 +35,12 @@ console.log(process.env)
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
+if (process.env.NODE_ENV === "development") {
+  firebase.functions().useEmulator("localhost", 5001)
+} else {
+  firebase.functions()
+}
+
 firebase
   .firestore()
   .enablePersistence({ synchronizeTabs: true })

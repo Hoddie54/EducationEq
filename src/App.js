@@ -16,9 +16,8 @@ import Videopage2 from "./pages/videopage2/videopage2.component"
 import Mainpage from "./pages/main-page/main-page.component"
 import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
-import { iOS } from "./utils/helpers/misc"
-import firebase from "./config/FirebasConfig"
-import ParallaxLanding from "./pages/landing/landing.component"
+import Admin from "./pages/admin/admin.component"
+import Tutoring from "./pages/tutoring/tutoring.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -165,7 +164,14 @@ class App extends Component {
             }}
           />
           <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={SignUp} />
+          <Route
+            exact
+            path="/signup"
+            render={(props) => {
+              ReactGA.pageview(props.location.pathname)
+              return <SignUp {...props} currentUser={this.props.currentUser} />
+            }}
+          />
           {/* <Route exact path="/courses/:id" component={CoursesPage} />
           <Route exact path="/teaching/:id" component={TeacherPage}></Route> */}
           <Route
@@ -269,13 +275,24 @@ class App extends Component {
               )
             }}
           />
-          <Route exact path="/landing" component={ParallaxLanding} />
+          {/* <Route exact path="/landing" component={ParallaxLanding} /> */}
           {/* <Route
             path="/teaching/:id"
             render={(props) => {
               return <TeacherPage {...props} isEditable={true} />
             }}
           /> */}
+          <Route exact path="/admin" component={Admin} />
+          <Route
+            exact
+            path="/tutoring"
+            render={(props) => {
+              ReactGA.pageview(props.location.pathname)
+              return (
+                <Tutoring {...props} currentUser={this.props.currentUser} />
+              )
+            }}
+          />
         </Switch>
       </Router>
     )

@@ -1,0 +1,23 @@
+.tutoring-offer-wrapper {
+  width: 100%;
+  border-radius: 30px;
+  background: white;
+  padding: 0.2rem;
+
+  > div {
+    background: radial-gradient(50% 50% at 50% 50%, #0340ff 0%, #000000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  :nth-child(1) {
+    font-size: 1.8rem;
+  }
+
+  :nth-child(2) {
+    font-size: 1rem;
+  }
+}

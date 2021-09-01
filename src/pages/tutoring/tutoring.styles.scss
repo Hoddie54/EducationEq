@@ -1,0 +1,78 @@
+.tutoring-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .offer-container {
+    margin: 1rem;
+    width: 80%;
+  }
+
+  .tutoring-title {
+    font-style: normal;
+    font-weight: bold;
+    text-decoration-line: underline;
+    color: #094aff;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .tutoring-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    text-align: center;
+
+    select {
+      width: 30%;
+      margin: 1rem;
+      background: #ffffff;
+      border-radius: 15px;
+      color: #979797;
+      font-size: 1rem;
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+    }
+  }
+
+  .tutoring-my_lessons,
+  .tutoring-lessons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tutoring-lessons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    svg {
+      display: block;
+    }
+
+    .arrow-left {
+      transform: rotate(90deg);
+      cursor: pointer;
+    }
+
+    .arrow-right {
+      transform: rotate(-90deg);
+      cursor: pointer;
+    }
+  }
+
+  .tutoring-counter {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+  }
+}
