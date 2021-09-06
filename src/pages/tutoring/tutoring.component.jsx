@@ -12,15 +12,23 @@ import TutoringModal from "../../components/tutoring-modal/tutoring-modal.compon
 function Tutoring(props) {
   const [classes, setClasses] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [refresh, setRefresh] = useState(true)
+
+  function refreshClasses() {
+    setRefresh((state) => {
+      return !state
+    })
+  }
 
   useEffect(() => {
     async function getClasses() {
+      setIsLoading(true)
       const new_classes = await getAllClasses()
       setClasses(new_classes)
       setIsLoading(false)
     }
     getClasses()
-  }, [])
+  }, [refresh])
 
   const [allClassCounter, setAllClassCounter] = useState(0)
   const [myClassCounter, setMyClassCounter] = useState(0)
@@ -29,8 +37,8 @@ function Tutoring(props) {
     setAllClassCounter((state) => {
       if (filteredAllClasses.length <= 3) return 0
       if (state + increment <= 0) return 0
-      if (state + increment >= filteredAllClasses.length - 3)
-        return filteredAllClasses.length - 3
+      if (state + increment >= filteredAllClasses.length)
+        return filteredAllClasses.length
       return state + increment
     })
   }
@@ -39,7 +47,7 @@ function Tutoring(props) {
     setMyClassCounter((state) => {
       if (myClasses.length <= 3) return 0
       if (state + increment <= 0) return 0
-      if (state + increment >= myClasses.length - 3) return myClasses.length - 3
+      if (state + increment >= myClasses.length) return myClasses.length
       return state + increment
     })
   }
@@ -109,6 +117,7 @@ function Tutoring(props) {
         {...data}
         cancelModal={cancelModal}
         error_or_success={error_or_success}
+        balance={props.balance}
       />
     )
   }
@@ -117,6 +126,12 @@ function Tutoring(props) {
     setIsModal(false)
     setModalContent()
   }
+
+  function pageCalculator(int) {
+    return Math.ceil(int / 3)
+  }
+
+  console.log(allClassCounter)
 
   return (
     <Basepage blurred={isModal} modal_content={modalContent}>
@@ -133,7 +148,7 @@ function Tutoring(props) {
             <div className="tutoring-lessons-wrapper">
               <div
                 className="arrow-left"
-                onClick={() => updateMyClassCounter(-1)}
+                onClick={() => updateMyClassCounter(-3)}
               >
                 <IconSVG name="arrow-down" />
               </div>
@@ -150,13 +165,14 @@ function Tutoring(props) {
                       balance={props.balance}
                       tutoringModalCallback={tutoringModal}
                       setIsLoading={setIsLoading}
+                      refreshClasses={refreshClasses}
                     />
                   )
                 })}
               </div>
               <div
                 className="arrow-right"
-                onClick={() => updateMyClassCounter(1)}
+                onClick={() => updateMyClassCounter(3)}
               >
                 <IconSVG name="arrow-down" />
               </div>
@@ -194,7 +210,7 @@ function Tutoring(props) {
           </select>
         </div>
         <div className="tutoring-lessons-wrapper">
-          <div className="arrow-left" onClick={() => updateAllClassCounter(-1)}>
+          <div className="arrow-left" onClick={() => updateAllClassCounter(-3)}>
             <IconSVG name="arrow-down" />
           </div>
           <div className="tutoring-lessons">
@@ -210,16 +226,18 @@ function Tutoring(props) {
                   balance={props.balance}
                   tutoringModalCallback={tutoringModal}
                   setIsLoading={setIsLoading}
+                  refreshClasses={refreshClasses}
                 />
               )
             })}
           </div>
-          <div className="arrow-right" onClick={() => updateAllClassCounter(1)}>
+          <div className="arrow-right" onClick={() => updateAllClassCounter(3)}>
             <IconSVG name="arrow-down" />
           </div>
         </div>
         <div className="tutoring-counter">
-          {allClassCounter + 1}/{filteredAllClasses.length}
+          {pageCalculator(allClassCounter) + 1}/
+          {pageCalculator(filteredAllClasses.length)}
         </div>
       </div>
     </Basepage>

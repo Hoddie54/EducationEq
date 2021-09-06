@@ -11,7 +11,14 @@ function TutoringModal(props) {
     title = "Lesson confirmed"
     message1 = "This lesson costs £" + props.cost
     message2 =
-      "Your new accout balance is £" + (props.balance - props.cost * 100)
+      "Your new account balance is £" + (+props.balance / 100 - +props.cost)
+  }
+
+  if (props.error_or_success === "cancelled") {
+    title = "Lesson cancelled"
+    message1 = "Your lesson has been successfully cancelled"
+    message2 =
+      "Your new account balance is £" + (+props.balance / 100 + +props.cost)
   }
 
   const clock = (
@@ -86,7 +93,10 @@ function TutoringModal(props) {
       <hr />
       <div
         className={`tutoring-modal-title ${
-          props.error_or_success === "success" ? "green" : ""
+          props.error_or_success === "success" ||
+          props.error_or_success === "cancelled"
+            ? "green"
+            : ""
         }`}
       >
         {title}

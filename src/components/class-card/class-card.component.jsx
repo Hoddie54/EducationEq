@@ -134,7 +134,8 @@ function ClassCard(props) {
     const result = await removeMeFromClass(props.data.id)
     props.setIsLoading(false)
     console.log(result)
-    alert(JSON.stringify(result))
+    props.tutoringModalCallback("cancelled", props.data)
+    props.refreshClasses()
   }
 
   const [flipped, setFlipped] = useState(false)
@@ -170,6 +171,7 @@ function ClassCard(props) {
     console.log(result)
     // alert(JSON.stringify(result))
     props.tutoringModalCallback("success", props.data)
+    props.refreshClasses()
   }
 
   const isCancellable = props.data.start_time_and_date - 43200000 > Date.now()
