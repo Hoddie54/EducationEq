@@ -23,7 +23,7 @@ function Homepage3(props) {
         </div>
         <Link to="/main">
           <div className={`button ${props.disabled ? "disabled" : ""}`}>
-            <span>{props.disabled ? "Coming soon" : "Go"}</span>
+            <span>{props.disabled ? "On its way" : "Go"}</span>
           </div>
         </Link>
       </div>

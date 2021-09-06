@@ -130,8 +130,11 @@ function ClassCard(props) {
   )
 
   async function onCancel() {
+    props.setIsLoading(true)
     const result = await removeMeFromClass(props.data.id)
+    props.setIsLoading(false)
     console.log(result)
+    alert(JSON.stringify(result))
   }
 
   const [flipped, setFlipped] = useState(false)
@@ -149,14 +152,24 @@ function ClassCard(props) {
   }, [])
 
   async function launch(class_id) {
+    props.setIsLoading(true)
     const result = await getClassURL(class_id)
+    props.setIsLoading(false)
     console.log(result)
     window.open(result.data.launchurl, "_blank")
   }
 
   async function register(selectedClassUID) {
+    if (props.balance < props.data.cost * 100) {
+      props.tutoringModalCallback("error", props.data)
+      return
+    }
+    props.setIsLoading(true)
     const result = await addMeToClass(selectedClassUID)
+    props.setIsLoading(false)
     console.log(result)
+    // alert(JSON.stringify(result))
+    props.tutoringModalCallback("success", props.data)
   }
 
   const isCancellable = props.data.start_time_and_date - 43200000 > Date.now()

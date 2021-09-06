@@ -5,10 +5,11 @@ import { auth } from "./utils/firebase/auth"
 import {
   createUserProfileDocument,
   enablePersistence,
+  getBalance,
 } from "./utils/firebase/firestore"
 import "./assets/font/font-style.scss"
 import { connect } from "react-redux"
-import { setCurrentUser } from "./utils/redux/user/user.action"
+import { setCurrentUser, setBalance } from "./utils/redux/user/user.action"
 import history from "./history"
 import SpecPage from "./pages/specpage/specpage.component"
 import Specvideos from "./pages/specvideos/specvideos.component"
@@ -18,6 +19,7 @@ import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
 import Admin from "./pages/admin/admin.component"
 import Tutoring from "./pages/tutoring/tutoring.component"
+import StripeTest from "./pages/stripe-test/stripe-test.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -84,7 +86,7 @@ class App extends Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    const { setCurrentUser } = this.props
+    const { setCurrentUser, setBalance } = this.props
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
@@ -99,6 +101,12 @@ class App extends Component {
         setCurrentUser(userAuth)
       }
     })
+
+    getBalance(this.props.currentUser.uid).then((res) => {
+      console.log(res)
+      setBalance(res)
+    })
+
     let gaOptions = {}
     if (this.props.currentUser) {
       gaOptions = { userId: this.props.currentUser.id }
@@ -143,6 +151,7 @@ class App extends Component {
             path="/"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return this.props.currentUser ? (
                 <Redirect to="/home" />
               ) : (
@@ -156,6 +165,7 @@ class App extends Component {
             // component={HomePage}
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return this.props.currentUser ? (
                 <HomePage currentUser={this.props.currentUser} />
               ) : (
@@ -179,6 +189,7 @@ class App extends Component {
             path="/subtopic/:topic_id/:subtopic_id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return (
                 <SubtopicPage {...props} currentUser={this.props.currentUser} />
               )
@@ -250,6 +261,7 @@ class App extends Component {
             path="/main"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return (
                 <Mainpage {...props} currentUser={this.props.currentUser} />
               )
@@ -260,6 +272,7 @@ class App extends Component {
             path="/videos2/:id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return (
                 <Videopage2 {...props} currentUser={this.props.currentUser} />
               )
@@ -270,6 +283,7 @@ class App extends Component {
             path="/questions2/:id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
+              console.log(props.location.pathname)
               return (
                 <Questions2 {...props} currentUser={this.props.currentUser} />
               )
@@ -289,7 +303,20 @@ class App extends Component {
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
               return (
-                <Tutoring {...props} currentUser={this.props.currentUser} />
+                <Tutoring
+                  {...props}
+                  currentUser={this.props.currentUser}
+                  balance={this.props.balance}
+                />
+              )
+            }}
+          />
+          <Route
+            exact
+            path="/test"
+            render={(props) => {
+              return (
+                <StripeTest {...props} currentUser={this.props.currentUser} />
               )
             }}
           />
@@ -301,10 +328,12 @@ class App extends Component {
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  balance: user.balance,
 })
 
 const mapDispatchStateToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setBalance: (balance) => dispatch(setBalance(balance)),
 })
 
 export default connect(mapStateToProps, mapDispatchStateToProps)(App)

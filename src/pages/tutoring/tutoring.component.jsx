@@ -7,6 +7,7 @@ import { getAllClasses } from "../../utils/firebase/firestore"
 import ClassCard from "../../components/class-card/class-card.component"
 import SpinnerPage from "../spinner/spinner.component"
 import TutoringOffer from "../../components/tutoring-offer/tutoring-offer.component"
+import TutoringModal from "../../components/tutoring-modal/tutoring-modal.component"
 
 function Tutoring(props) {
   const [classes, setClasses] = useState([])
@@ -98,8 +99,27 @@ function Tutoring(props) {
 
   const myClassesToDisplay = myClasses.slice(myClassCounter, myClassCounter + 3)
 
+  const [isModal, setIsModal] = useState(false)
+  const [modalContent, setModalContent] = useState()
+
+  function tutoringModal(error_or_success, data) {
+    setIsModal(true)
+    setModalContent(
+      <TutoringModal
+        {...data}
+        cancelModal={cancelModal}
+        error_or_success={error_or_success}
+      />
+    )
+  }
+
+  function cancelModal() {
+    setIsModal(false)
+    setModalContent()
+  }
+
   return (
-    <Basepage>
+    <Basepage blurred={isModal} modal_content={modalContent}>
       {isLoading && <SpinnerPage />}
       <div className="tutoring-wrapper">
         <div className="tutoring-title">My upcoming lessons</div>
@@ -127,6 +147,9 @@ function Tutoring(props) {
                       key={my_class.class_id}
                       data={data}
                       launch={true}
+                      balance={props.balance}
+                      tutoringModalCallback={tutoringModal}
+                      setIsLoading={setIsLoading}
                     />
                   )
                 })}
@@ -180,7 +203,14 @@ function Tutoring(props) {
                 ...my_class,
               }
               return (
-                <ClassCard key={my_class.class_id} data={data} launch={false} />
+                <ClassCard
+                  key={my_class.class_id}
+                  data={data}
+                  launch={false}
+                  balance={props.balance}
+                  tutoringModalCallback={tutoringModal}
+                  setIsLoading={setIsLoading}
+                />
               )
             })}
           </div>

@@ -1,0 +1,61 @@
+.tutoring-modal-wrapper {
+  position: fixed;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  background: white;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  text-align: center;
+  padding: 1rem;
+  width: 50%;
+
+  .tutoring-modal-header {
+    color: #003bff;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .tutoring-modal-title {
+    color: #fe8787;
+    font-size: 2.5rem;
+  }
+  .tutoring.modal-title.green {
+    color: #9bef93;
+  }
+
+  .tutoring-modal-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem;
+    }
+  }
+
+  .message1 {
+    font-size: 1rem;
+    color: #555c73;
+    font-weight: bold;
+  }
+
+  .message2 {
+    font-size: 1rem;
+    color: #0000ff;
+    font-weight: bold;
+  }
+
+  .x-container {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}

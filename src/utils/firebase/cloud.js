@@ -59,6 +59,20 @@ export const getClassURL = (class_id) => {
   })
 }
 
+export const getPaymentIntent = (topupAmount) => {
+  return new Promise((resolve, reject) => {
+    const getPaymentIntent = firebase
+      .functions()
+      .httpsCallable("createPaymentIntent")
+
+    getPaymentIntent({
+      topupAmount: topupAmount,
+    })
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
 // export const addClass = (classOptions) => {
 //   const addClass = firebase.functions().httpsCallable("addClass")
 //   let data

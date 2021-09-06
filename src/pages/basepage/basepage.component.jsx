@@ -2,6 +2,7 @@ import "./basepage.styles.scss"
 import NavigationBar from "../../navigation/navigation-bar/navigation-bar.component"
 import { useState } from "react"
 import logo from "../../assets/logo.svg"
+import { isNull } from "lodash"
 
 function Basepage(props) {
   const [state, setState] = useState({
@@ -13,6 +14,9 @@ function Basepage(props) {
     createdCourses: [],
     public_courses: [],
   })
+
+  const [paymentModalDisplayed, setPaymentModalDisplayed] = useState(false)
+  const [paymentModalContent, setPaymentModalContent] = useState()
 
   function sidebar_click() {
     setState((state) => ({
@@ -36,17 +40,39 @@ function Basepage(props) {
     console.log("clicked")
   }
 
+  function setPaymentModalContentCallback(content) {
+    if (isNull(content)) {
+      setPaymentModalDisplayed(false)
+      setPaymentModalContent(null)
+      return
+    }
+    setPaymentModalDisplayed(true)
+    setPaymentModalContent(content)
+  }
+
   return (
     <>
-      {props.blurred ? (
+      {props.blurred || paymentModalDisplayed ? (
         <div className="basepage__modal-container">
-          <div className="basepage__modal">{props.modal_content}</div>
+          {props.blurred && (
+            <div className="basepage__modal">{props.modal_content} </div>
+          )}
+          {paymentModalContent && (
+            <div className="basepage__modal">{paymentModalContent} </div>
+          )}
         </div>
       ) : (
         ""
       )}
-      <div className={`page ${props.blurred ? "blurred" : ""}`}>
-        <NavigationBar menu_col={props.menu_col}></NavigationBar>
+      <div
+        className={`page ${
+          props.blurred || paymentModalDisplayed ? "blurred" : ""
+        }`}
+      >
+        <NavigationBar
+          menu_col={props.menu_col}
+          setPaymentModalContent={setPaymentModalContentCallback}
+        ></NavigationBar>
 
         <div className={props.menu_col ? "page__wrapper_1" : "page__wrapper"}>
           <div className="page__center">

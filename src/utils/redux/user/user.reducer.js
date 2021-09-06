@@ -1,7 +1,8 @@
-import ActionsType from "./../utils/actions.type";
+import ActionsType from "./../utils/actions.type"
 const INITIAL_STATE = {
   currentUser: null,
-};
+  balance: 0,
+}
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -9,10 +10,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
-      };
+      }
+    case ActionsType.SET_BALANCE:
+      return {
+        ...state,
+        balance: action.payload,
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default userReducer;
+export default userReducer

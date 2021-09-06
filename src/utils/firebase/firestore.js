@@ -62,6 +62,29 @@ export const sendRating = (spec_uid, rating) => {
   })
 }
 
+export const getBalance = (user_uid) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("account_funds")
+      .doc(user_uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data())
+          console.log("Reads : 1")
+          resolve(doc.data().amount)
+        } else {
+          resolve(0)
+        }
+      })
+      .catch((err) => {
+        console.log("Error getting balance: ", err)
+        reject(err)
+      })
+  })
+}
+
 export const getAllClasses = () => {
   return new Promise((resolve, reject) => {
     firebase
