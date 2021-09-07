@@ -102,10 +102,12 @@ class App extends Component {
       }
     })
 
-    getBalance(this.props.currentUser.uid).then((res) => {
-      console.log(res)
-      setBalance(res)
-    })
+    if (this.props.currentUser) {
+      getBalance(this.props.currentUser.uid).then((res) => {
+        console.log(res)
+        setBalance(res)
+      })
+    }
 
     let gaOptions = {}
     if (this.props.currentUser) {
