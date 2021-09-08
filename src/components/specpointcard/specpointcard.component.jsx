@@ -8,6 +8,7 @@ import {
   Notes,
 } from "../../components/main-icons/MainIcons.component"
 import { lineify } from "../../utils/helpers/misc"
+import ReactGA from "react-ga"
 
 function SpecPointCard(props) {
   const history = useHistory()
@@ -25,6 +26,19 @@ function SpecPointCard(props) {
       }
     })
     sendRating(props.spec_uid, event.target.value)
+    ReactGA.event({
+      category: "Action_button",
+      action: "RAG_rating",
+      label: event.target.value,
+    })
+  }
+
+  function fireGAEventNotes() {
+    ReactGA.event({
+      category: "Action_button",
+      action: "Notes click",
+      label: props.spec_uid,
+    })
   }
 
   return (
@@ -54,7 +68,7 @@ function SpecPointCard(props) {
             <div>Watch videos</div>
           </div>
         </Link>
-        <a href={props.notes_url} target="_blank">
+        <a href={props.notes_url} target="_blank" onClick={fireGAEventNotes}>
           <div className="speccard__button blue-text">
             <Notes />
             <div>Explore notes</div>

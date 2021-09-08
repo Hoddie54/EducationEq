@@ -9,6 +9,7 @@ import {
   getRatings,
 } from "../../utils/firebase/firestore"
 import { Link } from "react-router-dom"
+import ReactGA from "react-ga"
 
 function Questions2(props) {
   const spec_id = props.match.params.id
@@ -73,6 +74,12 @@ function Questions2(props) {
       setIncorrects({ [answer]: true })
     }
     setCorrects({ [currentQuestion.correction]: true })
+    console.log(currentQuestion.id)
+    ReactGA.event({
+      category: "Action_button",
+      action: "Answer_question",
+      label: currentQuestion.id,
+    })
   }
 
   return (

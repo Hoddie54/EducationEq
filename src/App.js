@@ -120,8 +120,7 @@ class App extends Component {
       ReactGA.initialize("UA-202036186-1", gaOptions)
     }
     if (this.props.currentUser) {
-      // // console.log(this.props.currentUser.id)
-      // ReactGA.set({ userId: this.props.currentUser.id })
+      ReactGA.ga()("set", "userId", this.props.currentUser.uid)
     }
 
     window.performance.mark("end")

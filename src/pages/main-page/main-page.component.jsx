@@ -24,10 +24,20 @@ function MainPage(props) {
   function topicChange(event) {
     setSelectedTopic(event.target.value)
     setSelectedSubtopic("0")
+    ReactGA.event({
+      category: "Action_button",
+      action: "Topic_change",
+      label: data.content[event.target.value].topic_name,
+    })
   }
 
   function subtopicChange(event) {
     setSelectedSubtopic(event.target.value)
+    ReactGA.event({
+      category: "Action_button",
+      action: "Subtopic_change",
+      label: data.content[selectedTopic].subtopics[event.target.value].name,
+    })
   }
 
   useEffect(() => {

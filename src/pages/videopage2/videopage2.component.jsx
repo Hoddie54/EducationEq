@@ -13,6 +13,7 @@ import SpinnerPage from "../spinner/spinner.component"
 import queryString from "query-string"
 import { Link } from "react-router-dom"
 import { Notes, Target } from "../../components/main-icons/MainIcons.component"
+import ReactGA from "react-ga"
 
 function VideoPage2(props) {
   const [spec_id, setSpecId] = useState(props.match.params.id)
@@ -54,7 +55,25 @@ function VideoPage2(props) {
       setIsLoading(false)
     }
     getData()
+
+    window.addEventListener("blur", fireGAEventVideo)
   }, [spec_id])
+
+  function fireGAEventVideo() {
+    ReactGA.event({
+      category: "Action_button",
+      action: "Video_click",
+      label: spec_id,
+    })
+  }
+
+  function fireGAEventNotes() {
+    ReactGA.event({
+      category: "Action_button",
+      action: "Notes click",
+      label: spec_id,
+    })
+  }
 
   return (
     <Basepage>
@@ -91,7 +110,11 @@ function VideoPage2(props) {
                 <div className="other-content">
                   <Notes />
                   Access notes for this specification point
-                  <a href={my_specpoint.notes_url} target="_blank">
+                  <a
+                    href={my_specpoint.notes_url}
+                    target="_blank"
+                    onClick={fireGAEventNotes}
+                  >
                     <div className="blue-text">Learn with notes</div>
                   </a>
                 </div>
