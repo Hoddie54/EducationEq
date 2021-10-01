@@ -6,6 +6,7 @@ import { saveUserToFirestore } from "./../../utils/firebase/firestore"
 import ReactGA from "react-ga"
 import SignUp from "../../pages/signup/signup.component"
 import { iOS } from "../../utils/helpers/misc"
+import { setCurrentUser } from "../../utils/redux/user/user.action"
 
 export default class Signin extends React.Component {
   constructor(props) {

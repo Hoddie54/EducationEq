@@ -23,6 +23,27 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+export const sendParentDetails = (details) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("parental_details")
+      .add({
+        ...details,
+        user_name: firebase.auth().currentUser.uid,
+        student_name: firebase.auth().currentUser.displayName,
+        student_email: firebase.auth().currentUser.email,
+      })
+      .then(() => {
+        resolve()
+      })
+      .catch((error) => {
+        console.log("Error sending feedback: ", error)
+        reject(error)
+      })
+  })
+}
+
 export const sendFeedback = (feedback) => {
   return new Promise((resolve, reject) => {
     firebase

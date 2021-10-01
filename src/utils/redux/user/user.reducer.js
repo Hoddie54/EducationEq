@@ -7,6 +7,7 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionsType.SET_CURRENT_USER:
+      console.log("ACTION HAS BEEN TRIGGERED")
       return {
         ...state,
         currentUser: action.payload,

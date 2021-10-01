@@ -20,6 +20,7 @@ class SignIn extends React.Component {
 
   handleRegister = (event) => {
     event.preventDefault()
+    console.log("HANDLE REGISTER")
     const signInData = {
       email: this.state.email,
       password: this.state.password,

@@ -5,6 +5,8 @@ import {
   saveUserToFirestore,
   deleteAccountFromFirestore,
 } from "./firestore"
+import { iOS } from "../../utils/helpers/misc"
+import { setCurrentUser } from "../redux/user/user.action"
 
 export const auth = firebase.auth()
 // Google Auth
@@ -48,6 +50,13 @@ export const loginUser = (email, password, changeErrorMessage) => {
       .then((response) => {
         if (response) {
           console.log("Successfully logged in user!")
+
+          console.log(response.user)
+          console.log(iOS())
+          if (iOS()) {
+            setCurrentUser(response.user)
+          }
+
           resolve()
         }
       })

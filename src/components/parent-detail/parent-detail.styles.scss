@@ -1,0 +1,42 @@
+.form-wrapper {
+  width: 80%;
+  margin: 1rem auto;
+  text-align: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      appearance: auto;
+      -webkit-appearance: auto;
+      padding: 0.3rem;
+      margin: 1rem;
+      background: #ffffff;
+      border-radius: 15px;
+      color: #979797;
+      font-size: 1rem;
+      border: none;
+      outline: none;
+    }
+
+    label {
+      font-size: 0.7rem;
+      font-style: italic;
+    }
+  }
+  button {
+    padding: 0.2rem;
+    background: radial-gradient(
+      145.26% 1798.35% at -45.26% -50%,
+      #369aff 0%,
+      #003bff 100%
+    );
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    width: 70%;
+    text-align: center;
+    cursor: pointer;
+  }
+}

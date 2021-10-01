@@ -8,6 +8,7 @@ import ClassCard from "../../components/class-card/class-card.component"
 import SpinnerPage from "../spinner/spinner.component"
 import TutoringOffer from "../../components/tutoring-offer/tutoring-offer.component"
 import TutoringModal from "../../components/tutoring-modal/tutoring-modal.component"
+import ParentDetail from "../../components/parent-detail/parent-detail.component"
 
 function Tutoring(props) {
   const [classes, setClasses] = useState([])
@@ -182,7 +183,7 @@ function Tutoring(props) {
             </div>
           </>
         )}
-        <div className="tutoring-title">All available lessons</div>
+        {/* <div className="tutoring-title">All available lessons</div>
         <div className="tutoring-filter">
           <select name="subject" value={filter.subject} onChange={updateFilter}>
             <option value="">Subject filter</option>
@@ -208,8 +209,10 @@ function Tutoring(props) {
             <option value="3">Within next 3 days</option>
             <option value="7">Within next week</option>
           </select>
-        </div>
-        <div className="tutoring-lessons-wrapper">
+        </div> */}
+        <div className="tutoring-title">Get your free lesson!</div>
+        <ParentDetail />
+        {/* <div className="tutoring-lessons-wrapper">
           <div className="arrow-left" onClick={() => updateAllClassCounter(-3)}>
             <IconSVG name="arrow-down" />
           </div>
@@ -234,11 +237,11 @@ function Tutoring(props) {
           <div className="arrow-right" onClick={() => updateAllClassCounter(3)}>
             <IconSVG name="arrow-down" />
           </div>
-        </div>
-        <div className="tutoring-counter">
+        </div> */}
+        {/* <div className="tutoring-counter">
           {pageCalculator(allClassCounter) + 1}/
           {pageCalculator(filteredAllClasses.length)}
-        </div>
+        </div> */}
       </div>
     </Basepage>
   )

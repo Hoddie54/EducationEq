@@ -4,7 +4,8 @@
   background: white;
   padding: 0.2rem;
 
-  > div {
+  div,
+  a {
     background: radial-gradient(50% 50% at 50% 50%, #0340ff 0%, #000000 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -13,11 +14,11 @@
     font-weight: bold;
   }
 
-  :nth-child(1) {
+  > div {
     font-size: 1.8rem;
   }
 
-  :nth-child(2) {
+  > a {
     font-size: 1rem;
   }
 }

@@ -20,6 +20,7 @@ import Questions2 from "./pages/questions2/questions2.component"
 import Admin from "./pages/admin/admin.component"
 import Tutoring from "./pages/tutoring/tutoring.component"
 import StripeTest from "./pages/stripe-test/stripe-test.component"
+import { iOS } from "./utils/helpers/misc"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
