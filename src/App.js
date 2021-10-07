@@ -21,6 +21,7 @@ import Admin from "./pages/admin/admin.component"
 import Tutoring from "./pages/tutoring/tutoring.component"
 import StripeTest from "./pages/stripe-test/stripe-test.component"
 import { iOS } from "./utils/helpers/misc"
+import TutoringForm from "./pages/tutoringform/tutoringform.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -313,12 +314,21 @@ class App extends Component {
               )
             }}
           />
-          <Route
+          {/* <Route
             exact
             path="/test"
             render={(props) => {
               return (
                 <StripeTest {...props} currentUser={this.props.currentUser} />
+              )
+            }}
+          /> */}
+          <Route
+            exact
+            path="/tutoring-form"
+            render={(props) => {
+              return (
+                <TutoringForm {...props} currentUser={this.props.currentUser} />
               )
             }}
           />

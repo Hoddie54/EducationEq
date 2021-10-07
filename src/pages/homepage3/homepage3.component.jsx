@@ -40,8 +40,8 @@ function Homepage3(props) {
       news: "We've added tutoring from some of the best tutors in the UK! You can get your free lesson today",
     },
     {
-      title: "Welcome!",
-      news: "Welcome to Education Equation! This is our first version that is available to the public! We'd love to get your thoughts via the feedback button :)",
+      title: "Bug fixes",
+      news: "Some of you may have had problems logging in from iOS devices. These should be fixed now",
     },
   ]
 
@@ -129,11 +129,11 @@ function Homepage3(props) {
             <div className="update__versions">
               <div className="update__version">
                 <div>Version</div>
-                <div>Update MVP 5.1</div>
+                <div>Update MVP 5.2</div>
               </div>
               <div className="update__version">
                 <div>Last updated</div>
-                <div>01/10/2021</div>
+                <div>07/10/2021</div>
               </div>
             </div>
             <hr />
