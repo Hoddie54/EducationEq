@@ -558,11 +558,14 @@ export const fetchUser = (uid) => {
       .doc(uid)
       .get()
       .then((doc) => {
+        console.log(1)
         if (doc.exists) {
+          console.log(2)
           resolve(doc.data())
         }
       })
       .catch((err) => {
+        console.log(3)
         console.log("Fetch User Error", err.message)
         reject(err)
       })

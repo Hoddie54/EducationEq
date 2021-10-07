@@ -51,13 +51,13 @@ export const loginUser = (email, password, changeErrorMessage) => {
         if (response) {
           console.log("Successfully logged in user!")
 
-          console.log(response.user)
-          console.log(iOS())
-          if (iOS()) {
-            setCurrentUser(response.user)
-          }
+          // console.log(response.user)
+          // console.log(iOS())
+          // if (iOS()) {
+          //   setCurrentUser(response.user)
+          // }
 
-          resolve()
+          resolve(response)
         }
       })
       .catch((error) => {
