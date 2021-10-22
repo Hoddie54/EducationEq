@@ -34,6 +34,7 @@ function TutoringForm2(props) {
             active: !state[props.subject].active,
             exam_board: state[props.subject].exam_board,
             working_grade: state[props.subject].working_grade,
+            approved: false,
           },
         }
       })
@@ -47,6 +48,7 @@ function TutoringForm2(props) {
             active: state[props.subject].active,
             exam_board: state[props.subject].exam_board,
             working_grade: e.target.value,
+            approved: false,
           },
         }
       })
@@ -60,6 +62,7 @@ function TutoringForm2(props) {
             active: state[props.subject].active,
             exam_board: e.target.value,
             working_grade: state[props.subject].working_grade,
+            approved: false,
           },
         }
       })
@@ -86,7 +89,7 @@ function TutoringForm2(props) {
             <option>Not active</option>
           ) : (
             <>
-              {formDetails.qualifications === "GCSE" ? (
+              {formDetails.qualification === "GCSE" ? (
                 <>
                   <option value={3}>Grade 3</option>
                   <option value={4}>Grade 4</option>
@@ -139,9 +142,40 @@ function TutoringForm2(props) {
           <div className="form-lhs">
             <label>What qualifications is your child studying?</label>
             <select
-              name="qualifications"
-              value={formDetails.qualifications}
-              onChange={formChange}
+              name="qualification"
+              value={formDetails.qualification}
+              onChange={(ev) => {
+                setFormDetails((state) => {
+                  return {
+                    ...state,
+                    Physics: {
+                      active: false,
+                      exam_board: "edexcel",
+                      working_grade: ev.target.value === "GCSE" ? "3" : "E",
+                      approved: false,
+                    },
+                    Chemistry: {
+                      active: false,
+                      exam_board: "edexcel",
+                      working_grade: ev.target.value === "GCSE" ? "3" : "E",
+                      approved: false,
+                    },
+                    Mathematics: {
+                      active: false,
+                      exam_board: "edexcel",
+                      working_grade: ev.target.value === "GCSE" ? "3" : "E",
+                      approved: false,
+                    },
+                    Biology: {
+                      active: false,
+                      exam_board: "edexcel",
+                      working_grade: ev.target.value === "GCSE" ? "3" : "E",
+                      approved: false,
+                    },
+                  }
+                })
+                formChange(ev)
+              }}
               required
             >
               <option value="GCSE">GCSEs</option>
@@ -186,6 +220,11 @@ function TutoringForm2(props) {
               </small>
             </label>
             <div className="subject-selection">
+              <div className="titles">
+                <div>Subject</div>
+                <div>Working grade</div>
+                <div>Exam board</div>
+              </div>
               {subjects.map((subject, index) => {
                 return <Subject subject={subject} key={index} />
               })}

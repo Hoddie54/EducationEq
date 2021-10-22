@@ -57,3 +57,47 @@ export function convertTo12HourTime(time) {
     return `${new_hour}:${minute}PM`
   }
 }
+
+export function timedayToNumber(day_number, time) {
+  if (day_number <= 4) {
+    return (time - 16) * 5 + day_number
+  } else {
+    return (time - 9) * 2 + (day_number - 5) + 25
+  }
+}
+
+export function numberToTimeday(number) {
+  let day_number = 0
+  let time = 0
+
+  if (number <= 24) {
+    day_number = number % 5
+    time = (number - day_number) / 5 + 16
+  } else {
+    day_number = ((number + 1) % 2) + 5
+    let time = number
+    if (time % 2 === 1) time = time + 1
+    time = time / 2 - 4
+  }
+
+  return { time: time, day_number: day_number }
+}
+
+export function dayNumberToDay(day_number) {
+  switch (day_number) {
+    case 0:
+      return "Monday"
+    case 1:
+      return "Tuesday"
+    case 2:
+      return "Wednesday"
+    case 3:
+      return "Thursday"
+    case 4:
+      return "Friday"
+    case 5:
+      return "Saturday"
+    case 6:
+      return "Sunday"
+  }
+}

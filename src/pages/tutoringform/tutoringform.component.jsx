@@ -1,6 +1,7 @@
 import { useState } from "react"
 import TutoringForm1 from "../../components/tutoring-form-1/tutoring-form-1.component"
 import TutoringForm2 from "../../components/tutoring-form-2/tutoring-form-2.component"
+import TutoringForm3 from "../../components/tutoring-form-3/tutoring-form-3.component"
 import "./tutoringform.styles.scss"
 
 function TutoringForm() {
@@ -10,32 +11,37 @@ function TutoringForm() {
     email: "",
     password: "",
     parent_name: "",
-    package: "",
+    package: "60",
     phone_number: "",
-    qualification: "",
-    year_group: "",
+    qualification: "GCSE",
+    year_group: "9",
     child_name: "",
     additional_info: "",
     Physics: {
       active: false,
-      exam_board: "",
-      working_grade: "",
+      exam_board: "edexcel",
+      working_grade: "3",
+      approved: false,
     },
     Chemistry: {
       active: false,
-      exam_board: "",
-      working_grade: "",
+      exam_board: "edexcel",
+      working_grade: "3",
+      approved: false,
     },
     Mathematics: {
       active: false,
-      exam_board: "",
-      working_grade: "",
+      exam_board: "edexcel",
+      working_grade: "3",
+      approved: false,
     },
     Biology: {
       active: false,
-      exam_board: "",
-      working_grade: "",
+      exam_board: "edexcel",
+      working_grade: "3",
+      approved: false,
     },
+    availability: Array.from({ length: 49 }, (i) => (i = true)),
   }
 
   const [formDetails, setFormDetails] = useState(initialFormState)
@@ -72,6 +78,16 @@ function TutoringForm() {
           )}
           {formStage === 2 ? (
             <TutoringForm2
+              formDetails={formDetails}
+              formChange={formChange}
+              setFormStage={setFormStage}
+              setFormDetails={setFormDetails}
+            />
+          ) : (
+            ""
+          )}
+          {formStage === 3 ? (
+            <TutoringForm3
               formDetails={formDetails}
               formChange={formChange}
               setFormStage={setFormStage}

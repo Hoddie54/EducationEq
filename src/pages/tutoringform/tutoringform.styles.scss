@@ -2,20 +2,15 @@
   background-color: #edeef1;
   filter: brightness(75%) blur(4px);
   width: 100%;
-  min-height: 100vh;
-  z-index: 0;
+  // min-height: 100vh;
   position: relative;
 }
 
 .t-form-content {
-  position: fixed;
-  z-index: 2;
-  width: 80%;
-  height: 80%;
+  width: 90%;
   background: white;
-  left: 50%;
-  transform: translate(-50%, 10%);
-  border-radius: 15px;
+  margin: 2rem auto;
+  border-radius: 20px;
 
   .form-title {
     color: #003bff;

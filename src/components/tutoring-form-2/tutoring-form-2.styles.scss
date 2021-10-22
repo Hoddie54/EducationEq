@@ -30,6 +30,19 @@
   .subject-selection {
     display: flex;
     flex-direction: column;
+
+    .titles {
+      display: flex;
+      // justify-content: space-between;
+      align-items: center;
+      text-decoration: underline;
+
+      > div {
+        width: 33%;
+        text-align: center;
+      }
+    }
+
     .subject {
       display: flex;
       display: row;

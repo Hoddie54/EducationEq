@@ -1,0 +1,26 @@
+.admin2-wrapper {
+  width: 100%;
+
+  .admin2-header {
+    width: 100%;
+    height: 3rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #003bff;
+    color: white;
+  }
+
+  .admin2-content {
+    margin: 1rem;
+
+    .admin2-tiles {
+      display: flex;
+      flex-direction: column;
+
+      .tile {
+        background-color: white;
+        width: 100%;
+      }
+    }
+  }
+}

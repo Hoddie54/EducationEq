@@ -1,13 +1,16 @@
+import { useState } from "react"
 import "./tutoring-form-1.styles.scss"
 
 function TutoringForm1(props) {
+  const { formDetails } = props
+  const { formChange } = props
+  const passwordTooShort = formDetails.password.length < 6
+
   function onSubmit() {
+    if (formDetails.password.length < 6) return
     props.setFormStage(2)
   }
 
-  const { formDetails } = props
-  const { formChange } = props
-  
   return (
     <div className="form-1">
       <form onSubmit={onSubmit}>
@@ -20,6 +23,9 @@ function TutoringForm1(props) {
           required
         />
         <label>Please select a password</label>
+        {passwordTooShort && formDetails.password.length > 0
+          ? "Please enter a password with at least 7 characters"
+          : ""}
         <input
           name="password"
           type="password"
@@ -28,10 +34,10 @@ function TutoringForm1(props) {
           required
         />
         <input
-          name="name"
+          name="parent_name"
           type="text"
           placeholder="What is your name?"
-          value={formDetails.name}
+          value={formDetails.parent_name}
           onChange={formChange}
           required
         />
@@ -43,9 +49,9 @@ function TutoringForm1(props) {
           required
         >
           {/* <option>Which package have you purchased?</option> */}
-          <option value={5}>£60 - 5 lessons</option>
-          <option value={10}>£100 - 10 lessons</option>
-          <option value={20}>£200 - 20 lessons</option>
+          <option value={60}>£60 - 5 lessons</option>
+          <option value={100}>£100 - 10 lessons</option>
+          <option value={200}>£200 - 20 lessons</option>
         </select>
         <input
           name="phone_number"

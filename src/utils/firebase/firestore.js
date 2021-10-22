@@ -83,6 +83,31 @@ export const sendRating = (spec_uid, rating) => {
   })
 }
 
+export const getAppovals = () => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("users")
+      .where("account_type", "==", "tutoring")
+      .where("lessons_approved", "==", false)
+      .get()
+      .then((querySnapshot) => {
+        const users = []
+        querySnapshot.forEach((doc) =>
+          users.push({ ...doc.data(), id: doc.id })
+        )
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(users)
+      })
+      .catch((err) => {
+        console.log("Error getting all users for approvals: ", err)
+        reject(err)
+      })
+  })
+}
+
 export const getBalance = (user_uid) => {
   return new Promise((resolve, reject) => {
     firebase
