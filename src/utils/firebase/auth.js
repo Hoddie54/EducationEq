@@ -27,6 +27,7 @@ export const registerTutoringUser = (data) => {
           data.uid = user.uid
           data.lesson_credits = 0
           data.lessons_approved = false
+          data.account_type = "tutoring"
           delete data.password
           saveUserToFirestore(data)
             .then(() => {

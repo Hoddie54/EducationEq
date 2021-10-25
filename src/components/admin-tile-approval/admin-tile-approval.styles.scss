@@ -1,0 +1,27 @@
+.approvals {
+  display: flex;
+  padding: 0.5rem;
+  .approval {
+    width: 80%;
+    background-color: white;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .left,
+    .right {
+      width: 47%;
+    }
+
+    .approve-button {
+      padding: 0.2rem;
+      cursor: pointer;
+      background-color: blue;
+      color: white;
+      border-radius: 10px;
+      display: block;
+    }
+  }
+}

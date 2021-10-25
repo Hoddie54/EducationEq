@@ -1,7 +1,8 @@
+import AdminTileApproval from "../../components/admin-tile-approval/admin-tile-approval.component"
 import "./admin2.styles.scss"
 
 function Admin2() {
-  const tiles = []
+  const tiles = [<AdminTileApproval />]
 
   return (
     <div className="admin2-wrapper">
@@ -12,7 +13,7 @@ function Admin2() {
         <div className="admin2-tiles">
           {tiles.map((tile, index) => {
             return (
-              <div key={index} className="admin-tile">
+              <div key={index} className="tile">
                 {tile}
               </div>
             )
