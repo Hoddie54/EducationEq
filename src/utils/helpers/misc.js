@@ -101,3 +101,32 @@ export function dayNumberToDay(day_number) {
       return "Sunday"
   }
 }
+
+export const SubjectNumberArray = [
+  { value: 0, text: "Maths Foundation" },
+  { value: 1, text: "Maths GCSE" },
+  { value: 2, text: "Maths Alevel" },
+  { value: 3, text: "Physics Foundation" },
+  { value: 4, text: "Physics GCSE" },
+  { value: 5, text: "Physics Alevel" },
+  { value: 6, text: "Chemistry Foundation" },
+  { value: 7, text: "Chemistry GCSE" },
+  { value: 8, text: "Chemistry Alevel" },
+  { value: 9, text: "Biology Foundation" },
+  { value: 10, text: "Biology GCSE" },
+  { value: 11, text: "Biology Alevel" },
+]
+
+export const yearGroupArray = [
+  { value: 9, text: "Year 9" },
+  { value: 10, text: "Year 10" },
+  { value: 11, text: "Year 11" },
+  { value: 12, text: "Year 12" },
+  { value: 13, text: "Year 13" },
+]
+
+export const abilityArray = [
+  { value: 1, text: "Grades A*/A or 9/8" },
+  { value: 2, text: "Grades B/C or 7/6/5" },
+  { value: 3, text: "Grades D or 4 or below" },
+]

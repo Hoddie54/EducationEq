@@ -1,0 +1,20 @@
+.admin-form {
+  input,
+  select,
+  textarea {
+    display: block;
+    margin: 0.2rem;
+    width: 80%;
+  }
+
+  button {
+    margin: 0.5rem;
+    display: block;
+    padding: 0.2rem;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    display: block;
+  }
+}

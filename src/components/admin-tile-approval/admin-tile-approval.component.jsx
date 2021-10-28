@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { approveSubjects } from "../../utils/firebase/cloud"
 import { getAppovals } from "../../utils/firebase/firestore"
 import "./admin-tile-approval.styles.scss"
 
@@ -57,7 +58,14 @@ function AdminTileApproval() {
                     Physics:{" "}
                     {approval.Physics.active ? <span>Requested</span> : "N/A"}
                   </div>
-                  <div className="approve-button">Approve all</div>
+                  <div
+                    className="approve-button"
+                    onClick={async () => {
+                      await approveSubjects(approval)
+                    }}
+                  >
+                    Approve all
+                  </div>
                 </div>
               )
             })}

@@ -9,6 +9,23 @@ import firebase from "./../../config/FirebasConfig"
  * @returns Response from Cloud Function
  */
 
+export const approveSubjects = (data) => {
+  return new Promise((resolve, reject) => {
+    const resolveSubjects = firebase
+      .functions()
+      .httpsCallable("approveSubjects")
+    resolveSubjects(data)
+      .then((res) => {
+        console.log("Approve subjects")
+        resolve(res)
+      })
+      .catch((err) => {
+        console.log("ERROR approving subjects")
+        reject(err)
+      })
+  })
+}
+
 export const addClass = (classOptions) => {
   return new Promise((resolve, reject) => {
     const addClass = firebase.functions().httpsCallable("addClass")

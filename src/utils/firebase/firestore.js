@@ -23,6 +23,42 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+export const sendDataToFirebase = (collection, data) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection(collection)
+      .add(data)
+      .then((docRef) => {
+        console.log("Data added with " + docRef.id)
+        resolve(docRef)
+      })
+      .catch((err) => {
+        console.log("Error in sending data", err)
+        reject(err)
+      })
+  })
+}
+
+export const getCollectionFromFirestore = (collection) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection(collection)
+      .get()
+      .then((querySnapshot) => {
+        const data = []
+        querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }))
+        console.log("Reads :", querySnapshot.size)
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log("Error getting all data (all of collection)", err)
+        reject(err)
+      })
+  })
+}
+
 export const sendParentDetails = (details) => {
   return new Promise((resolve, reject) => {
     firebase

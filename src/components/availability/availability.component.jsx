@@ -1,35 +1,25 @@
-import { registerTutoringUser } from "../../utils/firebase/auth"
-
-import "./tutoring-form-3.styles.scss"
+import "./availability.styles.scss"
 import { timedayToNumber } from "../../utils/helpers/misc"
 
-function TutoringForm3(props) {
+function Availability(props) {
   const weekday_timings = [16, 17, 18, 19, 20]
   const weekend_timings = [9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20]
 
   const weekday_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
   const weekend_days = ["Saturday", "Sunday"]
 
-  const { formDetails } = props
-  const { setFormDetails } = props
-
-  async function onSubmit(e) {
-    e.preventDefault()
-    //DO THE LOGIC and REGISTER
-    console.log(formDetails)
-    await registerTutoringUser(formDetails)
-  }
+  const { availabilityDetails } = props
+  const { setAvailabilityDetails } = props
 
   function Checkbox(props) {
     const timeday_number = timedayToNumber(props.day_index, props.time)
-    const checked = !formDetails.availability[timeday_number]
+    const checked = !availabilityDetails[timeday_number]
 
     function toggle() {
-      setFormDetails((state) => {
-        console.log(timeday_number)
-        const new_availability = [...formDetails.availability]
+      setAvailabilityDetails((state) => {
+        const new_availability = [...state]
         new_availability[timeday_number] = !new_availability[timeday_number]
-        return { ...state, availability: new_availability }
+        return new_availability
       })
     }
 
@@ -76,7 +66,7 @@ function TutoringForm3(props) {
   }
 
   return (
-    <div className="form-3">
+    <div className="avail-form-3">
       <div className="weekdays">
         <div className="title-area">
           <div className="title">Weekday timings</div>
@@ -146,11 +136,8 @@ function TutoringForm3(props) {
           })}
         </div>{" "}
       </div>
-      <form onSubmit={onSubmit}>
-        <button>Next</button>
-      </form>
     </div>
   )
 }
 
-export default TutoringForm3
+export default Availability

@@ -1,0 +1,63 @@
+.avail-form-3 {
+  .title-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .title {
+      //   width: 40%;
+      text-decoration: underline;
+      font-size: 1.5rem;
+      margin: 1rem;
+    }
+
+    .message {
+      color: rgba(237, 0, 6, 0.4);
+      font-size: 1rem;
+      width: 50%;
+    }
+  }
+
+  .grid {
+    display: grid;
+  }
+
+  .weekday {
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .weekend {
+    width: 50%;
+    grid-template-rows: 2fr repeat(12, 1fr);
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .weekends,
+  .weekdays {
+    display: block;
+  }
+
+  .day-label,
+  .time-label {
+    color: #003bff;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .time-label {
+    text-indent: 40px;
+  }
+
+  .checkbox {
+    height: 20px;
+    width: 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #929da9;
+    background-color: #eaecee;
+  }
+}
