@@ -5,16 +5,21 @@ import { useState, useEffect } from "react"
 function AdminTileForm(props) {
   function onSubmit(e) {
     e.preventDefault()
+    console.log(formData)
     props.onSubmit(formData)
   }
 
   async function loadFormData() {
-    const data = await props.getLoadedFormData()
+    const data = await props.getLoadedFormData(setFormData)
     setLoadedForm(data)
     setLoading(false)
   }
 
-  const [isLoading, setLoading] = useState(props.getLoadedFormData)
+  console.log()
+
+  const [isLoading, setLoading] = useState(
+    typeof props.getLoadedFormData !== "undefined"
+  )
   const [loadedForm, setLoadedForm] = useState([])
   const [formData, setFormData] = useState(props.initial_state)
 
@@ -92,8 +97,9 @@ function AdminTileForm(props) {
                   value={formData[input.name]}
                   required={input.required}
                   multiple={input.multiple}
-                  size={input.options.length}
+                  size={input.options.length + 1}
                 >
+                  <option selected={true}>Select a value</option>
                   {input.options.map((option, index) => {
                     return (
                       <option key={index} value={option.value}>

@@ -1,5 +1,5 @@
 import "./availability.styles.scss"
-import { timedayToNumber } from "../../utils/helpers/misc"
+import { arrayRemove, timedayToNumber } from "../../utils/helpers/misc"
 
 function Availability(props) {
   const weekday_timings = [16, 17, 18, 19, 20]
@@ -13,13 +13,22 @@ function Availability(props) {
 
   function Checkbox(props) {
     const timeday_number = timedayToNumber(props.day_index, props.time)
-    const checked = !availabilityDetails[timeday_number]
+    const checked = !availabilityDetails.includes(timeday_number)
 
     function toggle() {
       setAvailabilityDetails((state) => {
-        const new_availability = [...state]
-        new_availability[timeday_number] = !new_availability[timeday_number]
+        console.log(state)
+        let new_availability = [...state]
+        if (new_availability.includes(timeday_number)) {
+          return arrayRemove(new_availability, timeday_number)
+        } else {
+          new_availability.push(timeday_number)
+        }
         return new_availability
+
+        // const new_availability = [...state]
+        // new_availability[timeday_number] = !new_availability[timeday_number]
+        // return new_availability
       })
     }
 

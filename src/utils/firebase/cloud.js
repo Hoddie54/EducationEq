@@ -8,7 +8,6 @@ import firebase from "./../../config/FirebasConfig"
  *
  * @returns Response from Cloud Function
  */
-
 export const approveSubjects = (data) => {
   return new Promise((resolve, reject) => {
     const resolveSubjects = firebase
@@ -26,16 +25,44 @@ export const approveSubjects = (data) => {
   })
 }
 
-export const addClass = (classOptions) => {
+export const addNewClass = (data) => {
   return new Promise((resolve, reject) => {
-    const addClass = firebase.functions().httpsCallable("addClass")
-    const formattedClassOptions = {
-      ...classOptions,
-      start_time: convertTo12HourTime(classOptions.start_time),
-      end_time: convertTo12HourTime(classOptions.end_time),
-    }
+    const addClass = firebase.functions().httpsCallable("addNewClassFromAdmin")
+    addClass(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
 
-    addClass({ class: formattedClassOptions })
+export const deleteClass = (class_uid) => {
+  return new Promise((resolve, reject) => {
+    const deleteClass = firebase
+      .functions()
+      .httpsCallable("deleteClassFromAdmin")
+
+    deleteClass(class_uid)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
+export const addStudentToClass = (data) => {
+  return new Promise((resolve, reject) => {
+    const addClass = firebase
+      .functions()
+      .httpsCallable("addStudentToClassFromAdmin")
+    addClass(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
+export const removeStudentFromClass = (data) => {
+  return new Promise((resolve, reject) => {
+    const addClass = firebase
+      .functions()
+      .httpsCallable("removeStudentFromClassFromAdmin")
+    addClass(data)
       .then((res) => resolve(res))
       .catch((err) => reject(err))
   })

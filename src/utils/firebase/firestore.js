@@ -23,6 +23,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef
 }
 
+//WARNING: Likely broken? Due to neededing collection, doc, and data
 export const sendDataToFirebase = (collection, data) => {
   return new Promise((resolve, reject) => {
     firebase
@@ -54,6 +55,42 @@ export const getCollectionFromFirestore = (collection) => {
       })
       .catch((err) => {
         console.log("Error getting all data (all of collection)", err)
+        reject(err)
+      })
+  })
+}
+
+export const updateDataFromFirestore = (collection, doc, data) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection(collection)
+      .doc(doc)
+      .update(data)
+      .then((res) => {
+        console.log("Updated doc")
+        resolve(res)
+      })
+      .catch((err) => {
+        console.log("Error Updating doc")
+        reject(err)
+      })
+  })
+}
+
+export const deleteDataFromFirestore = (collection, doc) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection(collection)
+      .doc(doc)
+      .delete()
+      .then((res) => {
+        console.log("Document deleted")
+        resolve(res)
+      })
+      .catch((err) => {
+        console.log("Error deleting doc")
         reject(err)
       })
   })
@@ -115,6 +152,30 @@ export const sendRating = (spec_uid, rating) => {
       .catch((error) => {
         console.log("Error sending rating: ", error)
         reject(error)
+      })
+  })
+}
+
+export const getCustomers = () => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("users")
+      .where("account_type", "==", "tutoring")
+      .get()
+      .then((querySnapshot) => {
+        const users = []
+        querySnapshot.forEach((doc) =>
+          users.push({ ...doc.data(), id: doc.id })
+        )
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(users)
+      })
+      .catch((err) => {
+        console.log("Error getting all users (customers): ", err)
+        reject(err)
       })
   })
 }

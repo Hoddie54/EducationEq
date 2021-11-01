@@ -130,3 +130,9 @@ export const abilityArray = [
   { value: 2, text: "Grades B/C or 7/6/5" },
   { value: 3, text: "Grades D or 4 or below" },
 ]
+
+export function arrayRemove(arr, value) {   
+  return arr.filter(function(ele){ 
+      return ele != value; 
+  });
+}

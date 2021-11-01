@@ -41,13 +41,14 @@ function TutoringForm() {
       working_grade: "3",
       approved: false,
     },
-    availability: Array.from({ length: 49 }, (i) => (i = true)),
+    availability: [...Array(49).keys()],
   }
 
   const [formDetails, setFormDetails] = useState(initialFormState)
 
   function formChange(e) {
     setFormDetails((state) => {
+      console.log(formDetails)
       return {
         ...state,
         [e.target.name]: e.target.value,

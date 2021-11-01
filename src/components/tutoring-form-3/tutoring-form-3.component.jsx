@@ -1,5 +1,5 @@
 import { registerTutoringUser } from "../../utils/firebase/auth"
-
+import { arrayRemove } from "../../utils/helpers/misc"
 import "./tutoring-form-3.styles.scss"
 import { timedayToNumber } from "../../utils/helpers/misc"
 
@@ -22,13 +22,21 @@ function TutoringForm3(props) {
 
   function Checkbox(props) {
     const timeday_number = timedayToNumber(props.day_index, props.time)
-    const checked = !formDetails.availability[timeday_number]
+    const checked = !formDetails.availability.includes(timeday_number)
 
     function toggle() {
       setFormDetails((state) => {
-        console.log(timeday_number)
-        const new_availability = [...formDetails.availability]
-        new_availability[timeday_number] = !new_availability[timeday_number]
+        // console.log(timeday_number)
+        // const new_availability = [...formDetails.availability]
+        // new_availability[timeday_number] = !new_availability[timeday_number]
+        // return { ...state, availability: new_availability }
+        console.log(state)
+        let new_availability = [...state.availability]
+        if (new_availability.includes(timeday_number)) {
+          new_availability = arrayRemove(new_availability, timeday_number)
+        } else {
+          new_availability.push(timeday_number)
+        }
         return { ...state, availability: new_availability }
       })
     }
