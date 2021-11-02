@@ -16,10 +16,12 @@ export const approveSubjects = (data) => {
     resolveSubjects(data)
       .then((res) => {
         console.log("Approve subjects")
+        alert(res.data)
         resolve(res)
       })
       .catch((err) => {
         console.log("ERROR approving subjects")
+        alert(err)
         reject(err)
       })
   })
@@ -52,6 +54,28 @@ export const addStudentToClass = (data) => {
       .functions()
       .httpsCallable("addStudentToClassFromAdmin")
     addClass(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
+export const resolvePseudoclass = (data) => {
+  return new Promise((resolve, reject) => {
+    const resolvePseudoclass = firebase
+      .functions()
+      .httpsCallable("resolvePseudoclass")
+    resolvePseudoclass(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
+export const getPseudoclassAvailability = (data) => {
+  return new Promise((resolve, reject) => {
+    const getPseudoclassAvailability = firebase
+      .functions()
+      .httpsCallable("getPseudoclassAvailability")
+    getPseudoclassAvailability(data)
       .then((res) => resolve(res))
       .catch((err) => reject(err))
   })

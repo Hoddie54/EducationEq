@@ -19,8 +19,7 @@ import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
 import Admin from "./pages/admin2/admin2.component"
 import Tutoring from "./pages/tutoring/tutoring.component"
-import StripeTest from "./pages/stripe-test/stripe-test.component"
-import { iOS } from "./utils/helpers/misc"
+import PseudoClassResolver from "./pages/pseudoclass-resolver/pseudoclass-resolver.component"
 import TutoringForm from "./pages/tutoringform/tutoringform.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
@@ -331,6 +330,11 @@ class App extends Component {
                 <TutoringForm {...props} currentUser={this.props.currentUser} />
               )
             }}
+          />
+          <Route
+            exact
+            path="/new-class/:tutor_uid/:pseudoclass_uid"
+            component={PseudoClassResolver}
           />
         </Switch>
       </Router>

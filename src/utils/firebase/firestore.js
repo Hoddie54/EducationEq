@@ -60,6 +60,24 @@ export const getCollectionFromFirestore = (collection) => {
   })
 }
 
+export const getDataFromFirestore = (collection, doc) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection(collection)
+      .doc(doc)
+      .get()
+      .then((res) => {
+        console.log("Data read")
+        resolve({ ...res.data(), id: res.id })
+      })
+      .catch((err) => {
+        console.log("Error getting data")
+        reject(err)
+      })
+  })
+}
+
 export const updateDataFromFirestore = (collection, doc, data) => {
   return new Promise((resolve, reject) => {
     firebase

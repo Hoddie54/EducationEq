@@ -75,7 +75,7 @@ export function numberToTimeday(number) {
     time = (number - day_number) / 5 + 16
   } else {
     day_number = ((number + 1) % 2) + 5
-    let time = number
+    time = number
     if (time % 2 === 1) time = time + 1
     time = time / 2 - 4
   }
@@ -131,8 +131,8 @@ export const abilityArray = [
   { value: 3, text: "Grades D or 4 or below" },
 ]
 
-export function arrayRemove(arr, value) {   
-  return arr.filter(function(ele){ 
-      return ele != value; 
-  });
+export function arrayRemove(arr, value) {
+  return arr.filter(function (ele) {
+    return ele != value
+  })
 }
