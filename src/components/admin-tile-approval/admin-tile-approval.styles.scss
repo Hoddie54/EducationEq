@@ -1,8 +1,9 @@
 .approvals {
   display: flex;
+  flex-wrap: wrap;
   padding: 0.5rem;
   .approval {
-    width: 80%;
+    width: 45%;
     background-color: white;
     margin: 0.5rem;
     padding: 0.5rem;

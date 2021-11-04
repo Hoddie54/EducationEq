@@ -331,11 +331,11 @@ class App extends Component {
               )
             }}
           />
-          <Route
+          {/* <Route
             exact
             path="/new-class/:tutor_uid/:pseudoclass_uid"
             component={PseudoClassResolver}
-          />
+          /> */}
         </Switch>
       </Router>
     )

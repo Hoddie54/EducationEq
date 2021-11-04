@@ -48,6 +48,17 @@ export const deleteClass = (class_uid) => {
   })
 }
 
+export const addStudent = (data) => {
+  return new Promise((resolve, reject) => {
+    const addStudent = firebase
+      .functions()
+      .httpsCallable("addNewStudentFromAdmin")
+    addStudent(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
 export const addStudentToClass = (data) => {
   return new Promise((resolve, reject) => {
     const addClass = firebase

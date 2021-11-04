@@ -69,8 +69,8 @@ function PseudoClassResolver(props) {
   }
 
   return (
-    <div className="psuedo-resolver">
-      <div className="psuedo-content">
+    <div className="pseudo-resolver">
+      <div className="pseudo-content">
         <div className="title">
           {!isLoading && classData.resolved
             ? "THIS CLASS ALREADY HAS A TUTOR"

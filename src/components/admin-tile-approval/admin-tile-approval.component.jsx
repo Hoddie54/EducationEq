@@ -41,23 +41,45 @@ function AdminTileApproval() {
                   <div className="left">
                     Maths:{" "}
                     {approval.Mathematics.active ? (
-                      <span>Requested</span>
+                      <span>
+                        Requested{" "}
+                        {approval.Mathematics.approved ? "(Done)" : ""}
+                      </span>
                     ) : (
                       "N/A"
                     )}
                   </div>
                   <div className="right">
                     Biology:{" "}
-                    {approval.Biology.active ? <span>Requested</span> : "N/A"}
+                    {approval.Biology.active ? (
+                      <span>
+                        Requested{approval.Biology.approved ? "(Done)" : ""}
+                      </span>
+                    ) : (
+                      "N/A"
+                    )}
                   </div>
                   <div className="left">
                     Chemistry:{" "}
-                    {approval.Chemistry.active ? <span>Requested</span> : "N/A"}
+                    {approval.Chemistry.active ? (
+                      <span>
+                        Requested {approval.Chemistry.approved ? "(Done)" : ""}
+                      </span>
+                    ) : (
+                      "N/A"
+                    )}
                   </div>
                   <div className="right">
                     Physics:{" "}
-                    {approval.Physics.active ? <span>Requested</span> : "N/A"}
+                    {approval.Physics.active ? (
+                      <span>
+                        Requested {approval.Physics.approved ? "(Done)" : ""}
+                      </span>
+                    ) : (
+                      "N/A"
+                    )}
                   </div>
+
                   <div
                     className="approve-button"
                     onClick={async () => {

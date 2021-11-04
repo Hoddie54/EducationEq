@@ -60,9 +60,17 @@ export function convertTo12HourTime(time) {
 
 export function timedayToNumber(day_number, time) {
   if (day_number <= 4) {
-    return (time - 16) * 5 + day_number
+    if (time >= 16 && time <= 20) {
+      return (time - 16) * 5 + day_number
+    } else {
+      return -1
+    }
   } else {
-    return (time - 9) * 2 + (day_number - 5) + 25
+    if (time >= 9 && time <= 20) {
+      return (time - 9) * 2 + (day_number - 5) + 25
+    } else {
+      return -1
+    }
   }
 }
 

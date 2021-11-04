@@ -17,6 +17,7 @@ import {
   deleteClass,
   addStudentToClass,
   removeStudentFromClass,
+  addStudent,
 } from "../../utils/firebase/cloud"
 
 export const tutorForm = {
@@ -90,11 +91,13 @@ export const tutorForm = {
 
 export const addNewClassForm = {
   initial_state: {
+    class_name: "",
     subject: "0",
     year_group: "9",
     ability: "1",
     first_lesson_date: "",
-    time: 0,
+    time: "",
+    max_size: "",
     tutor: "",
   },
   onSubmit: async (data) => {
@@ -119,6 +122,13 @@ export const addNewClassForm = {
     ]
   },
   form: [
+    {
+      html_type: "input",
+      required: true,
+      type: "text",
+      placeholder: "Class name",
+      name: "class_name",
+    },
     {
       html_type: "select",
       required: true,
@@ -155,6 +165,14 @@ export const addNewClassForm = {
       name: "time",
       required: true,
       placeholder: "Start time (please use 0-48 code)",
+    },
+    {
+      html_type: "input",
+      type: "number",
+      min: 1,
+      name: "max_size",
+      required: true,
+      placeholder: "Maximum class size",
     },
   ],
 }
@@ -340,7 +358,11 @@ export const addStudentToClassForm = {
     const classes = await getCollectionFromFirestore("classes")
     const customers = await getCustomers()
     const class_options = classes.map((class_) => {
-      return { value: class_.id, text: class_.id }
+      if (class_.class_name) {
+        return { value: class_.id, text: class_.class_name + ": " + class_.id }
+      } else {
+        return { value: class_.id, text: class_.id }
+      }
     })
     const customer_options = customers.map((customer) => {
       return {
@@ -385,7 +407,11 @@ export const removeStudentFromClassForm = {
     const classes = await getCollectionFromFirestore("classes")
     const customers = await getCustomers()
     const class_options = classes.map((class_) => {
-      return { value: class_.id, text: class_.id }
+      if (class_.class_name) {
+        return { value: class_.id, text: class_.class_name + ": " + class_.id }
+      } else {
+        return { value: class_.id, text: class_.id }
+      }
     })
     const customer_options = customers.map((customer) => {
       return {
@@ -411,5 +437,119 @@ export const removeStudentFromClassForm = {
         name: "student_uid",
       },
     ]
+  },
+}
+
+export const addNewStudentForm = {
+  initial_state: {
+    parent_name: "",
+    phone_number: "",
+    email: "",
+    student_email: "",
+    student_phone_number: "",
+    child_name: "",
+    package: "",
+    year_group: "",
+    qualification: "",
+    reason_for_tutoring: "",
+    additional_info: "",
+  },
+
+  form: [
+    {
+      html_type: "input",
+      type: "text",
+      name: "parent_name",
+      required: true,
+      placeholder: "Parent name",
+    },
+    {
+      html_type: "input",
+      type: "tel",
+      name: "phone_number",
+      required: true,
+      placeholder: "Phone number (Parent)",
+    },
+    {
+      html_type: "input",
+      type: "email",
+      name: "email",
+      required: true,
+      placeholder: "Email (Parent)",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "child_name",
+      required: true,
+      placeholder: "Child name",
+    },
+    {
+      html_type: "input",
+      type: "email",
+      name: "student_email",
+      required: false,
+      placeholder: "Email (Student)",
+    },
+    {
+      html_type: "input",
+      type: "tel",
+      name: "student_phone_number",
+      required: false,
+      placeholder: "Phone number (Student)",
+    },
+    {
+      html_type: "input",
+      type: "number",
+      name: "package",
+      min: 1,
+      max: 30,
+      required: true,
+      placeholder: "Number of lessons bought in package",
+    },
+    {
+      html_type: "select",
+      multiple: false,
+      name: "year_group",
+      required: true,
+      options: [
+        { value: 9, text: "Year 9" },
+        { value: 10, text: "Year 10" },
+        { value: 11, text: "Year 11" },
+        { value: 12, text: "Year 12" },
+        { value: 13, text: "Year 13" },
+      ],
+    },
+    {
+      html_type: "select",
+      multiple: false,
+      name: "qualification",
+      required: true,
+      options: [
+        { value: "GCSE", text: "GCSE" },
+        { value: "A-level", text: "A-level" },
+        { value: "Foundation", text: "Foundation" },
+      ],
+    },
+    {
+      html_type: "textarea",
+      name: "reason_for_tutoring",
+      placeholder: "What is their reason for purchasing tutoring?",
+      required: true,
+    },
+    {
+      html_type: "textarea",
+      name: "additional_info",
+      placeholder: "Additional information",
+      required: false,
+    },
+  ],
+
+  onSubmit: async (data) => {
+    if (window.confirm("Are you sure") == true) {
+      const response = await addStudent(data)
+      console.log(response.data)
+      alert(response.data)
+    }
   },
 }

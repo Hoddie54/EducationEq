@@ -203,12 +203,18 @@ function TutoringForm2(props) {
               required
             />
             <textarea
+              name="reason_for_tutoring"
+              placeholder="Is there any particular reason you have purchases tutoring / do you have any particular goal in mind?"
+              value={formDetails.reason_for_tutoring}
+              rows={3}
+              onChange={formChange}
+            />
+            <textarea
               name="additional_info"
               type="text"
               placeholder="Any additional information you'd like to tell us"
               value={formDetails.additional_info}
               onChange={formChange}
-              required
             />
           </div>
           <div className="form-rhs">

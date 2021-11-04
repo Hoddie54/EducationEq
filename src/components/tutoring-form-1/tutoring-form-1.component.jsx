@@ -41,7 +41,7 @@ function TutoringForm1(props) {
           onChange={formChange}
           required
         />
-        <label>Which package did you purchase?</label>
+        <label>How many sessions did you purchase?</label>
         <select
           name="package"
           value={formDetails.package}
@@ -49,9 +49,9 @@ function TutoringForm1(props) {
           required
         >
           {/* <option>Which package have you purchased?</option> */}
-          <option value={60}>£60 - 5 lessons</option>
-          <option value={100}>£100 - 10 lessons</option>
-          <option value={200}>£200 - 20 lessons</option>
+          <option value={5}>5 sessions</option>
+          <option value={10}>10 sessions</option>
+          <option value={20}>20 sessions</option>
         </select>
         <input
           name="phone_number"
@@ -60,6 +60,20 @@ function TutoringForm1(props) {
           value={formDetails.phone_number}
           onChange={formChange}
           required
+        />
+        <input
+          name="student_email"
+          type="email"
+          placeholder="What is the student's email?"
+          value={formDetails.student_email}
+          onChange={formChange}
+        />
+        <input
+          name="student_phone_number"
+          type="tel"
+          placeholder="What is the student's phone number?"
+          value={formDetails.student_phone_number}
+          onChange={formChange}
         />
         <button type="submit">Next</button>
       </form>

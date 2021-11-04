@@ -9,18 +9,25 @@ import {
   deleteClassForm,
   addStudentToClassForm,
   removeStudentFromClassForm,
+  addNewStudentForm,
 } from "../../components/admin-tile-form-data"
 
 import "./admin2.styles.scss"
 
 function Admin2() {
   const tiles = [
-    <AdminTileApproval />,
+    // <AdminTileApproval />,
     <AdminTileForm
       onSubmit={tutorForm.onSubmit}
       form={tutorForm.form}
       initial_state={tutorForm.initial_state}
       title="Add a new tutor"
+    />,
+    <AdminTileForm
+      onSubmit={addNewStudentForm.onSubmit}
+      form={addNewStudentForm.form}
+      initial_state={addNewStudentForm.initial_state}
+      title="Add a new student"
     />,
     <AdminTileForm
       title="Update Tutor details"
