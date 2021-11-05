@@ -1,6 +1,7 @@
 import {
   deleteDataFromFirestore,
   getCustomers,
+  getDataFromFirestore,
   sendDataToFirebase,
   updateDataFromFirestore,
 } from "../../utils/firebase/firestore"
@@ -8,7 +9,6 @@ import {
   SubjectNumberArray,
   yearGroupArray,
   abilityArray,
-  arrayRemove,
 } from "../../utils/helpers/misc"
 import { getCollectionFromFirestore } from "../../utils/firebase/firestore"
 import { registerTutoringUser } from "../../utils/firebase/auth"
@@ -18,6 +18,7 @@ import {
   addStudentToClass,
   removeStudentFromClass,
   addStudent,
+  simulateSchedule,
 } from "../../utils/firebase/cloud"
 
 export const tutorForm = {
@@ -30,6 +31,7 @@ export const tutorForm = {
     profile_url: "",
     subjects: "",
     availability: [...Array(49).keys()],
+    phone_number: "",
   },
   onSubmit: async (data) => {
     console.log(data)
@@ -50,6 +52,13 @@ export const tutorForm = {
       required: true,
       placeholder: "Tutor email",
       name: "email",
+    },
+    {
+      html_type: "input",
+      type: "tel",
+      required: true,
+      placeholder: "Tutor phone number",
+      name: "phone_number",
     },
     {
       html_type: "textarea",
@@ -226,6 +235,13 @@ export const updateTutorDetails = {
       name: "email",
     },
     {
+      html_type: "input",
+      type: "tel",
+      required: true,
+      placeholder: "Tutor phone number",
+      name: "phone_number",
+    },
+    {
       html_type: "textarea",
       required: false,
       placeholder: "What is this tutor's experience",
@@ -284,6 +300,7 @@ export const updateTutorDetails = {
     photo_url: "",
     profile_url: "",
     subjects: "",
+    phone_number: "",
   },
 }
 
@@ -326,7 +343,11 @@ export const deleteClassForm = {
       alert(err)
     )
     const options = classes.map((class_) => {
-      return { value: class_.id, text: class_.id }
+      if (class_.class_name) {
+        return { value: class_.id, text: class_.class_name + ": " + class_.id }
+      } else {
+        return { value: class_.id, text: class_.id }
+      }
     })
     return [
       {
@@ -366,7 +387,7 @@ export const addStudentToClassForm = {
     })
     const customer_options = customers.map((customer) => {
       return {
-        value: customer.uid,
+        value: customer.id,
         text:
           "Parent:" + customer.parent_name + ". Child: " + customer.child_name,
       }
@@ -551,5 +572,97 @@ export const addNewStudentForm = {
       console.log(response.data)
       alert(response.data)
     }
+  },
+}
+
+export const simulateScheduleForm = {
+  initial_state: {
+    day: "",
+    hour: "",
+  },
+  form: [
+    {
+      html_type: "input",
+      placeholder: "Hour (0 to 23)",
+      type: "number",
+      min: 0,
+      max: 23,
+      name: "hour",
+    },
+    {
+      html_type: "select",
+      multiple: false,
+      name: "day",
+      options: [
+        { value: 0, text: "Monday" },
+        { value: 1, text: "Tuesday" },
+        { value: 2, text: "Wednesday" },
+        { value: 3, text: "Thursday" },
+        { value: 4, text: "Friday" },
+        { value: 5, text: "Saturday" },
+        { value: 6, text: "Sunday" },
+      ],
+    },
+  ],
+  onSubmit: async (data) => {
+    if (window.confirm("Are you sure") == true) {
+      const response = await simulateSchedule(data)
+      console.log(response.data)
+      alert(response.data)
+    }
+  },
+}
+
+export const viewStudentsInClass = {
+  initial_state: {
+    class_uid: "",
+  },
+  form: [],
+  onSubmit: async (data) => {
+    console.log(data.class_uid)
+    const class_data = await getDataFromFirestore(
+      "classes",
+      data.class_uid
+    ).catch((err) => {
+      console.log(err)
+      alert(err)
+    })
+
+    const students_data = await Promise.all(
+      class_data.students.map((student) => {
+        return getDataFromFirestore("students", student)
+      })
+    ).catch((err) => {
+      console.log(err)
+      alert(err)
+    })
+
+    console.log(students_data)
+
+    const message = students_data.reduce((a, b) => {
+      return a.concat(b.child_name + ". ID: " + b.id + "\n")
+    }, "")
+
+    alert(message)
+  },
+  getLoadedFormData: async () => {
+    const classes = await getCollectionFromFirestore("classes")
+    const class_options = classes.map((class_) => {
+      if (class_.class_name) {
+        return { value: class_.id, text: class_.class_name + ": " + class_.id }
+      } else {
+        return { value: class_.id, text: class_.id }
+      }
+    })
+
+    return [
+      {
+        html_type: "select",
+        options: class_options,
+        multiple: false,
+        required: true,
+        name: "class_uid",
+      },
+    ]
   },
 }

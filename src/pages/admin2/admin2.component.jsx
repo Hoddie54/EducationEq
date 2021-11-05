@@ -10,6 +10,8 @@ import {
   addStudentToClassForm,
   removeStudentFromClassForm,
   addNewStudentForm,
+  simulateScheduleForm,
+  viewStudentsInClass,
 } from "../../components/admin-tile-form-data"
 
 import "./admin2.styles.scss"
@@ -17,6 +19,13 @@ import "./admin2.styles.scss"
 function Admin2() {
   const tiles = [
     // <AdminTileApproval />,
+    <AdminTileForm
+      onSubmit={viewStudentsInClass.onSubmit}
+      form={viewStudentsInClass.form}
+      initial_state={viewStudentsInClass.initial_state}
+      title="View students in a class"
+      getLoadedFormData={viewStudentsInClass.getLoadedFormData}
+    />,
     <AdminTileForm
       onSubmit={tutorForm.onSubmit}
       form={tutorForm.form}
@@ -75,6 +84,12 @@ function Admin2() {
       form={removeStudentFromClassForm.form}
       initial_state={removeStudentFromClassForm.initial_state}
       getLoadedFormData={removeStudentFromClassForm.getLoadedFormData}
+    />,
+    <AdminTileForm
+      title="Simulate a schedule"
+      onSubmit={simulateScheduleForm.onSubmit}
+      form={simulateScheduleForm.form}
+      initial_state={simulateScheduleForm.initial_state}
     />,
   ]
 

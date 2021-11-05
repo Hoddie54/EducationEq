@@ -5,6 +5,10 @@ import { useState, useEffect } from "react"
 function AdminTileForm(props) {
   function onSubmit(e) {
     e.preventDefault()
+    if (isLoading) {
+      alert("You have not loaded this data")
+      return
+    }
     console.log(formData)
     props.onSubmit(formData)
   }

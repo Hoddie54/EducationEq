@@ -178,8 +178,7 @@ export const getCustomers = () => {
   return new Promise((resolve, reject) => {
     firebase
       .firestore()
-      .collection("users")
-      .where("account_type", "==", "tutoring")
+      .collection("students")
       .get()
       .then((querySnapshot) => {
         const users = []

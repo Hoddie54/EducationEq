@@ -70,6 +70,17 @@ export const addStudentToClass = (data) => {
   })
 }
 
+export const simulateSchedule = (data) => {
+  return new Promise((resolve, reject) => {
+    const simulateSchedule = firebase
+      .functions()
+      .httpsCallable("scheduleLessonFromAdmin")
+    simulateSchedule(data)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
 export const resolvePseudoclass = (data) => {
   return new Promise((resolve, reject) => {
     const resolvePseudoclass = firebase
