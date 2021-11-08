@@ -12,6 +12,9 @@ import {
   addNewStudentForm,
   simulateScheduleForm,
   viewStudentsInClass,
+  addCreditForm,
+  downloadData,
+  downloadAttendanceData,
 } from "../../components/admin-tile-form-data"
 
 import "./admin2.styles.scss"
@@ -84,6 +87,25 @@ function Admin2() {
       form={removeStudentFromClassForm.form}
       initial_state={removeStudentFromClassForm.initial_state}
       getLoadedFormData={removeStudentFromClassForm.getLoadedFormData}
+    />,
+    <AdminTileForm
+      title="Add lesson credit"
+      onSubmit={addCreditForm.onSubmit}
+      form={addCreditForm.form}
+      initial_state={addCreditForm.initial_state}
+      getLoadedFormData={addCreditForm.getLoadedFormData}
+    />,
+    <AdminTileForm
+      title="Download data"
+      onSubmit={downloadData.onSubmit}
+      form={downloadData.form}
+      initial_state={{}}
+    />,
+    <AdminTileForm
+      title="Download Attendance Data"
+      onSubmit={downloadAttendanceData.onSubmit}
+      form={downloadAttendanceData.form}
+      initial_state={downloadAttendanceData.initial_state}
     />,
     <AdminTileForm
       title="Simulate a schedule"

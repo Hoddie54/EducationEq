@@ -4,11 +4,15 @@ import {
   getDataFromFirestore,
   sendDataToFirebase,
   updateDataFromFirestore,
+  addCredit,
+  getAttendanceData,
 } from "../../utils/firebase/firestore"
 import {
   SubjectNumberArray,
   yearGroupArray,
   abilityArray,
+  arrayToCSV,
+  downloadFile,
 } from "../../utils/helpers/misc"
 import { getCollectionFromFirestore } from "../../utils/firebase/firestore"
 import { registerTutoringUser } from "../../utils/firebase/auth"
@@ -473,7 +477,14 @@ export const addNewStudentForm = {
     year_group: "",
     qualification: "",
     reason_for_tutoring: "",
-    additional_info: "",
+    Mathematics_working_grade: "",
+    Biology_working_grade: "",
+    Chemistry_working_grade: "",
+    Physics_working_grade: "",
+    Mathematics_exam_board: "",
+    Biology_exam_board: "",
+    Chemistry_exam_board: "",
+    Physics_exam_board: "",
   },
 
   form: [
@@ -551,6 +562,62 @@ export const addNewStudentForm = {
         { value: "A-level", text: "A-level" },
         { value: "Foundation", text: "Foundation" },
       ],
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Mathematics_working_grade",
+      required: false,
+      placeholder: "Mathematics_working_grade",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Physics_working_grade",
+      required: false,
+      placeholder: "Physics_working_grade",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Biology_working_grade",
+      required: false,
+      placeholder: "Biology_working_grade",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Chemistry_working_grade",
+      required: false,
+      placeholder: "Chemistry_working_grade",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Mathematics_exam_board",
+      required: false,
+      placeholder: "Mathematics_exam_board",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Physics_exam_board",
+      required: false,
+      placeholder: "Physics_exam_board",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Biology_exam_board",
+      required: false,
+      placeholder: "Biology_exam_board",
+    },
+    {
+      html_type: "input",
+      type: "text",
+      name: "Chemistry_exam_board",
+      required: false,
+      placeholder: "Chemistry_exam_board",
     },
     {
       html_type: "textarea",
@@ -664,5 +731,98 @@ export const viewStudentsInClass = {
         name: "class_uid",
       },
     ]
+  },
+}
+
+export const addCreditForm = {
+  form: [
+    {
+      html_type: "input",
+      type: "number",
+      name: "amount",
+      placeholder: "Amount of lessons",
+      required: true,
+    },
+  ],
+  initial_state: { user_uid: "", amount: "" },
+  getLoadedFormData: async () => {
+    const customers = await getCustomers()
+    const customer_options = customers.map((customer) => {
+      return {
+        value: customer.id,
+        text:
+          "Parent:" + customer.parent_name + ". Child: " + customer.child_name,
+      }
+    })
+
+    return [
+      {
+        html_type: "select",
+        options: customer_options,
+        multiple: false,
+        required: true,
+        name: "user_uid",
+      },
+    ]
+  },
+  onSubmit: async (data) => {
+    console.log(data)
+    if (window.confirm("Are you sure")) {
+      const response = await addCredit(data.user_uid, data.amount).catch(
+        (err) => {
+          alert(err)
+        }
+      )
+      alert(response)
+    }
+  },
+}
+
+export const downloadData = {
+  form: [],
+  onSubmit: async () => {
+    // const customers = await getCustomers().catch((err) => alert(err))
+    // const customersCSV = arrayToCSV(customers)
+    // downloadFile(customersCSV, "customers")
+
+    async function downloadCollection(collection) {
+      const data = await getCollectionFromFirestore(collection).catch((err) =>
+        alert(err)
+      )
+      const dataCSV = arrayToCSV(data)
+      downloadFile(dataCSV, collection)
+    }
+
+    downloadCollection("students")
+    downloadCollection("classes")
+    downloadCollection("tutors")
+    downloadCollection("lesson_credits")
+  },
+}
+
+export const downloadAttendanceData = {
+  initial_state: { from_date: "", to_date: "" },
+  form: [
+    {
+      html_type: "input",
+      type: "date",
+      required: true,
+      placeholder: "From Date",
+      name: "from_date",
+    },
+    {
+      html_type: "input",
+      type: "date",
+      required: false,
+      placeholder: "To Date",
+      name: "to_date",
+    },
+  ],
+  onSubmit: async (data) => {
+    const attendance = await getAttendanceData(data).catch((err) => alert(err))
+    console.log(attendance)
+    const dataCSV = arrayToCSV(attendance)
+    downloadFile(dataCSV, "attendance")
+    alert("Done")
   },
 }

@@ -197,6 +197,50 @@ export const getCustomers = () => {
   })
 }
 
+export const getAttendanceData = (data) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("lesson_history")
+      .where("date_milliseconds", ">=", new Date(data.from_date).valueOf())
+      .where("date_milliseconds", "<=", new Date(data.to_date).valueOf())
+      .get()
+      .then((querySnapshot) => {
+        const attendance = []
+        querySnapshot.forEach((doc) =>
+          attendance.push({ ...doc.data(), id: doc.id })
+        )
+        console.log("Reads :", querySnapshot.size)
+        var source = querySnapshot.metadata.fromCache ? "local cache" : "server"
+        console.log("Data came from " + source)
+        resolve(attendance)
+      })
+      .catch((err) => {
+        console.log("Error getting all users (customers): ", err)
+        reject(err)
+      })
+  })
+}
+
+export const addCredit = (user_uid, amount) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("lesson_credits")
+      .doc(user_uid)
+      .update({
+        credits: firebase.firestore.FieldValue.increment(amount),
+      })
+      .then(() => {
+        resolve("Done")
+      })
+      .catch((error) => {
+        console.log("Error adding credit", error)
+        reject(error)
+      })
+  })
+}
+
 export const getAppovals = () => {
   return new Promise((resolve, reject) => {
     firebase

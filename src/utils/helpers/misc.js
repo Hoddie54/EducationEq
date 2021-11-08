@@ -144,3 +144,28 @@ export function arrayRemove(arr, value) {
     return ele != value
   })
 }
+
+export function arrayToCSV(objArray) {
+  const array = typeof objArray !== "object" ? JSON.parse(objArray) : objArray
+  const keys = Object.keys(array[0]).sort()
+  let str = `${keys.map((value) => `"${value}"`).join(",")}` + "\r\n"
+
+  return array.reduce((str, next) => {
+    let values_array = []
+    for (let i = 0; i < keys.length; i++) {
+      values_array.push(next[keys[i]])
+    }
+
+    str += `${values_array.map((value) => `"${value}"`).join(",")}` + "\r\n"
+    return str
+  }, str)
+}
+
+export function downloadFile(data, filename) {
+  const element = document.createElement("a")
+  const file = new Blob([data], { type: "text/plain" })
+  element.href = URL.createObjectURL(file)
+  element.download = `${filename}.csv`
+  document.body.appendChild(element)
+  element.click()
+}
