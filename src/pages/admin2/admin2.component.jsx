@@ -7,6 +7,7 @@ import {
   updateTutorDetails,
   updateTutorAvailability,
   deleteClassForm,
+  changeClassDateForm,
   addStudentToClassForm,
   removeStudentFromClassForm,
   addNewStudentForm,
@@ -15,6 +16,7 @@ import {
   addCreditForm,
   downloadData,
   downloadAttendanceData,
+  changeClassTutorForm,
 } from "../../components/admin-tile-form-data"
 
 import "./admin2.styles.scss"
@@ -66,6 +68,20 @@ function Admin2() {
       form={addNewClassForm.form}
       initial_state={addNewClassForm.initial_state}
       getLoadedFormData={addNewClassForm.getLoadedFormData}
+    />,
+    <AdminTileForm
+      title="Change class date/time"
+      onSubmit={changeClassDateForm.onSubmit}
+      form={changeClassDateForm.form}
+      initial_state={changeClassDateForm.initial_state}
+      getLoadedFormData={changeClassDateForm.getLoadedFormData}
+    />,
+    <AdminTileForm
+      title="Change class tutor"
+      onSubmit={changeClassTutorForm.onSubmit}
+      form={changeClassTutorForm.form}
+      initial_state={changeClassTutorForm.initial_state}
+      getLoadedFormData={changeClassTutorForm.getLoadedFormData}
     />,
     <AdminTileForm
       title="Delete class"

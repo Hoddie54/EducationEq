@@ -109,7 +109,7 @@ export const addNewClassForm = {
     year_group: "9",
     ability: "1",
     first_lesson_date: "",
-    time: "",
+    day: 0,
     max_size: "",
     tutor: "",
   },
@@ -121,9 +121,19 @@ export const addNewClassForm = {
   },
   getLoadedFormData: async () => {
     const tutors = await getCollectionFromFirestore("tutors")
-    const options = tutors.map((tutor) => {
-      return { value: tutor.id, text: tutor.name }
-    })
+    const options = tutors
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1
+        }
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+      .map((tutor) => {
+        return { value: tutor.id, text: tutor.name }
+      })
     return [
       {
         html_type: "select",
@@ -171,13 +181,26 @@ export const addNewClassForm = {
       placeholder: "Please select first lesson date",
     },
     {
+      html_type: "select",
+      required: true,
+      options: [
+        { value: 0, text: "Monday" },
+        { value: 1, text: "Tuesday" },
+        { value: 2, text: "Wednesday" },
+        { value: 3, text: "Thursday" },
+        { value: 4, text: "Friday" },
+        { value: 5, text: "Saturday" },
+        { value: 6, text: "Sunday" },
+      ],
+      multiple: false,
+      name: "day",
+    },
+    {
       html_type: "input",
-      type: "number",
-      min: 0,
-      max: 48,
+      type: "time",
       name: "time",
       required: true,
-      placeholder: "Start time (please use 0-48 code)",
+      placeholder: "",
     },
     {
       html_type: "input",
@@ -188,6 +211,153 @@ export const addNewClassForm = {
       placeholder: "Maximum class size",
     },
   ],
+}
+
+export const changeClassDateForm = {
+  initial_state: {
+    classes: "",
+    time: "",
+    day: 0,
+  },
+  getLoadedFormData: async () => {
+    const classes = await getCollectionFromFirestore("classes").catch((err) =>
+      alert(err)
+    )
+    const options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
+    return [
+      {
+        html_type: "select",
+        options: options,
+        name: "classes",
+        multiple: false,
+        required: true,
+      },
+    ]
+  },
+
+  form: [
+    {
+      html_type: "select",
+      required: true,
+      options: [
+        { value: 0, text: "Monday" },
+        { value: 1, text: "Tuesday" },
+        { value: 2, text: "Wednesday" },
+        { value: 3, text: "Thursday" },
+        { value: 4, text: "Friday" },
+        { value: 5, text: "Saturday" },
+        { value: 6, text: "Sunday" },
+      ],
+      multiple: false,
+      name: "day",
+    },
+    {
+      html_type: "input",
+      type: "time",
+      name: "time",
+      required: true,
+      placeholder: "",
+    },
+  ],
+  onSubmit: async (data) => {
+    console.log(data)
+    await updateDataFromFirestore("classes", data.classes, {
+      time: data.time,
+      day: data.day,
+      time_hour: Number(data.time.split(":")[0]),
+    })
+    alert("Should be done!")
+  },
+}
+
+export const changeClassTutorForm = {
+  initial_state: {
+    classes: "",
+    tutors: "",
+  },
+  form: [],
+  getLoadedFormData: async () => {
+    const classes = await getCollectionFromFirestore("classes").catch((err) =>
+      alert(err)
+    )
+    const class_options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
+
+    const tutors = await getCollectionFromFirestore("tutors")
+    const tutor_options = tutors
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1
+        }
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+      .map((tutor) => {
+        return { value: tutor.id, text: tutor.name }
+      })
+    return [
+      {
+        html_type: "select",
+        options: class_options,
+        name: "classes",
+        multiple: false,
+        required: true,
+      },
+      {
+        html_type: "select",
+        name: "tutors",
+        options: tutor_options,
+        required: true,
+        multiple: false,
+      },
+    ]
+  },
+  onSubmit: async (data) => {
+    console.log(data)
+    await updateDataFromFirestore("classes", data.classes, {
+      tutor: data.tutors,
+    })
+    alert("Should be done!")
+  },
 }
 
 export const removeTutorForm = {
@@ -346,13 +516,26 @@ export const deleteClassForm = {
     const classes = await getCollectionFromFirestore("classes").catch((err) =>
       alert(err)
     )
-    const options = classes.map((class_) => {
-      if (class_.class_name) {
-        return { value: class_.id, text: class_.class_name + ": " + class_.id }
-      } else {
-        return { value: class_.id, text: class_.id }
-      }
-    })
+    const options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
     return [
       {
         html_type: "select",
@@ -382,20 +565,46 @@ export const addStudentToClassForm = {
   getLoadedFormData: async () => {
     const classes = await getCollectionFromFirestore("classes")
     const customers = await getCustomers()
-    const class_options = classes.map((class_) => {
-      if (class_.class_name) {
-        return { value: class_.id, text: class_.class_name + ": " + class_.id }
-      } else {
-        return { value: class_.id, text: class_.id }
-      }
-    })
-    const customer_options = customers.map((customer) => {
-      return {
-        value: customer.id,
-        text:
-          "Parent:" + customer.parent_name + ". Child: " + customer.child_name,
-      }
-    })
+    const class_options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
+    const customer_options = customers
+      .sort((a, b) => {
+        if (a.child_name < b.child_name) {
+          return -1
+        }
+        if (a.child_name > b.child_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((customer) => {
+        return {
+          value: customer.id,
+          text:
+            "Child: " +
+            customer.child_name +
+            ". Parent:" +
+            customer.parent_name,
+        }
+      })
 
     return [
       {
@@ -431,20 +640,46 @@ export const removeStudentFromClassForm = {
   getLoadedFormData: async () => {
     const classes = await getCollectionFromFirestore("classes")
     const customers = await getCustomers()
-    const class_options = classes.map((class_) => {
-      if (class_.class_name) {
-        return { value: class_.id, text: class_.class_name + ": " + class_.id }
-      } else {
-        return { value: class_.id, text: class_.id }
-      }
-    })
-    const customer_options = customers.map((customer) => {
-      return {
-        value: customer.uid,
-        text:
-          "Parent:" + customer.parent_name + ". Child: " + customer.child_name,
-      }
-    })
+    const class_options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
+    const customer_options = customers
+      .sort((a, b) => {
+        if (a.child_name < b.child_name) {
+          return -1
+        }
+        if (a.child_name > b.child_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((customer) => {
+        return {
+          value: customer.id,
+          text:
+            "Child: " +
+            customer.child_name +
+            ". Parent: " +
+            customer.parent_name,
+        }
+      })
 
     return [
       {
@@ -714,13 +949,26 @@ export const viewStudentsInClass = {
   },
   getLoadedFormData: async () => {
     const classes = await getCollectionFromFirestore("classes")
-    const class_options = classes.map((class_) => {
-      if (class_.class_name) {
-        return { value: class_.id, text: class_.class_name + ": " + class_.id }
-      } else {
-        return { value: class_.id, text: class_.id }
-      }
-    })
+    const class_options = classes
+      .sort((a, b) => {
+        if (a.class_name < b.class_name) {
+          return -1
+        }
+        if (a.class_name > b.class_name) {
+          return 1
+        }
+        return 0
+      })
+      .map((class_) => {
+        if (class_.class_name) {
+          return {
+            value: class_.id,
+            text: class_.class_name + ": " + class_.id,
+          }
+        } else {
+          return { value: class_.id, text: class_.id }
+        }
+      })
 
     return [
       {
@@ -822,6 +1070,7 @@ export const downloadAttendanceData = {
     const attendance = await getAttendanceData(data).catch((err) => alert(err))
     console.log(attendance)
     const dataCSV = arrayToCSV(attendance)
+    console.log(dataCSV)
     downloadFile(dataCSV, "attendance")
     alert("Done")
   },
