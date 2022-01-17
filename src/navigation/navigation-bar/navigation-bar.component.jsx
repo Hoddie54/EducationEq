@@ -167,11 +167,17 @@ class NavigationBar extends React.Component {
                 alt="header-logo"
                 onClick={this.sidebar_click}
               ></img>
-              <div className="sidebar__top_profile profile-title standard-padding wallet">
+              <div
+                className="sidebar__top_profile profile-title standard-padding wallet"
+                style={{ display: "none" }}
+              >
                 <div>{wallet}</div>
                 <div>£{(this.props.balance / 100).toFixed(2)}</div>
               </div>
-              <div className="sidebar__top_profile profile-title standard-padding">
+              <div
+                className="sidebar__top_profile profile-title standard-padding"
+                style={{ display: "none" }}
+              >
                 <div
                   className="top-up-button"
                   onClick={() =>
@@ -254,7 +260,7 @@ class NavigationBar extends React.Component {
                         </div>
                         <div className="sidebar__text">My progress</div>
                       </Nav.Link>
-                      <Nav.Link
+                      {/* <Nav.Link
                         className={
                           currentLocation == "/tutoring"
                             ? "sidebar__item active"
@@ -274,7 +280,7 @@ class NavigationBar extends React.Component {
                           <IconSVG name="student"></IconSVG>
                         </div>
                         <div className="sidebar__text">Tutoring</div>
-                      </Nav.Link>
+                      </Nav.Link> */}
 
                       {/* <Collapse in={this.state.isToggleMenu}>
                         <div id="collapse-module">

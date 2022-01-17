@@ -21,6 +21,7 @@ import Admin from "./pages/admin2/admin2.component"
 import Tutoring from "./pages/tutoring/tutoring.component"
 import PseudoClassResolver from "./pages/pseudoclass-resolver/pseudoclass-resolver.component"
 import TutoringForm from "./pages/tutoringform/tutoringform.component"
+import Test from "./pages/test/test.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -317,9 +318,7 @@ class App extends Component {
             exact
             path="/test"
             render={(props) => {
-              return (
-                <StripeTest {...props} currentUser={this.props.currentUser} />
-              )
+              return <Test {...props} currentUser={this.props.currentUser} />
             }}
           /> */}
           <Route

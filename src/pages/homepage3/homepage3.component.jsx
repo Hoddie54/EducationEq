@@ -9,6 +9,7 @@ import { updateUserInfo } from "../../utils/firebase/firestore"
 import AdditionInformationForm from "../../components/addition-infomation-form"
 import TutoringOffer from "../../components/tutoring-offer/tutoring-offer.component"
 import UpcomingBookings from "../../components/upcoming-bookings/upcoming-bookings.component"
+import HomepageModal from "../../components/homepageModal/homepageModal.component"
 
 function Homepage3(props) {
   function Subject(props) {
@@ -23,7 +24,7 @@ function Homepage3(props) {
         </div>
         <Link to="/main">
           <div className={`button ${props.disabled ? "disabled" : ""}`}>
-            <span>{props.disabled ? "On its way" : "Go"}</span>
+            <span>{props.disabled ? "Unavailable" : "Go"}</span>
           </div>
         </Link>
       </div>
@@ -32,16 +33,8 @@ function Homepage3(props) {
 
   const news = [
     {
-      title: "New subjects",
-      news: "You can expect GCSE Biology and A-level physics coming to you very soon :)",
-    },
-    {
-      title: "Tutoring",
-      news: "We've added tutoring from some of the best tutors in the UK! You can get your free lesson today",
-    },
-    {
-      title: "Bug fixes",
-      news: "Some of you may have had problems logging in from iOS devices. These should be fixed now",
+      title: "Planned changes",
+      news: "You can expect MVP 6.0 (Beta) to come out January 24th. It will include: 1) Blockchain integration with crypto wallet functionality. 2) Ability to learners to send requests for tutoring. 3) Tutor login and ability to view requests dashboard ",
     },
   ]
 
@@ -67,6 +60,7 @@ function Homepage3(props) {
 
   const history = useHistory()
   const [isBlurred, setIsBlurred] = useState(false)
+  const [isShown, setIsShown] = useState(true)
 
   let exam_board = ""
   if (props.currentUser.subjects) {
@@ -85,6 +79,7 @@ function Homepage3(props) {
           setIsBlurred(() => true)
         }}
       />
+      <HomepageModal show={isShown} setShow={setIsShown} />
       <div className="homepage__container">
         <div className="homepage__subjects">
           {/* <div className="homepage3__title">
@@ -129,11 +124,11 @@ function Homepage3(props) {
             <div className="update__versions">
               <div className="update__version">
                 <div>Version</div>
-                <div>Update MVP 5.2</div>
+                <div>Update MVP 5.3</div>
               </div>
               <div className="update__version">
                 <div>Last updated</div>
-                <div>07/10/2021</div>
+                <div>21/11/2021</div>
               </div>
             </div>
             <hr />
