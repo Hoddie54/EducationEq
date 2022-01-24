@@ -1,0 +1,25 @@
+.my-courses {
+  padding: 1rem;
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .my-courses-courses {
+    display: flex;
+    flex-wrap: wrap;
+
+    .course {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .title-and-edit {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

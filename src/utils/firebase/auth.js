@@ -14,36 +14,36 @@ const provider = new firebase.auth.GoogleAuthProvider()
 provider.setCustomParameters({ prompt: "select_account" })
 export const signInWithGoogle = () => firebase.auth().signInWithPopup(provider)
 
-export const registerTutoringUser = (data) => {
-  return new Promise((resolve, reject) => {
-    auth
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .then((result) => {
-        const user = result.user
-        console.log("Successfully registered user!", user)
-        if (user) {
-          data.creation_date = Date.now()
-          data.display_name = data.parent_name
-          data.uid = user.uid
-          data.lessons_approved = false
-          data.account_type = "tutoring"
-          delete data.password
-          saveUserToFirestore(data)
-            .then(() => {
-              resolve()
-            })
-            .catch((error) => {
-              reject(error)
-            })
-        }
-      })
-      .catch((err) => {
-        console.log("Registration Error", err.message)
-        alert("Registration Error: " + err.message)
-        reject(err)
-      })
-  })
-}
+// export const registerTutoringUser = (data) => {
+//   return new Promise((resolve, reject) => {
+//     auth
+//       .createUserWithEmailAndPassword(data.email, data.password)
+//       .then((result) => {
+//         const user = result.user
+//         console.log("Successfully registered user!", user)
+//         if (user) {
+//           data.creation_date = Date.now()
+//           data.display_name = data.parent_name
+//           data.uid = user.uid
+//           data.lessons_approved = false
+//           data.account_type = "tutoring"
+//           delete data.password
+//           saveUserToFirestore(data)
+//             .then(() => {
+//               resolve()
+//             })
+//             .catch((error) => {
+//               reject(error)
+//             })
+//         }
+//       })
+//       .catch((err) => {
+//         console.log("Registration Error", err.message)
+//         alert("Registration Error: " + err.message)
+//         reject(err)
+//       })
+//   })
+// }
 
 export const registerUser = (data) => {
   return new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ export const registerUser = (data) => {
           data.uid = user.uid
           data.creation_date = Date.now()
           data.display_name = data.full_name
-          data.user_type = "tutoring"
+          data.user_type = data.user_type
           delete data.password
           saveUserToFirestore(data)
             .then(() => {

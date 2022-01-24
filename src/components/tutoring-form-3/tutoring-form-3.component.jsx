@@ -1,4 +1,4 @@
-import { registerTutoringUser } from "../../utils/firebase/auth"
+// import { registerTutoringUser } from "../../utils/firebase/auth"
 import { arrayRemove } from "../../utils/helpers/misc"
 import "./tutoring-form-3.styles.scss"
 import { timedayToNumber } from "../../utils/helpers/misc"
@@ -17,7 +17,7 @@ function TutoringForm3(props) {
     e.preventDefault()
     //DO THE LOGIC and REGISTER
     console.log(formDetails)
-    await registerTutoringUser(formDetails)
+    // await registerTutoringUser(formDetails)
   }
 
   function Checkbox(props) {

@@ -172,4 +172,14 @@
       margin: 0.5rem auto;
     }
   }
+
+  .subject__container {
+    img {
+      display: none;
+    }
+
+    a {
+      min-width: 30%;
+    }
+  }
 }

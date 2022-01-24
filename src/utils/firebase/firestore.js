@@ -1,5 +1,6 @@
 import firebase from "./../../config/FirebasConfig"
 import "firebase/firestore"
+import "firebase/storage"
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return
@@ -21,6 +22,78 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef
+}
+
+export const uploadImage = (image_data, name) => {
+  return new Promise(async (resolve, reject) => {
+    const storageRef = firebase.storage().ref()
+    const imageRef = storageRef.child(`images/${name}`)
+
+    imageRef
+      .put(image_data)
+      .then((snapshot) => {
+        resolve(snapshot)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export const getImageUrl = (name) => {
+  return new Promise((resolve, reject) => {
+    const storage = firebase.storage()
+    const pathReference = storage.ref(`images/${name}`)
+
+    pathReference
+      .getDownloadURL()
+      .then((url) => {
+        resolve(url)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export const getCourseDrafts = (user_uid) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("course_drafts")
+      .where("author", "==", user_uid)
+      .get()
+      .then((querySnapshot) => {
+        const data = []
+        querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }))
+        console.log("Reads :", querySnapshot.size)
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log("Error getting all data (all of collection)", err)
+        reject(err)
+      })
+  })
+}
+
+export const getTopicsOnCourse = (course_uid) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("topics")
+      .where("course", "==", course_uid)
+      .get()
+      .then((querySnapshot) => {
+        const data = []
+        querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }))
+        console.log("Reads :", querySnapshot.size)
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log("Error getting all data (all of collection)", err)
+        reject(err)
+      })
+  })
 }
 
 //WARNING: Likely broken? Due to neededing collection, doc, and data
@@ -84,7 +157,7 @@ export const updateDataFromFirestore = (collection, doc, data) => {
       .firestore()
       .collection(collection)
       .doc(doc)
-      .update(data)
+      .set(data, { merge: true })
       .then((res) => {
         console.log("Updated doc")
         resolve(res)

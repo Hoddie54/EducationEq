@@ -54,7 +54,8 @@ export default class Signup extends React.Component {
       signUpData: data,
     })
 
-    this.setState({ showAdditionalInfo: true })
+    // this.setState({ showAdditionalInfo: true })
+    this.completeSignUp(data)
   }
 
   completeSignUp = (data) => {
@@ -83,7 +84,7 @@ export default class Signup extends React.Component {
         full_name,
         display_name: full_name,
         uid: res.user.uid,
-        user_type: "student",
+        user_type: user_type,
         email: res.user.email,
         creation_date: Date.now(),
       }
@@ -127,7 +128,7 @@ export default class Signup extends React.Component {
           showSignIn={this.showSignIn}
           signUpWithGoogle={this.signUpWithGoogle}
         ></SignUp>
-        <AdditionInformationForm
+        {/* <AdditionInformationForm
           type={this.state.signUpData.user_type}
           show={this.state.showAdditionalInfo}
           handleCompleteSignUp={this.completeSignUp}
@@ -137,7 +138,7 @@ export default class Signup extends React.Component {
           handleAction={() => {
             console.log("handleAction")
           }}
-        />
+        /> */}
       </div>
     )
   }

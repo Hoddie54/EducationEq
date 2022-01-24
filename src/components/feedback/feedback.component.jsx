@@ -17,7 +17,7 @@ function Feedback(props) {
           className="feedback-right text-format"
           onClick={props.showModal}
         >
-          <span className="blue-text">Tell us how to improve</span>
+          <span className="blue-text">Feedback</span>
         </button>
       </div>
     </div>

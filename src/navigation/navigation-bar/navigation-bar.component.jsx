@@ -1,6 +1,6 @@
 import React from "react"
 // import ReactDOM from "react-dom";
-import { Nav, Image, Spinner, Collapse } from "react-bootstrap"
+import { Nav, Image, Spinner, Collapse, Button } from "react-bootstrap"
 import { IconSVG } from "../../components/icon-svg"
 import "./navigation-bar.styles.scss"
 import logo from "../../assets/logo.svg"
@@ -212,54 +212,48 @@ class NavigationBar extends React.Component {
                 <div className="sidebar__list">
                   <div className="sidebar__group">
                     <div className="sidebar__menu">
-                      <Nav.Link
-                        className={
-                          (currentLocation == "/home") |
-                          (currentLocation === "/")
-                            ? "sidebar__item active"
-                            : "sidebar__item"
-                        }
-                        href="/"
-                      >
-                        <div className="sidebar__icon">
-                          <IconSVG name="home"></IconSVG>
-                        </div>
-                        <div className="sidebar__text">Home</div>
-                      </Nav.Link>
-                      {/* <Nav.Link
-                        className={
-                          currentLocation == "/"
-                            ? "sidebar__item active"
-                            : "sidebar__item"
-                        }
-                        href="/"
-                      >
-                        <div className="sidebar__icon">
-                          <IconSVG name="analytics"></IconSVG>
-                        </div>
-                        <div className="sidebar__text">Analytics</div>
-                      </Nav.Link> */}
-                      <Nav.Link
-                        className={
-                          currentLocation == "/specification"
-                            ? "sidebar__item active"
-                            : "sidebar__item"
-                        }
-                        // onClick={() => {
-                        //   this.toggleMenu(!this.state.isToggleMenu)
-                        // }}
-                        onClick={() => {
-                          history.push("/specification")
-                        }}
-                        aria-controls="collapse-module"
-                        aria-expanded={this.state.isToggleMenu}
-                        // href="/specification"
-                      >
-                        <div className="sidebar__icon">
-                          <IconSVG name="video"></IconSVG>
-                        </div>
-                        <div className="sidebar__text">My progress</div>
-                      </Nav.Link>
+                      {this.props.currentUser.user_type === "student" ? (
+                        <>
+                          <Nav.Link
+                            className={
+                              (currentLocation == "/home") |
+                              (currentLocation === "/")
+                                ? "sidebar__item active"
+                                : "sidebar__item"
+                            }
+                            href="/"
+                          >
+                            <div className="sidebar__icon">
+                              <IconSVG name="home"></IconSVG>
+                            </div>
+                            <div className="sidebar__text">Home</div>
+                          </Nav.Link>
+
+                          <Nav.Link
+                            className={
+                              currentLocation == "/specification"
+                                ? "sidebar__item active"
+                                : "sidebar__item"
+                            }
+                            // onClick={() => {
+                            //   this.toggleMenu(!this.state.isToggleMenu)
+                            // }}
+                            onClick={() => {
+                              history.push("/specification")
+                            }}
+                            aria-controls="collapse-module"
+                            aria-expanded={this.state.isToggleMenu}
+                            // href="/specification"
+                          >
+                            <div className="sidebar__icon">
+                              <IconSVG name="video"></IconSVG>
+                            </div>
+                            <div className="sidebar__text">My progress</div>
+                          </Nav.Link>
+                        </>
+                      ) : (
+                        ""
+                      )}
                       {/* <Nav.Link
                         className={
                           currentLocation == "/tutoring"
@@ -305,57 +299,75 @@ class NavigationBar extends React.Component {
                           })}
                         </div>
                       </Collapse> */}
-                      {/* {currentUser.user_type == "teacher" &&
-                      this.state.createdCourses ? (
-                        <React.Fragment>
+                      {currentUser.user_type == "creator" ? (
+                        <>
                           <Nav.Link
                             className={
-                              currentLocation == "/teaching"
+                              currentLocation == "/"
                                 ? "sidebar__item active"
                                 : "sidebar__item"
                             }
+                            // onClick={() => {
+                            //   this.toggleMenu(!this.state.isToggleMenu)
+                            // }}
                             onClick={() => {
-                              this.toggleTeachingExpanded(
-                                !this.state.isTeachingExpanded
-                              )
+                              history.push("/")
                             }}
                             aria-controls="collapse-module"
-                            aria-expanded={this.state.isTeachingExpanded}
+                            aria-expanded={this.state.isToggleMenu}
+                            // href="/specification"
                           >
                             <div className="sidebar__icon">
-                              <IconSVG name="student"></IconSVG>
+                              <IconSVG name="video"></IconSVG>
                             </div>
-                            <div className="sidebar__text">Teaching</div>
+                            <div className="sidebar__text">Home</div>
                           </Nav.Link>
-                          <Collapse in={this.state.isTeachingExpanded}>
-                            <div id="ollapse-module">
-                              {this.state.createdCourses.map(
-                                (course, index) => {
-                                  return (
-                                    <Nav.Link
-                                      key={index}
-                                      className={
-                                        currentLocation == "/courses"
-                                          ? "sidebar__item sub__item active"
-                                          : "sidebar__item sub__item"
-                                      }
-                                      onClick={() => {
-                                        history.push(`/teaching/${course.id}`)
-                                      }}
-                                    >
-                                      <div className="sidebar__text">
-                                        - {course.title}
-                                      </div>
-                                    </Nav.Link>
-                                  )
-                                }
-                              )}
+                          <Nav.Link
+                            className={
+                              currentLocation == "/my-courses"
+                                ? "sidebar__item active"
+                                : "sidebar__item"
+                            }
+                            // onClick={() => {
+                            //   this.toggleMenu(!this.state.isToggleMenu)
+                            // }}
+                            onClick={() => {
+                              history.push("/my-courses")
+                            }}
+                            aria-controls="collapse-module"
+                            aria-expanded={this.state.isToggleMenu}
+                            // href="/specification"
+                          >
+                            <div className="sidebar__icon">
+                              <IconSVG name="video"></IconSVG>
                             </div>
-                          </Collapse>
-                        </React.Fragment>
+                            <div className="sidebar__text">My courses</div>
+                          </Nav.Link>
+                          <Nav.Link
+                            className={
+                              currentLocation == "/analytics"
+                                ? "sidebar__item active"
+                                : "sidebar__item"
+                            }
+                            // onClick={() => {
+                            //   this.toggleMenu(!this.state.isToggleMenu)
+                            // }}
+                            onClick={() => {
+                              history.push("/analytics")
+                            }}
+                            aria-controls="collapse-module"
+                            aria-expanded={this.state.isToggleMenu}
+                            // href="/specification"
+                          >
+                            <div className="sidebar__icon">
+                              <IconSVG name="video"></IconSVG>
+                            </div>
+                            <div className="sidebar__text">Analytics</div>
+                          </Nav.Link>
+                        </>
                       ) : (
                         <React.Fragment />
-                      )} */}
+                      )}
 
                       {/* <Nav.Link
                         className={
@@ -396,6 +408,15 @@ class NavigationBar extends React.Component {
                         </div>
                         <div className="sidebar__text">Settings</div>
                       </Nav.Link>
+                      {this.props.currentUser.user_type === "creator" ? (
+                        <div className="sidebar__item">
+                          <Button style={{ margin: "2rem auto" }}>
+                            Connect wallet
+                          </Button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>

@@ -17,11 +17,14 @@ import Videopage2 from "./pages/videopage2/videopage2.component"
 import Mainpage from "./pages/main-page/main-page.component"
 import ReactGA from "react-ga"
 import Questions2 from "./pages/questions2/questions2.component"
-import Admin from "./pages/admin2/admin2.component"
-import Tutoring from "./pages/tutoring/tutoring.component"
-import PseudoClassResolver from "./pages/pseudoclass-resolver/pseudoclass-resolver.component"
-import TutoringForm from "./pages/tutoringform/tutoringform.component"
+// import Admin from "./pages/admin2/admin2.component"
+// import Tutoring from "./pages/tutoring/tutoring.component"
+// import PseudoClassResolver from "./pages/pseudoclass-resolver/pseudoclass-resolver.component"
+// import TutoringForm from "./pages/tutoringform/tutoringform.component"
 import Test from "./pages/test/test.component"
+import CreatorHomepage from "./pages/creatorHomepage/creatorHomepage.component"
+import MyCourses from "./pages/myCourses/myCourses.component"
+import MyCoursesEdit from "./pages/myCoursesEdit/myCoursesEdit.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -139,168 +142,188 @@ class App extends Component {
     this.unsubscribeFromAuth()
   }
 
-  //For iOS only
-  iOSResetTrigger = () => {
-    this.setState({ ios_logged_in: true })
-  }
-
   render() {
     window.performance.mark("start")
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return this.props.currentUser ? (
-                <Redirect to="/home" />
-              ) : (
-                <SignIn iOSResetTrigger={this.iOSResetTrigger} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/home"
-            // component={HomePage}
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return this.props.currentUser ? (
-                <HomePage currentUser={this.props.currentUser} />
-              ) : (
-                <Redirect to="/" />
-              )
-            }}
-          />
-          <Route exact path="/signin" component={SignIn} />
-          <Route
-            exact
-            path="/signup"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return <SignUp {...props} currentUser={this.props.currentUser} />
-            }}
-          />
-          {/* <Route exact path="/courses/:id" component={CoursesPage} />
+
+    if (!this.props.currentUser) {
+      return (
+        <Router history={history}>
+          <Switch>
+            <Route path="/" component={SignIn} />
+            <Route exact path="/signin" component={SignIn} />
+          </Switch>
+        </Router>
+      )
+    }
+
+    if (
+      this.props.currentUser &&
+      this.props.currentUser.user_type === "student"
+    )
+      return (
+        <Router history={history}>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return this.props.currentUser ? (
+                  <Redirect to="/home" />
+                ) : (
+                  <SignIn />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/home"
+              // component={HomePage}
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return this.props.currentUser ? (
+                  <HomePage currentUser={this.props.currentUser} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }}
+            />
+            <Route exact path="/signin" component={SignIn} />
+            <Route
+              exact
+              path="/signup"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return (
+                  <SignUp {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            {/* <Route exact path="/courses/:id" component={CoursesPage} />
           <Route exact path="/teaching/:id" component={TeacherPage}></Route> */}
-          <Route
-            exact
-            path="/subtopic/:topic_id/:subtopic_id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return (
-                <SubtopicPage {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/settings"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return <SettingsPage {...props} />
-            }}
-          />
-          <Route exact path="/terms-condition" component={TermsConditionPage} />
-          <Route
-            exact
-            path="/video/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return (
-                <VideoPage {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/specification"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return (
-                <SpecPage {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/spec/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return <Specvideos {...props} />
-            }}
-          />
-          <Route
-            exact
-            path="/questions/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return <QuestionsPage {...props} />
-            }}
-          />
-          <Route
+            <Route
+              exact
+              path="/subtopic/:topic_id/:subtopic_id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return (
+                  <SubtopicPage
+                    {...props}
+                    currentUser={this.props.currentUser}
+                  />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/settings"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <SettingsPage {...props} />
+              }}
+            />
+            <Route
+              exact
+              path="/terms-condition"
+              component={TermsConditionPage}
+            />
+            <Route
+              exact
+              path="/video/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return (
+                  <VideoPage {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/specification"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return (
+                  <SpecPage {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/spec/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <Specvideos {...props} />
+              }}
+            />
+            <Route
+              exact
+              path="/questions/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <QuestionsPage {...props} />
+              }}
+            />
+            {/* <Route
             exact
             path="/flashcard/:id"
             render={(props) => {
               ReactGA.pageview(props.location.pathname)
               return <FlashcardPage {...props} />
             }}
-          />
-          <Route
-            exact
-            path="/notes/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              return <Notespage {...props} />
-            }}
-          />
-          <Route
-            exact
-            path="/main"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return (
-                <Mainpage {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/videos2/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return (
-                <Videopage2 {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          <Route
-            exact
-            path="/questions2/:id"
-            render={(props) => {
-              ReactGA.pageview(props.location.pathname)
-              console.log(props.location.pathname)
-              return (
-                <Questions2 {...props} currentUser={this.props.currentUser} />
-              )
-            }}
-          />
-          {/* <Route exact path="/landing" component={ParallaxLanding} /> */}
-          {/* <Route
+          /> */}
+            <Route
+              exact
+              path="/notes/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <Notespage {...props} />
+              }}
+            />
+            <Route
+              exact
+              path="/main"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return (
+                  <Mainpage {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/videos2/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return (
+                  <Videopage2 {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            <Route
+              exact
+              path="/questions2/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                console.log(props.location.pathname)
+                return (
+                  <Questions2 {...props} currentUser={this.props.currentUser} />
+                )
+              }}
+            />
+            {/* <Route exact path="/landing" component={ParallaxLanding} /> */}
+            {/* <Route
             path="/teaching/:id"
             render={(props) => {
               return <TeacherPage {...props} isEditable={true} />
             }}
           /> */}
-          <Route exact path="/admin" component={Admin} />
-          <Route
+            {/* <Route exact path="/admin" component={Admin} /> */}
+            {/* <Route
             exact
             path="/tutoring"
             render={(props) => {
@@ -313,15 +336,15 @@ class App extends Component {
                 />
               )
             }}
-          />
-          {/* <Route
+          /> */}
+            {/* <Route
             exact
             path="/test"
             render={(props) => {
               return <Test {...props} currentUser={this.props.currentUser} />
             }}
           /> */}
-          <Route
+            {/* <Route
             exact
             path="/tutoring-form"
             render={(props) => {
@@ -329,15 +352,50 @@ class App extends Component {
                 <TutoringForm {...props} currentUser={this.props.currentUser} />
               )
             }}
-          />
-          {/* <Route
+          /> */}
+            {/* <Route
             exact
             path="/new-class/:tutor_uid/:pseudoclass_uid"
             component={PseudoClassResolver}
           /> */}
-        </Switch>
-      </Router>
+          </Switch>
+        </Router>
+      )
+
+    if (
+      this.props.currentUser &&
+      this.props.currentUser.user_type === "creator"
     )
+      return (
+        <Router history={history}>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <CreatorHomepage currentUser={this.props.currentUser} />
+              }}
+            />
+            <Route
+              exact
+              path="/my-courses"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <MyCourses currentUser={this.props.currentUser} />
+              }}
+            />
+            <Route
+              exact
+              path="/my-courses/:id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return <MyCoursesEdit currentUser={this.props.currentUser} />
+              }}
+            />
+          </Switch>
+        </Router>
+      )
   }
 }
 

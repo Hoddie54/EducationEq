@@ -33,11 +33,12 @@ export async function createMint(
   connection,
   payer,
   mintAuthority,
+  mintAccount, //new
   freezeAuthority,
   decimals,
   programId
 ) {
-  const mintAccount = Keypair.generate()
+  //   const mintAccount = Keypair.generate()
   const token = new Token(connection, mintAccount.publicKey, programId, payer)
 
   // Allocate memory for the account

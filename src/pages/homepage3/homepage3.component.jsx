@@ -18,7 +18,7 @@ function Homepage3(props) {
         <div>
           <img src={props.image_url} />
           <div className="subject__content">
-            <div className="subject__title blue-text">GCSE {props.subject}</div>
+            <div className="subject__title blue-text">{props.subject}</div>
             <div className="subject__text">{props.text}</div>
           </div>
         </div>
@@ -58,7 +58,6 @@ function Homepage3(props) {
     )
   }
 
-  const history = useHistory()
   const [isBlurred, setIsBlurred] = useState(false)
   const [isShown, setIsShown] = useState(true)
 
@@ -148,7 +147,7 @@ function Homepage3(props) {
           </div>
         </div>
       </div>
-      {!props.currentUser.dob ? (
+      {/* {!props.currentUser.dob ? (
         <AdditionInformationForm
           type={"student"}
           show={true}
@@ -164,7 +163,7 @@ function Homepage3(props) {
         />
       ) : (
         ""
-      )}
+      )} */}
     </Basepage>
   )
 }

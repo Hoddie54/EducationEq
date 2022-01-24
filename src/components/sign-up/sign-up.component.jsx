@@ -104,22 +104,22 @@ class SignUp extends React.Component {
                   >
                     Student
                   </Button>{" "}
-                  {/* <Button
+                  <Button
                     className={this.renderButtonStyle("tutor")}
                     onClick={() => {
-                      this.setState({ user_type: "tutor" });
+                      this.setState({ user_type: "tutor" })
                     }}
                   >
                     Tutor
                   </Button>{" "}
                   <Button
-                    className={this.renderButtonStyle("parent")}
+                    className={this.renderButtonStyle("creator")}
                     onClick={() => {
-                      this.setState({ user_type: "parent" });
+                      this.setState({ user_type: "creator" })
                     }}
                   >
-                    Parent
-                  </Button> */}
+                    Creator
+                  </Button>
                   {/* <Button
                     className={this.renderButtonStyle("teacher")}
                     onClick={() => {
