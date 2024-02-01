@@ -1,0 +1,25 @@
+.subtopic {
+  .up-down {
+    cursor: pointer;
+  }
+
+  .blurred {
+    opacity: 0.5;
+  }
+
+  .point-holder {
+    margin-left: 4rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    .edeq-button {
+      width: fit-content;
+      color: white;
+    }
+  }
+
+  .point {
+    display: flex;
+  }
+}

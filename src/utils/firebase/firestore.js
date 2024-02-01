@@ -82,6 +82,28 @@ export const getTopicsOnCourse = (course_uid) => {
       .firestore()
       .collection("topics")
       .where("course", "==", course_uid)
+      .orderBy("order", "asc")
+      .get()
+      .then((querySnapshot) => {
+        const data = []
+        querySnapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }))
+        console.log("Reads :", querySnapshot.size)
+        resolve(data)
+      })
+      .catch((err) => {
+        console.log("Error getting all data (all of collection)", err)
+        reject(err)
+      })
+  })
+}
+
+export const getSubtopicsOnTopic = (topic_uid) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .firestore()
+      .collection("subtopics")
+      .where("topic_uid", "==", topic_uid)
+      .orderBy("order", "asc")
       .get()
       .then((querySnapshot) => {
         const data = []

@@ -9240,6 +9240,7 @@ body.dark .mfp-bg {
   background: linear-gradient(90.5deg, #247aff 0.33%, #0442ff 99.57%);
   padding: 0.3rem 1rem;
   font-size: 1rem;
+  color: white;
 }
 
 .edeq-topic {

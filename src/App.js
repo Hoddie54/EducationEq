@@ -25,6 +25,7 @@ import Test from "./pages/test/test.component"
 import CreatorHomepage from "./pages/creatorHomepage/creatorHomepage.component"
 import MyCourses from "./pages/myCourses/myCourses.component"
 import MyCoursesEdit from "./pages/myCoursesEdit/myCoursesEdit.component"
+import MyCoursesSubtopic from "./pages/myCoursesSubtopic/myCoursesSubtopic.component"
 
 const HomePage = loadable(() => import("./pages/homepage3/homepage3.component"))
 // const ParallaxLanding = loadable(() =>
@@ -391,6 +392,16 @@ class App extends Component {
               render={(props) => {
                 ReactGA.pageview(props.location.pathname)
                 return <MyCoursesEdit currentUser={this.props.currentUser} />
+              }}
+            />
+            <Route
+              exact
+              path="/my-courses/:course_id/:topic_id"
+              render={(props) => {
+                ReactGA.pageview(props.location.pathname)
+                return (
+                  <MyCoursesSubtopic currentUser={this.props.currentUser} />
+                )
               }}
             />
           </Switch>

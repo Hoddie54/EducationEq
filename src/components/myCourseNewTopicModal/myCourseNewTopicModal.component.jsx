@@ -3,7 +3,7 @@ import { Form, Button, Modal } from "react-bootstrap"
 import { useState } from "react"
 
 function MyCourseNewTopicModal(props) {
-  const { showModal, setShowModal } = props
+  const { showModal, setShowModal, title } = props
 
   function handleHide() {
     setShowModal(false)
@@ -14,7 +14,6 @@ function MyCourseNewTopicModal(props) {
 
   function onChange(e) {
     setFormData((state) => {
-      console.log(e.target)
       return { ...state, [e.target.name]: e.target.value }
     })
   }
@@ -30,7 +29,7 @@ function MyCourseNewTopicModal(props) {
   return (
     <Modal show={showModal} onHide={handleHide}>
       <Modal.Header closeButton>
-        <Modal.Title className="blue-text">Add a topic</Modal.Title>
+        <Modal.Title className="blue-text">Add a {title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formSubmit}>
